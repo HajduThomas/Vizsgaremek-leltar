@@ -7,6 +7,7 @@
         - termék neve
         - termék tömege
         - termék darabszáma
+        - termék tömegfajta
         - (OPCIONÁLIS) termék áfakulcsa
 - C# Windows formot csinálni
     - A főmenü
