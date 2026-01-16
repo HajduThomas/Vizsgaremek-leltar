@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="hentesaruk\AnnaKisBoltHentesTermek.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="hentesaruk\AnnaKisBoltHentesTermek.Designer.cs">
+      <DependentUpon>AnnaKisBoltHentesTermek.cs</DependentUpon>
+    </Compile>
     <Compile Include="main\AnnaKisBoltBejelentkezocs.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +73,24 @@
     </Compile>
     <Compile Include="main\AnnaKisBoltLeltar.Designer.cs">
       <DependentUpon>AnnaKisBoltLeltar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="mirelit\AnnaKisBoltMirelit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="mirelit\AnnaKisBoltMirelit.Designer.cs">
+      <DependentUpon>AnnaKisBoltMirelit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="pekaruk\AnnaKisBoltPekTermek.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="pekaruk\AnnaKisBoltPekTermek.Designer.cs">
+      <DependentUpon>AnnaKisBoltPekTermek.cs</DependentUpon>
+    </Compile>
+    <Compile Include="szaraztermekek\AnnaKisBoltSzarazTermek.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="szaraztermekek\AnnaKisBoltSzarazTermek.Designer.cs">
+      <DependentUpon>AnnaKisBoltSzarazTermek.cs</DependentUpon>
     </Compile>
     <Compile Include="tejtermek\AnnaKisBoltTejTermek.cs">
       <SubType>Form</SubType>
@@ -90,6 +114,9 @@
     <Compile Include="gyorskodlesok.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="hentesaruk\AnnaKisBoltHentesTermek.resx">
+      <DependentUpon>AnnaKisBoltHentesTermek.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="main\AnnaKisBoltBejelentkezocs.resx">
       <DependentUpon>AnnaKisBoltBejelentkezocs.cs</DependentUpon>
     </EmbeddedResource>
@@ -98,6 +125,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="main\AnnaKisBoltLeltar.resx">
       <DependentUpon>AnnaKisBoltLeltar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="mirelit\AnnaKisBoltMirelit.resx">
+      <DependentUpon>AnnaKisBoltMirelit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="pekaruk\AnnaKisBoltPekTermek.resx">
+      <DependentUpon>AnnaKisBoltPekTermek.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="szaraztermekek\AnnaKisBoltSzarazTermek.resx">
+      <DependentUpon>AnnaKisBoltSzarazTermek.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="tejtermek\AnnaKisBoltTejTermek.resx">
       <DependentUpon>AnnaKisBoltTejTermek.cs</DependentUpon>
@@ -129,6 +165,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="vegyiaruk\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
