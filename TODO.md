@@ -1,4 +1,4 @@
-Leltár Vizsgaremek TODO lista:
+# Leltár Vizsgaremek TODO lista:
 
 - Adatbázis leltárat csinálni:
     - Bejelentkezés
@@ -19,4 +19,4 @@ Leltár Vizsgaremek TODO lista:
 - PHP weboldalt csinálni
 
 
-VÁLTOZHAT A JÖVŐBEN!!!
+# VÁLTOZHAT A JÖVŐBEN!!!
