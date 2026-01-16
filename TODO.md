@@ -9,7 +9,7 @@
         - termék darabszáma
         - termék tömegfajta
         - (OPCIONÁLIS) termék áfakulcsa
-- C# Windows formot csinálni
+- C# Windows formot csinálni:
     - A főmenü
     - adatbázishoz csatlakozás
     - leltár kategória ablakok:
@@ -17,7 +17,8 @@
         - kereső részleg
         - hozzáadó részleg
         - törlő részleg
-- PHP weboldalt csinálni
+- PHP weboldalt csinálni:
+      - kb ugyan az mint C#-ban csak php indexbe téve
 
 
 # VÁLTOZHAT A JÖVŐBEN!!!
