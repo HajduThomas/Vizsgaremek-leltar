@@ -1,8 +1,8 @@
 # Vizsgaremek leltar
 
-Leltár program amiben fel tudod tölteni a termékeket és meg jelenik:
-- neve
-- mennyi a tömege
-- a tömeg jele
-- hány darab van a termékből
-- áfa kulcsa
+Leltár program amiben fell tudsz tolteni, leszedni es kategorizalni alucikeket az adatbazisbol!
+
+Features:
+- upload/download
+- modern graphics
+- ~~cancer~~ Patched
