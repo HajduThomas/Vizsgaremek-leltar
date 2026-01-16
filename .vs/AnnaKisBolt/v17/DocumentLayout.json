@@ -1,0 +1,168 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Szilagyi\\Desktop\\AnnaKisBolt\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{67C3F079-3317-4AC0-98C6-FDE8C285AA19}|AnnaKisBolt\\AnnaKisBolt.csproj|c:\\users\\szilagyi\\desktop\\annakisbolt\\annakisbolt\\tejtermek\\annakisbolttejtermekhozzaado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67C3F079-3317-4AC0-98C6-FDE8C285AA19}|AnnaKisBolt\\AnnaKisBolt.csproj|solutionrelative:annakisbolt\\tejtermek\\annakisbolttejtermekhozzaado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67C3F079-3317-4AC0-98C6-FDE8C285AA19}|AnnaKisBolt\\AnnaKisBolt.csproj|c:\\users\\szilagyi\\desktop\\annakisbolt\\annakisbolt\\tejtermek\\annakisbolttejtermekhozzaado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{67C3F079-3317-4AC0-98C6-FDE8C285AA19}|AnnaKisBolt\\AnnaKisBolt.csproj|solutionrelative:annakisbolt\\tejtermek\\annakisbolttejtermekhozzaado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67C3F079-3317-4AC0-98C6-FDE8C285AA19}|AnnaKisBolt\\AnnaKisBolt.csproj|c:\\users\\szilagyi\\desktop\\annakisbolt\\annakisbolt\\tejtermek\\annakisbolttejtermektorles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{67C3F079-3317-4AC0-98C6-FDE8C285AA19}|AnnaKisBolt\\AnnaKisBolt.csproj|solutionrelative:annakisbolt\\tejtermek\\annakisbolttejtermektorles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67C3F079-3317-4AC0-98C6-FDE8C285AA19}|AnnaKisBolt\\AnnaKisBolt.csproj|c:\\users\\szilagyi\\desktop\\annakisbolt\\annakisbolt\\tejtermek\\annakisbolttejtermek.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67C3F079-3317-4AC0-98C6-FDE8C285AA19}|AnnaKisBolt\\AnnaKisBolt.csproj|solutionrelative:annakisbolt\\tejtermek\\annakisbolttejtermek.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67C3F079-3317-4AC0-98C6-FDE8C285AA19}|AnnaKisBolt\\AnnaKisBolt.csproj|c:\\users\\szilagyi\\desktop\\annakisbolt\\annakisbolt\\tejtermek\\annakisbolttejtermek.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{67C3F079-3317-4AC0-98C6-FDE8C285AA19}|AnnaKisBolt\\AnnaKisBolt.csproj|solutionrelative:annakisbolt\\tejtermek\\annakisbolttejtermek.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67C3F079-3317-4AC0-98C6-FDE8C285AA19}|AnnaKisBolt\\AnnaKisBolt.csproj|c:\\users\\szilagyi\\desktop\\annakisbolt\\annakisbolt\\tejtermek\\annakisbolttejtermektorles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67C3F079-3317-4AC0-98C6-FDE8C285AA19}|AnnaKisBolt\\AnnaKisBolt.csproj|solutionrelative:annakisbolt\\tejtermek\\annakisbolttejtermektorles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67C3F079-3317-4AC0-98C6-FDE8C285AA19}|AnnaKisBolt\\AnnaKisBolt.csproj|c:\\users\\szilagyi\\desktop\\annakisbolt\\annakisbolt\\main\\annakisboltfomenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{67C3F079-3317-4AC0-98C6-FDE8C285AA19}|AnnaKisBolt\\AnnaKisBolt.csproj|solutionrelative:annakisbolt\\main\\annakisboltfomenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67C3F079-3317-4AC0-98C6-FDE8C285AA19}|AnnaKisBolt\\AnnaKisBolt.csproj|c:\\users\\szilagyi\\desktop\\annakisbolt\\annakisbolt\\main\\annakisboltleltar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{67C3F079-3317-4AC0-98C6-FDE8C285AA19}|AnnaKisBolt\\AnnaKisBolt.csproj|solutionrelative:annakisbolt\\main\\annakisboltleltar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67C3F079-3317-4AC0-98C6-FDE8C285AA19}|AnnaKisBolt\\AnnaKisBolt.csproj|c:\\users\\szilagyi\\desktop\\annakisbolt\\annakisbolt\\main\\annakisboltfomenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67C3F079-3317-4AC0-98C6-FDE8C285AA19}|AnnaKisBolt\\AnnaKisBolt.csproj|solutionrelative:annakisbolt\\main\\annakisboltfomenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 77,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AnnaKisBoltTejTermekTorles.cs",
+              "DocumentMoniker": "C:\\Users\\Szilagyi\\Desktop\\AnnaKisBolt\\AnnaKisBolt\\tejtermek\\AnnaKisBoltTejTermekTorles.cs",
+              "RelativeDocumentMoniker": "AnnaKisBolt\\tejtermek\\AnnaKisBoltTejTermekTorles.cs",
+              "ToolTip": "C:\\Users\\Szilagyi\\Desktop\\AnnaKisBolt\\AnnaKisBolt\\tejtermek\\AnnaKisBoltTejTermekTorles.cs",
+              "RelativeToolTip": "AnnaKisBolt\\tejtermek\\AnnaKisBoltTejTermekTorles.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-16T10:26:24.161Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AnnaKisBoltTejTermekTorles.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Szilagyi\\Desktop\\AnnaKisBolt\\AnnaKisBolt\\tejtermek\\AnnaKisBoltTejTermekTorles.cs",
+              "RelativeDocumentMoniker": "AnnaKisBolt\\tejtermek\\AnnaKisBoltTejTermekTorles.cs",
+              "ToolTip": "C:\\Users\\Szilagyi\\Desktop\\AnnaKisBolt\\AnnaKisBolt\\tejtermek\\AnnaKisBoltTejTermekTorles.cs [Design]",
+              "RelativeToolTip": "AnnaKisBolt\\tejtermek\\AnnaKisBoltTejTermekTorles.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-16T10:26:21.857Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AnnaKisBoltTejtermekHozzaado.cs",
+              "DocumentMoniker": "C:\\Users\\Szilagyi\\Desktop\\AnnaKisBolt\\AnnaKisBolt\\tejtermek\\AnnaKisBoltTejtermekHozzaado.cs",
+              "RelativeDocumentMoniker": "AnnaKisBolt\\tejtermek\\AnnaKisBoltTejtermekHozzaado.cs",
+              "ToolTip": "C:\\Users\\Szilagyi\\Desktop\\AnnaKisBolt\\AnnaKisBolt\\tejtermek\\AnnaKisBoltTejtermekHozzaado.cs",
+              "RelativeToolTip": "AnnaKisBolt\\tejtermek\\AnnaKisBoltTejtermekHozzaado.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAQwCIAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-16T10:25:36.102Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AnnaKisBoltTejtermekHozzaado.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Szilagyi\\Desktop\\AnnaKisBolt\\AnnaKisBolt\\tejtermek\\AnnaKisBoltTejtermekHozzaado.cs",
+              "RelativeDocumentMoniker": "AnnaKisBolt\\tejtermek\\AnnaKisBoltTejtermekHozzaado.cs",
+              "ToolTip": "C:\\Users\\Szilagyi\\Desktop\\AnnaKisBolt\\AnnaKisBolt\\tejtermek\\AnnaKisBoltTejtermekHozzaado.cs [Design]",
+              "RelativeToolTip": "AnnaKisBolt\\tejtermek\\AnnaKisBoltTejtermekHozzaado.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-16T10:25:02.966Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AnnaKisBoltTejTermek.cs",
+              "DocumentMoniker": "C:\\Users\\Szilagyi\\Desktop\\AnnaKisBolt\\AnnaKisBolt\\tejtermek\\AnnaKisBoltTejTermek.cs",
+              "RelativeDocumentMoniker": "AnnaKisBolt\\tejtermek\\AnnaKisBoltTejTermek.cs",
+              "ToolTip": "C:\\Users\\Szilagyi\\Desktop\\AnnaKisBolt\\AnnaKisBolt\\tejtermek\\AnnaKisBoltTejTermek.cs",
+              "RelativeToolTip": "AnnaKisBolt\\tejtermek\\AnnaKisBoltTejTermek.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAA5wCcAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-16T09:55:03.038Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AnnaKisBoltTejTermek.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Szilagyi\\Desktop\\AnnaKisBolt\\AnnaKisBolt\\tejtermek\\AnnaKisBoltTejTermek.cs",
+              "RelativeDocumentMoniker": "AnnaKisBolt\\tejtermek\\AnnaKisBoltTejTermek.cs",
+              "ToolTip": "C:\\Users\\Szilagyi\\Desktop\\AnnaKisBolt\\AnnaKisBolt\\tejtermek\\AnnaKisBoltTejTermek.cs [Design]",
+              "RelativeToolTip": "AnnaKisBolt\\tejtermek\\AnnaKisBoltTejTermek.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-16T09:55:01.735Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AnnaKisBoltLeltar.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Szilagyi\\Desktop\\AnnaKisBolt\\AnnaKisBolt\\main\\AnnaKisBoltLeltar.cs",
+              "RelativeDocumentMoniker": "AnnaKisBolt\\main\\AnnaKisBoltLeltar.cs",
+              "ToolTip": "C:\\Users\\Szilagyi\\Desktop\\AnnaKisBolt\\AnnaKisBolt\\main\\AnnaKisBoltLeltar.cs [Design]",
+              "RelativeToolTip": "AnnaKisBolt\\main\\AnnaKisBoltLeltar.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-16T09:54:45.849Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AnnaKisBoltFoMenu.cs",
+              "DocumentMoniker": "C:\\Users\\Szilagyi\\Desktop\\AnnaKisBolt\\AnnaKisBolt\\main\\AnnaKisBoltFoMenu.cs",
+              "RelativeDocumentMoniker": "AnnaKisBolt\\main\\AnnaKisBoltFoMenu.cs",
+              "ToolTip": "C:\\Users\\Szilagyi\\Desktop\\AnnaKisBolt\\AnnaKisBolt\\main\\AnnaKisBoltFoMenu.cs",
+              "RelativeToolTip": "AnnaKisBolt\\main\\AnnaKisBoltFoMenu.cs",
+              "ViewState": "AgIAAEYAAAAAAAAAAAAnwFIAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-16T09:52:38.184Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AnnaKisBoltFoMenu.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Szilagyi\\Desktop\\AnnaKisBolt\\AnnaKisBolt\\main\\AnnaKisBoltFoMenu.cs",
+              "RelativeDocumentMoniker": "AnnaKisBolt\\main\\AnnaKisBoltFoMenu.cs",
+              "ToolTip": "C:\\Users\\Szilagyi\\Desktop\\AnnaKisBolt\\AnnaKisBolt\\main\\AnnaKisBoltFoMenu.cs [Design]",
+              "RelativeToolTip": "AnnaKisBolt\\main\\AnnaKisBoltFoMenu.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-16T09:52:36.14Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

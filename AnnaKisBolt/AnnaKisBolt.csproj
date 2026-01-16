@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{67C3F079-3317-4AC0-98C6-FDE8C285AA19}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>AnnaKisBolt</RootNamespace>
+    <AssemblyName>AnnaKisBolt</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=9.5.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL Connector NET 9.5\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="main\AnnaKisBoltBejelentkezocs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="main\AnnaKisBoltBejelentkezocs.Designer.cs">
+      <DependentUpon>AnnaKisBoltBejelentkezocs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="main\AnnaKisBoltFoMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="main\AnnaKisBoltFoMenu.Designer.cs">
+      <DependentUpon>AnnaKisBoltFoMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="main\AnnaKisBoltLeltar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="main\AnnaKisBoltLeltar.Designer.cs">
+      <DependentUpon>AnnaKisBoltLeltar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tejtermek\AnnaKisBoltTejTermek.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tejtermek\AnnaKisBoltTejTermek.Designer.cs">
+      <DependentUpon>AnnaKisBoltTejTermek.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tejtermek\AnnaKisBoltTejtermekHozzaado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tejtermek\AnnaKisBoltTejtermekHozzaado.Designer.cs">
+      <DependentUpon>AnnaKisBoltTejtermekHozzaado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tejtermek\AnnaKisBoltTejTermekTorles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tejtermek\AnnaKisBoltTejTermekTorles.Designer.cs">
+      <DependentUpon>AnnaKisBoltTejTermekTorles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Felhasznalo.cs" />
+    <Compile Include="gyorskodlesok.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="main\AnnaKisBoltBejelentkezocs.resx">
+      <DependentUpon>AnnaKisBoltBejelentkezocs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="main\AnnaKisBoltFoMenu.resx">
+      <DependentUpon>AnnaKisBoltFoMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="main\AnnaKisBoltLeltar.resx">
+      <DependentUpon>AnnaKisBoltLeltar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tejtermek\AnnaKisBoltTejTermek.resx">
+      <DependentUpon>AnnaKisBoltTejTermek.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tejtermek\AnnaKisBoltTejtermekHozzaado.resx">
+      <DependentUpon>AnnaKisBoltTejtermekHozzaado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tejtermek\AnnaKisBoltTejTermekTorles.resx">
+      <DependentUpon>AnnaKisBoltTejTermekTorles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
