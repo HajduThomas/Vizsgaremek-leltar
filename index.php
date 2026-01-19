@@ -24,9 +24,10 @@ function isActive($forName, $activeform)
     
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="stylesheet" href="src/index.css">
+      <link rel="stylesheet" href="./src/index.css">
+      <link rel="icon" href="./src/assets/pixelcat.png">
 
-      <title>Leltarozo</title>
+      <title>Login</title>
 
   </head>
 
@@ -35,7 +36,7 @@ function isActive($forName, $activeform)
     <div class="background"></div>
     
     <div class="center">
-      <form action="">
+      <form action="./src/main.php">
         <h1>Login</h1><br>
         <label for="usr">Username:</label>
         <input type="text" name="usr" id="usr"><br><br>
