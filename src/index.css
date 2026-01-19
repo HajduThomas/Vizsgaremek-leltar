@@ -1,8 +1,6 @@
 body {
   background-color: black;
-  background-image: url(assets/silksong_bellhart_scene.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   height: 100%;
   margin: 0%;
 }
@@ -11,14 +9,48 @@ body {
   box-sizing: border-box;
 }
 
-.blur {
-  filter: blur(8px);
-  -webkit-filter: blur(8px);
+@font-face {
+  font-family: Strive;
+  src: url(./assets/Impact-Strive.otf);
 }
 
-h1 {
+.background {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-image: url("./assets/silksong_bellhart_scene.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px);
+  z-index: -1;
+}
+
+.center {
+  position: absolute;
+  display: block;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+}
+
+form h1 {
   text-align: center;
-  
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0, 0.4);
+}
+
+form input[type=text] {
+  width: 78%;
+  padding: 4px;
+}
+
+form label {
+  display: inline-block;
+  width: 20%;
+}
+
+form {
+  background-color: white;
+  padding: 20px;
+  border-radius: 20px;
 }

@@ -13,9 +13,17 @@
 
   <body>
     
-    <div class="blur"></div>
+    <div class="background"></div>
     
-      <h1>Main</h1>
+    <div class="center">
+      <form action="">
+        <h1>Login</h1><br>
+        <label for="usr">Username:</label>
+        <input type="text" name="usr" id="usr"><br>
+        <label for="pass">Password:</label>
+        <input type="text" name="pass" id="pass"><br><br>
+      </form>
+    </div>
 
   </body>
 
