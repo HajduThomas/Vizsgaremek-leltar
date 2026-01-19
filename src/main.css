@@ -2,7 +2,8 @@ html, body {
   background-color: black;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   height: 100%;
-  margin: 0%;
+  padding: 0% !important;
+  margin: 0% !important;
 }
 
 * {
@@ -23,14 +24,13 @@ html, body {
 
 .mainpanel {
   background-color: aqua;
-  display: inline-block;
   height: 100%;
   width: 70%;
+  overflow: hidden;
 }
 
 .scroller {
-  height: calc(100% - 130px);
-  width: 100%;
+  height: calc(100% - 120px);
   overflow: auto;
 }
 
@@ -45,15 +45,13 @@ html, body {
   font-size: larger;
 }
 
-.sticky {
-  top: 0;
-  position: sticky;
+.toppanel {
+  overflow: hidden;
   background-color: blueviolet;
   height: 120px;
 }
 
-.sticky h2,
-.sticky p {
-  margin: 0;
+.toppanel h2,
+.toppanel p {
   text-align: center;
 }

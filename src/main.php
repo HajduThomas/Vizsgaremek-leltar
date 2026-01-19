@@ -19,8 +19,8 @@
         <p>This is the side panel</p>
     </div>
     <div class="mainpanel">
-      <div class="sticky">
-        <h2>Category panel</h2><br>
+      <div class="toppanel">
+        <h1>text</h1>
         <P>Shows categories</P>
       </div>
       <div class="scroller">
