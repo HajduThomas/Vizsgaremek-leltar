@@ -38,9 +38,10 @@ function isActive($forName, $activeform)
       <form action="">
         <h1>Login</h1><br>
         <label for="usr">Username:</label>
-        <input type="text" name="usr" id="usr"><br>
+        <input type="text" name="usr" id="usr"><br><br>
         <label for="pass">Password:</label>
         <input type="text" name="pass" id="pass"><br><br>
+        <button type="submit">Login</button>
       </form>
     </div>
 
