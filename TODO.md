@@ -1,24 +1,50 @@
 # Leltár Vizsgaremek TODO lista:
 
 - Adatbázis leltárat csinálni:
-    - Bejelentkezés
-    - Leltár kategoriák:
-        - termék ID
+    - Bejelentkezés:
+      - Id - Auto Primary
+      - username
+      - password
+        
+    - Product kategoriák:
+        - termék ID - Auto primary
         - termék neve
         - termék tömege
         - termék darabszáma
         - termék tömegfajta
         - (OPCIONÁLIS) termék áfakulcsa
-- C# Windows formot csinálni:
-    - A főmenü
-    - adatbázishoz csatlakozás
-    - leltár kategória ablakok:
-        - mutatja a termékeket
-        - kereső részleg
-        - hozzáadó részleg
-        - törlő részleg
-- PHP weboldalt csinálni:
-      - kb ugyan az mint C#-ban csak php indexbe téve
-
+    - Category table:
+      - name - primary
+      - variables?
+    - Category connector
+      - Category id - foreign
+      - Product id - foreign
+    
+- C# program eleres:
+  - login
+    - connect to database
+    - check for credentials
+  -  Product view
+    -W.I.P.
+     
+- PHP weboldalt eleres:
+  - start localhost
+  - open webpage
+  - login
+    - connect to database
+    - check for credentials
+  - main page
+    - side panel
+      - logo
+      - settings and stuff
+      - categories
+    - main panel
+      - top panel
+        - category name
+        - data option stuff
+        - data columns
+      - data panel
+        - display data
+        - columns
 
 # VÁLTOZHAT A JÖVŐBEN!!!
