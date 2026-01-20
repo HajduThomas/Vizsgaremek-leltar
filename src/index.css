@@ -45,12 +45,12 @@ form h1 {
   text-align: center;
 }
 
-form input[type=text] {
+form input[type=text],
+form input[type=password] {
   width: 78%; 
 }
 
-form input[type=text],
-form button[type=submit] {
+form input {
   padding: 4px;
   background-color: rgb(242, 242, 242);
   border: none;
@@ -58,13 +58,11 @@ form button[type=submit] {
   transition: 0.2s;
 }
 
-form input[type=text]:hover,
-form button[type=submit]:hover {
+form input:hover {
   background-color: rgb(230, 230, 242);
 }
 
-form input[type=text]:focus,
-form button[type=submit]:focus {
+form input:focus {
   outline: none;
   background-color: rgb(224, 224, 242);
   border: none;

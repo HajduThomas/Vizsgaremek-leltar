@@ -4,9 +4,8 @@ $dbname = "leltar";
 $host = "localhost";
 $user ="root";
 $password = "";
-$port = 3306;
 
-$conn = new mysqli($host, $user, $password, $dbname, $port);
+$conn = new mysqli($host, $user, $password, $dbname);
 
 if($conn-> connect_error)
 {
@@ -19,11 +18,7 @@ if(isset($_POST['login']))
 {
   $usr = trim($_POST['usr'] ?? '');
   $pass = trim($_POST['pass'] ?? '');
-  $usr = mb_strtolower($usr, 'UTF-8');
 
-  $result = $conn->query("SELECT * FROM felhasznalo");
-  $felhasznalok = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
-  $talalt = false;
   if(empty($usr))
   {
     echo"<script>alert('Adjon meg felhasználónevet!')</script>";
