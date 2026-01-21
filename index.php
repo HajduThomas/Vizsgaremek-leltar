@@ -4,45 +4,39 @@ $dbname = "leltar";
 $host = "localhost";
 $user ="root";
 $password = "";
-
-$conn = new mysqli($host, $user, $password, $dbname);
-
-if($conn-> connect_error)
+try
 {
-  die("Sikertelen csatlakozás: ".$conn->connect_error);
+  $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $password);
+  $conn ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
-$conn->set_charset("utf8mb4");
-$hibaUzenet = "";
-
-if(isset($_POST['login']))
+catch(PDOException $e)
 {
-  $usr = trim($_POST['usr'] ?? '');
-  $pass = trim($_POST['pass'] ?? '');
+  die("Sikertelen adatbázis csatlakozás: ".$e->getMessage());
+}
+$hiba = " ";
+if (isset($_POST['login'])) 
+  {
+    $usr = trim($_POST['usr'] ?? '');
+    $pass = trim($_POST['pass'] ?? '');
+    $usr = mb_strtolower($usr, 'UTF-8');
 
-  if(empty($usr))
-  {
-    echo"<script>alert('Adjon meg felhasználónevet!')</script>";
-  }
-  else
-  {
-    $result = $conn->query("SELECT * FROM felhasznalo");
-    $felhasznalok = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
-    $talalt = false;
-    for($i = 0; $i < count($felhasznalok); $i++)
-    {
-      $row = $felhasznalok[$i];
-      if($row['azonosito'] === $usr && $row['jelszo'] === $pass)
-      {
-        $_SESSION['id'] = $row['id'];
-        $_SESSION['username'] = $row['azonosito'];
-        $_SESSION['password'] = $row['jelszo'];
-        $talalt = true;
-        header('Location: ./src/main.php');
-        exit;
-      }
+    if (empty($usr)) {
+        echo "<script>alert('Adjon meg felhasználónevet!')</script>";
+    } else {
+        $stmt = $conn->prepare("SELECT * FROM felhasznalo WHERE azonosito = :usr AND jelszo = :pass");
+        $stmt->bindParam(':usr', $usr);
+        $stmt->bindParam(':pass', $pass);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            $_SESSION['id'] = $row['id'];
+            $_SESSION['username'] = $row['azonosito'];
+            $_SESSION['password'] = $row['jelszo'];
+            header('Location: ./src/main.php');
+            exit;
+        }
     }
   }
-}
 ?>
 
 
