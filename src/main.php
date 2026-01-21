@@ -20,8 +20,26 @@
     </div>
     <div class="mainpanel">
       <div class="toppanel">
-        <h1>text</h1>
-        <P>Shows categories</P>
+        <div class="category">
+          <p id="category">Category</p>
+        </div>
+        
+        <div class="options">
+          <button>Option 1</button>
+          <button>Option 2</button>
+          <button>Option 3</button>
+        </div>
+
+        <div>
+          <table id="markers">
+            <td>Price</td>
+            <td class="septer">|</td>
+            <td>Stock</td>
+            <td class="septer">|</td>
+            <td>Stuff</td>
+          </table>
+        </div>
+
       </div>
       <div class="scroller">
         <div class="content">

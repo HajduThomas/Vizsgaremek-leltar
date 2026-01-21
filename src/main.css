@@ -10,16 +10,15 @@ html, body {
   box-sizing: border-box;
 }
 
+p, h1, h2 {
+  text-align: center;
+}
+
 .sidepanel {
   background-color: darkgray;
   float: left;
   height: 100%;
   width: 30%;
-}
-
-.sidepanel h2,
-.sidepanel p {
-  text-align: center;
 }
 
 .mainpanel {
@@ -39,19 +38,60 @@ html, body {
   width: 100%;
 }
 
-.mainpanel h1,
-.mainpanel p {
-  text-align: center;
-  font-size: larger;
-}
-
 .toppanel {
   overflow: hidden;
   background-color: blueviolet;
-  height: 120px;
+  height: 108px;
 }
 
-.toppanel h2,
-.toppanel p {
-  text-align: center;
+.toppanel .category {
+  height: 60px;
+  background-color: cadetblue;
+  padding: 8px;
+}
+
+#category {
+  font-size: 36px;
+  font-weight: bold;
+  margin: 0px;
+}
+
+.toppanel .options {
+  width: 100%;
+  background-color: rgb(207, 207, 207);
+  height: 24px;
+}
+
+.toppanel .options button {
+  width: 90px;
+  background-color: transparent;
+  color: black;
+  font-weight: bold;
+  border: none;
+  border-bottom: 2px solid black;
+}
+
+.toppanel .options button:hover {
+  border: 0;
+  border-bottom: 2px solid blue;
+}
+
+.toppanel .options button:active {
+  background-color: lightgray;
+}
+
+#markers {
+  background-color: white;
+  font-size: 18px;
+  width: 100%;
+  height: 24px;
+}
+
+#markers .septer {
+  width: 8px;
+}
+
+#markers p {
+  margin: 0;
+  text-align: left;
 }
