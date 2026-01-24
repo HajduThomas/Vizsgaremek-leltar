@@ -19,29 +19,25 @@ p, h1, h2 {
   float: left;
   height: 100%;
   width: 30%;
+  border-right: 2px solid black;
 }
 
 .mainpanel {
-  background-color: aqua;
+  background-color: rgb(180, 0, 81);
   height: 100%;
   width: 70%;
   overflow: hidden;
 }
 
-.scroller {
-  height: calc(100% - 120px);
+.container {
+  height: calc(100% - 84px);
   overflow: auto;
-}
-
-.content {
-  height: auto;
-  width: 100%;
 }
 
 .toppanel {
   overflow: hidden;
   background-color: blueviolet;
-  height: 108px;
+  height: 84px;
 }
 
 .toppanel .category {
@@ -80,18 +76,59 @@ p, h1, h2 {
   background-color: lightgray;
 }
 
-#markers {
-  background-color: white;
-  font-size: 18px;
+.content {
   width: 100%;
-  height: 24px;
+
+  border-collapse: collapse;
+  table-layout: fixed;
 }
 
-#markers .septer {
-  width: 8px;
+.content tr {
+  border-bottom: 2px solid black;
 }
 
-#markers p {
-  margin: 0;
-  text-align: left;
+.content th,
+.content td {
+  width: 320px;
+  height: 36px;
+
+  text-align: center;
+
+  border-right: 2px solid black;
+  border-bottom: 2px dotted black;
+
 }
+
+.content tr:nth-child(odd) {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+}
+
+.content th:nth-child(1),
+.content td:nth-child(1) {
+  width: 80px;
+
+  background-color: rgb(218, 218, 218);
+
+  position: sticky;
+  left: 0;
+
+  z-index: 1;
+}
+
+.content th {
+  height: 32px;
+  
+  background-color: white;
+  border-bottom: 2px solid black;
+  
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.container th:nth-child(1) {
+  background-color: white;
+  z-index: 3 !important;
+}
+
+
