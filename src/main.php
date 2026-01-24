@@ -40,9 +40,13 @@
 
         <script>
           //filling datatable for testing
+          //
           //if there are a lot of rows, it lags, need to implement "pagination"
           //basically sectioning the list into parts, like every 200/300 rows
           //also need an option to choose pagination size
+          //
+          //Need to make the writeout a function so searching doesnt result in
+          // a bunch of paginated results
           const rows = 200;
           const cols = 9;
           const dataTable = document.getElementById("dataTable");
@@ -94,9 +98,11 @@
                     break;
                 }
               }
+              if (i % 2 === 0) {
+                row.className = "darker";
+              }
               row.appendChild(col);
             }
-            //row.style.backgroundColor = (i % 2 == 0) ? "purple" : "magenta";
             dataTable.appendChild(row);
           }
         </script>

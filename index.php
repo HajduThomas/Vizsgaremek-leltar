@@ -24,6 +24,11 @@
       <?php
       //We yet to learn php functions and stuff, but
       // this could be done with a function that returns the page contents
+      //
+      //I REALLY hate this
+      //I do not like how php echos the site, it should be done using js
+      //works for now but I'll rewrite it when I'm done with main
+
       $dbname = "leltar";
       $host = "localhost";
       $user ="root";

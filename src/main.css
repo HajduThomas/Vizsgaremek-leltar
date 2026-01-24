@@ -30,6 +30,9 @@ p, h1, h2 {
 }
 
 .container {
+  /*
+  I don't like how this needs to be lowered
+  */
   height: calc(100% - 84px);
   overflow: auto;
 }
@@ -79,7 +82,7 @@ p, h1, h2 {
 .content {
   width: 100%;
 
-  border-collapse: collapse;
+  border-spacing: 0;
   table-layout: fixed;
 }
 
@@ -92,15 +95,25 @@ p, h1, h2 {
   width: 320px;
   height: 36px;
 
-  text-align: center;
-
   border-right: 2px solid black;
   border-bottom: 2px dotted black;
 
 }
 
 .content tr:nth-child(odd) {
-  background-color: rgba(0, 0, 0, 0.3) !important;
+  /*
+  lowers opacity by 20%
+  works like this cause rows use the background as color
+  */
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.content tr:nth-child(odd) td {
+  /*
+  Lowers the opacity by 20%
+  this way, it doesn't override the first rows color
+  */
+  filter: brightness(80%);
 }
 
 .content th:nth-child(1),
@@ -108,6 +121,8 @@ p, h1, h2 {
   width: 80px;
 
   background-color: rgb(218, 218, 218);
+
+  text-align: right;
 
   position: sticky;
   left: 0;
@@ -131,4 +146,6 @@ p, h1, h2 {
   z-index: 3 !important;
 }
 
-
+.darker {
+  background-color: rgba(0, 0, 0, 0.2);
+}
