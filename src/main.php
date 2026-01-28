@@ -13,21 +13,44 @@
   </head>
 
   <body>
-
+    <!--reminder to make this a slideout panel-->
     <div class="sidepanel">
-        <h2>sidepanel</h2>
-        <p>This is the side panel</p>
+      <div class="toppanel">
+
+        <div class="header">
+          <img src="./assets/pixelcat.png" alt="pixelcat">
+        </div>
+        
+        <div class="footrow">
+          <div class="options">
+            <button class="tag1"><img src="./assets/pixelcat.png" alt="1"></button>
+            <button class="tag1"><img src="./assets/pixelcat.png" alt="1"></button>
+            <button class="tag1"><img src="./assets/pixelcat.png" alt="1"></button>
+            <button class="tag1"><img src="./assets/pixelcat.png" alt="1"></button>
+            <button class="tag1"><img src="./assets/pixelcat.png" alt="1"></button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="container">
+        <a href="#"><div><p style="margin: 0; padding: 12px; background-color: green;">dog</p></div></a>
+        <a href="#"><div><p style="margin: 0; padding: 12px; background-color: green;">dog</p></div></a>
+        <a href="#"><div><p style="margin: 0; padding: 12px; background-color: green;">dog</p></div></a>
+      </div>
+      
     </div>
     <div class="mainpanel">
       <div class="toppanel">
-        <div class="category">
+
+        <div class="header">
           <p id="category">Category</p>
         </div>
         
-        <div class="options">
-          <button>Option 1</button>
-          <button>Option 2</button>
-          <button>Option 3</button>
+        <div class="footrow">
+          <button class="tag2">Option 1</button>
+          <button class="tag2">Option 2</button>
+          <button class="tag2">Option 3</button>
         </div>
 
       </div>
@@ -97,9 +120,6 @@
                     col.innerText = i;
                     break;
                 }
-              }
-              if (i % 2 === 0) {
-                row.className = "darker";
               }
               row.appendChild(col);
             }
