@@ -13,32 +13,35 @@
   </head>
 
   <body>
-    <!--reminder to make this a slideout panel-->
-    <div class="sidepanel">
-      <div class="toppanel">
+    <!--reminder to make sidepanel a slideout panel-->
+    <div class="slider">
+      <div class="sidepanel">
+        <div class="toppanel">
 
-        <div class="header">
-          <img src="./assets/pixelcat.png" alt="pixelcat">
-        </div>
-        
-        <div class="footrow">
-          <div class="options">
+          <div class="header">
+            <img src="./assets/pixelcat.png" alt="pixelcat">
+          </div>
+          
+          <div class="footrow">
             <button class="tag1"><img src="./assets/pixelcat.png" alt="1"></button>
             <button class="tag1"><img src="./assets/pixelcat.png" alt="1"></button>
             <button class="tag1"><img src="./assets/pixelcat.png" alt="1"></button>
             <button class="tag1"><img src="./assets/pixelcat.png" alt="1"></button>
             <button class="tag1"><img src="./assets/pixelcat.png" alt="1"></button>
           </div>
+
         </div>
 
-      </div>
-
-      <div class="container">
-        <a href="#"><div><p style="margin: 0; padding: 12px; background-color: green;">dog</p></div></a>
-        <a href="#"><div><p style="margin: 0; padding: 12px; background-color: green;">dog</p></div></a>
-        <a href="#"><div><p style="margin: 0; padding: 12px; background-color: green;">dog</p></div></a>
+        <div class="container">
+          <a href="#1"><div class="category">category 1</div></a>
+          <a href="#2"><div class="category">category 2</div></a>
+          <a href="#3"><div class="category">category 3</div></a>
+        </div>
       </div>
       
+      <div class="sideTab">
+        <div class="tab"><img src="./assets/pixelcat.png" alt=">"></div>
+      </div>
     </div>
     <div class="mainpanel">
       <div class="toppanel">
@@ -51,9 +54,11 @@
           <button class="tag2">Option 1</button>
           <button class="tag2">Option 2</button>
           <button class="tag2">Option 3</button>
+          <input type="text" placeholder="Search..." autocomplete="off">
         </div>
 
       </div>
+      
       <div class="container">
 
         <table class="content">
@@ -71,7 +76,7 @@
           //Need to make the writeout a function so searching doesnt result in
           // a bunch of paginated results
           const rows = 200;
-          const cols = 9;
+          const cols = 7;
           const dataTable = document.getElementById("dataTable");
 
           const names = ["eye", "Exodus", "Faint", "Fired Up", "Hold The Night", "Divide My Heart", "How We Roll"];

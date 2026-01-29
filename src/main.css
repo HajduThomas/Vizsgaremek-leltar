@@ -1,6 +1,8 @@
 :root {
   --top-height: 102px;
   --top-option-height: 32px;
+  --sidepanel-width: 280px;
+  --side-tab-width: 32px;
 }
 
 html, body {
@@ -19,24 +21,60 @@ p, h1, h2 {
   text-align: center;
 }
 
+.slider {
+  width: calc(var(--sidepanel-width) + var(--side-tab-width) );
+  height: 100%;
+  position: fixed;
+  left: calc(0px - (var(--sidepanel-width)));
+  transition: 0.5s;
+  z-index: 5;
+  overflow: hidden;
+}
+
 .sidepanel {
   background-color: darkgray;
-  float: left;
-  height: 100%;
-  width: 30%;
   border-right: 2px solid black;
+  box-shadow: 1px 0 6px 1px rgba(0, 0, 0, 0.2);
+  width: var(--sidepanel-width);
+  height: 100%;
+  float: left;
+}
+
+.slider:hover {
+  left: 0;
+}
+
+.slider:hover .sidepanel {
+  box-shadow: 6px 0 6px 6px rgba(0, 0, 0, 0.2);
+}
+
+.sideTab {
+  width: var(--side-tab-width);
+  height: 100%;
+  float: left;
+}
+
+.sideTab .tab {
+  background-color: khaki;
+  width: calc(var(--side-tab-width) - 12px);
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 5px;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.sideTab img {
+  width: 100%;
+  margin: auto 0;
 }
 
 .mainpanel {
   background-color: rgb(180, 0, 81);
   height: 100%;
-  width: 70%;
   overflow: hidden;
-}
-
-.container {
-  height: calc(100% - var(--top-height));
-  overflow: auto;
 }
 
 .toppanel {
@@ -69,34 +107,82 @@ p, h1, h2 {
   height: var(--top-option-height);
 }
 
-.toppanel .options {
+.sidepanel .footrow {
   text-align: center;
 }
 
-.toppanel .footrow button {
-  height: calc( var(--top-option-height) - 4px );
+.toppanel .footrow button,
+.toppanel .footrow input[type="text"] {
   background-color: transparent;
   color: black;
   border: none;
 }
 
-.toppanel .footrow .tag1 {
-  width: 30px;
+.sidepanel .footrow button {
+  height: var(--top-option-height);
 }
 
-.toppanel .footrow .tag2 {
-  width: 90px;
+.sidepanel .footrow button:hover {
+  filter: invert();
+}
+
+.sidepanel .footrow button:active {
+  background-color: lightgray;
+}
+
+.mainpanel .footrow button,
+.mainpanel .footrow input[type="text"] {
+  height: calc( var(--top-option-height) - 4px );
   font-weight: bold;
   border-bottom: 2px solid black;
 }
 
-.toppanel .footrow button:hover {
+.mainpanel .footrow button {
+  width: 90px;
+}
+
+.mainpanel .footrow button:hover,
+.mainpanel .footrow input[type="text"]:hover {
   border: 0;
   border-bottom: 2px solid blue;
 }
 
-.toppanel .footrow button:active {
-  background-color: lightgray;
+.mainpanel .footrow button:active,
+.mainpanel .footrow input[type="text"]:focus {
+  outline: none;
+  background-color: white;
+}
+
+
+
+.container {
+  height: calc(100% - var(--top-height));
+  overflow: auto;
+}
+
+.container a {
+  text-decoration: none;
+}
+
+.container .category {
+  background-color: green;
+  color: black;
+
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+
+  margin: 12px 8px;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.container .category:hover {
+  background-color: greenyellow;
+}
+
+.container .category:active {
+  background-color: yellow;
 }
 
 .content {
@@ -112,7 +198,7 @@ p, h1, h2 {
 
 .content th,
 .content td {
-  width: 320px;
+  width: 240px;
   height: 36px;
 
   border-right: 2px solid black;
