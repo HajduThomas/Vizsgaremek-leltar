@@ -3,6 +3,7 @@
   --top-option-height: 32px;
   --sidepanel-width: 280px;
   --side-tab-width: 32px;
+  --slider-width: calc(var(--sidepanel-width) + var(--side-tab-width));
 }
 
 html, body {
@@ -22,7 +23,7 @@ p, h1, h2 {
 }
 
 .slider {
-  width: calc(var(--sidepanel-width) + var(--side-tab-width) );
+  width: var(--slider-width);
   height: 100%;
   position: fixed;
   left: calc(0px - (var(--sidepanel-width)));
