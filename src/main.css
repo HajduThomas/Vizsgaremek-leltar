@@ -208,11 +208,9 @@ p, h1, h2 {
 
   border-right: 1px solid black;
   border-bottom: 1px dotted black;
-
+  padding: 8px;
   background-color: rgb(227, 235, 245);
-
 }
-
 .content tr:nth-child(odd) td {
   /*
   adds filter to darken every other row
@@ -228,7 +226,7 @@ p, h1, h2 {
   background-color: rgb(176, 217, 230);
 
   text-align: right;
-
+  border-right: 2px solid black;
   position: sticky;
   left: 0;
   padding: 8px;
