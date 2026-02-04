@@ -1,50 +1,35 @@
-# Leltár Vizsgaremek TODO lista:
+# Leltár Vizsgaremek TODO  
+
+***VÁLTOZHAT A JÖVŐBEN!***  
 
 - Adatbázis leltárat csinálni:
-    - Bejelentkezés:
-      - Id - Auto Primary
-      - username
-      - password
-        
-    - Product kategoriák:
-        - termék ID - Auto primary
-        - termék neve
-        - termék tömege
-        - termék darabszáma
-        - termék tömegfajta
-        - (OPCIONÁLIS) termék áfakulcsa
-    - Category table:
-      - name - primary
-      - variables?
-    - Category connector
-      - Category id - foreign
-      - Product id - foreign
-    
-- C# program eleres:
-  - login
-    - connect to database
-    - check for credentials
-  -  Product view
-    -W.I.P.
-     
+  - Bejelentkezés:
+    - Id - Auto Primary
+    - username
+    - password
+  
+  - Product kategoriák:
+    - termék ID - Auto primary
+    - termék neve
+    - termék tömege
+    - termék darabszáma
+    - termék tömegfajta
+    - (OPCIONÁLIS) termék áfakulcsa
+  - Category table:
+    - name - primary
+    - variables?
+  - Category connector
+    - Category id - foreign
+    - Product id - foreign
+  
 - PHP weboldalt eleres:
-  - start localhost
-  - open webpage
-  - login
-    - connect to database
-    - check for credentials
-  - main page
-    - side panel
-      - logo
-      - settings and stuff
-      - categories
-    - main panel
-      - top panel
-        - category name
-        - data option stuff
-        - data columns
-      - data panel
-        - display data
-        - columns
-
-# VÁLTOZHAT A JÖVŐBEN!!!
+  - Finalize layout
+  - add options
+    - *options here*
+  - add styles
+    - dark mode
+    - style editor
+  - add table functions
+    - draggable column width
+    - changable table values
+  
