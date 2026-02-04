@@ -33,6 +33,8 @@ body {
   top: 40%;
   transform: translate(-50%, -50%);
   width: 50%;
+  
+  max-width: 480px;
 }
 
 form {
@@ -50,19 +52,29 @@ form input[type=password] {
   width: 78%; 
 }
 
+form input[type=submit] {
+  display: block;
+  margin: 0 auto;
+  width: 86px;
+}
+
 form input {
   padding: 4px;
   background-color: rgb(242, 242, 242);
   border: none;
   border-bottom: 2px solid black;
   transition: 0.2s;
+  border-radius: 4px;
+  padding: 6px;
+  outline: none;
 }
 
 form input:hover {
   background-color: rgb(230, 230, 242);
 }
 
-form input:active {
+form input:active,
+form input:focus {
   outline: none;
   background-color: rgb(224, 224, 242);
   border: none;
@@ -72,4 +84,5 @@ form input:active {
 form label {
   display: inline-block;
   width: 20%;
+  margin: 8px 0;
 }

@@ -5,7 +5,7 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="src/index.css">
-      <title>Leltár program</title>
+      <title>Login</title>
   </head>
 
   <body>
@@ -41,7 +41,7 @@
         //Return the login form when the connection is good.
         echo "
           <form action=\"\" method=\"post\">
-            <h1>Login</h1><br>
+            <h1>Login</h1>
             <label for=\"usr\">Username:</label>
             <input type=\"text\" name=\"usr\" id=\"usr\" placeholder=\"Azonosito\"><br>
             <label for=\"pass\">Password:</label>
@@ -54,7 +54,6 @@
       {
         //Return error form when the connection is bad
         //allows me to style the error
-        //Will replace with a database connection form later
         echo "
           <form>
           ";
@@ -64,13 +63,8 @@
         ";
       }
 
-      //What does this do?
-      //why is it here?
-      $hiba = " ";
-
       ?>
-
-      
+     
     </div>
 
     <?php
@@ -89,7 +83,7 @@
         echo "<script>alert('Adjon meg felhasználónevet!')</script>";
       } else {
         
-        //I need to check how this works
+        //This might be vulnerable to sql code exec, need to look into it.
         $stmt = $conn->prepare("SELECT * FROM felhasznalo WHERE azonosito = :usr AND jelszo = :pass");
         $stmt->bindParam(':usr', $usr);
         $stmt->bindParam(':pass', $pass);

@@ -23,11 +23,11 @@
           </div>
           
           <div class="footrow">
-            <button class="tag1"><img src="./assets/pixelcat.png" alt="1"></button>
-            <button class="tag1"><img src="./assets/pixelcat.png" alt="1"></button>
-            <button class="tag1"><img src="./assets/pixelcat.png" alt="1"></button>
-            <button class="tag1"><img src="./assets/pixelcat.png" alt="1"></button>
-            <button class="tag1"><img src="./assets/pixelcat.png" alt="1"></button>
+            <button><img src="./assets/pixelcat.png" alt="1"></button>
+            <button><img src="./assets/pixelcat.png" alt="1"></button>
+            <button><img src="./assets/pixelcat.png" alt="1"></button>
+            <button><img src="./assets/pixelcat.png" alt="1"></button>
+            <button><img src="./assets/pixelcat.png" alt="1"></button>
           </div>
 
         </div>
@@ -49,9 +49,9 @@
         </div>
         
         <div class="footrow">
-          <button class="tag2">Option 1</button>
-          <button class="tag2">Option 2</button>
-          <button class="tag2">Option 3</button>
+          <button>Option 1</button>
+          <button>Option 2</button>
+          <button>Option 3</button>
           <input type="text" placeholder="Search..." autocomplete="off">
         </div>
 
@@ -82,26 +82,26 @@
 
         const results = [
           {
-            catName: "music", //table name
+            catName: "Music", //table name
             //table contents
             names: ["eye", "Exodus", "Faint", "Fired Up", "Hold The Night", "Divide My Heart", "How We Roll"],
             descs: ["Kanaria", "KoruSe", "Linking Park", "Foret de Vin", "NAOKI", "Hollywoord Undead"],
             durs: ["2:14", "3:04", "2:42", "3:26", "3:00", "5:23", "4:45"]
           },
           {
-            catName: "more music",
+            catName: "More Music",
             names: ["Ghost Rule","Six Black Heavens Guns", "Lowrider", "Echo", "Maw of the King", "Devil Trigger", "Throne", "Kingslayer"],
             descs: ["Deco*27", "Daisuke Ishiwatari / Naoki Hashimoto", "Cypress Hill", "Crusher-p", "Cami-Cat", "Casey Edwards / Ali Edwards", "Bring Me The Horizon", "Bring Me The Horizon / BABYMETAL"],
             durs: ["3:30", "4:43", "4:36", "3:50", "3:41", "6:45", "3:11", "3:40"]
           },
           {
-            catName: "still music",
+            catName: "Still Music",
             names: ["Nasty * Nasty * Spell", "God Only Knows", "Judgement", "KILLSWITCH", "Titanium", "WWW", "HUGE W", "Kinetic", "reason"],
             descs: ["Camellia", "bitbreaker", "meganeko", "mekaloton", "Mittsies", "Moe Shop / Edoga-Sullivan", "Mori Calliope", "Pete Cottrell", "Rad Cat"],
             durs: ["4:24", "4:47", "5:29", "2:15", "3:06", "3:30", "4:09", "3:49", "2:45"]
           },
           {
-            catName: "yup, music",
+            catName: "yup, Music",
             names: ["Latin Lingo", "Purple Pills", "A Blast Beat", "Shield Sister", "Lagtrain", "Levitate", "MoeChakkaFire", "Methods of Madness", "Extras (city pop cover)"],
             descs: ["Cypress Hill", "D12", "Dune", "Garrett Williamson", "girl_dm_ / darkbluecat", "Hollywood Undead", "issey", "James Landino", "jen"],
             durs: ["3:58", "5:04", "3:05", "2:35", "4:11", "3:24", "2:35", "1:58", "6:07"]
