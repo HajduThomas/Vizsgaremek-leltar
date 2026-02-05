@@ -41,6 +41,7 @@
         <div class="tab"><img src="./assets/pixelcat.png" alt=">"></div>
       </div>
     </div>
+
     <div class="mainpanel">
       <div class="toppanel">
 
@@ -53,6 +54,7 @@
           <button>Option 2</button>
           <button>Option 3</button>
           <input type="text" placeholder="Search..." autocomplete="off">
+          
         </div>
 
       </div>
