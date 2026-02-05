@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2026. Feb 05. 08:50
+-- Létrehozás ideje: 2026. Feb 05. 10:14
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -58,6 +58,17 @@ CREATE TABLE `mirelit` (
   `darabszam` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- A tábla adatainak kiíratása `mirelit`
+--
+
+INSERT INTO `mirelit` (`id`, `nev`, `tomeg`, `tomegfajta`, `darabszam`) VALUES
+(1, 'Fagyasztott sonkás pizza', 100, 'g', 2),
+(2, 'Nádudvari szezánmagos rántott csirkemell', 550, 'g', 5),
+(3, 'Fagyasztott Rántott Sajt', 1000, 'g', 3),
+(4, 'Spar Fagyasztott Burgonya', 1000, 'g', 3),
+(5, 'Fagyasztott KFC strips csirkemell', 450, 'g', 5);
+
 -- --------------------------------------------------------
 
 --
@@ -71,6 +82,17 @@ CREATE TABLE `szarazaruk` (
   `tomegfajta` varchar(100) NOT NULL,
   `darabszam` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- A tábla adatainak kiíratása `szarazaruk`
+--
+
+INSERT INTO `szarazaruk` (`id`, `nev`, `tomeg`, `tomegfajta`, `darabszam`) VALUES
+(1, 'Tündérkert Rízs', 1000, 'g', 5),
+(2, 'Doritos BBQ', 100, 'g', 10),
+(3, 'Dörmi Mackó Csoki', 30, 'g', 25),
+(4, 'Lays csípős csirke csipsz', 65, 'g', 5),
+(5, 'Chio csipsz intense chili&lime', 55, 'g', 5);
 
 -- --------------------------------------------------------
 
@@ -86,6 +108,17 @@ CREATE TABLE `tejtermek` (
   `darabszam` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- A tábla adatainak kiíratása `tejtermek`
+--
+
+INSERT INTO `tejtermek` (`id`, `nev`, `tomeg`, `tomegfajta`, `darabszam`) VALUES
+(1, 'Ferrero Kinder Maxi King', 35, 'g', 9),
+(2, 'Ferrero Kinder Pingu Tejszelet', 30, 'g', 6),
+(3, 'Abauj ESL Tej', 1, 'L', 12),
+(4, 'Zott Jogobella ivójoghurt', 250, 'g', 10),
+(5, 'Óriás Pöttyös túró rudi', 51, 'g', 6);
+
 -- --------------------------------------------------------
 
 --
@@ -99,6 +132,17 @@ CREATE TABLE `vegyiaruk` (
   `tomegfajta` varchar(100) NOT NULL,
   `darabszam` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- A tábla adatainak kiíratása `vegyiaruk`
+--
+
+INSERT INTO `vegyiaruk` (`id`, `nev`, `tomeg`, `tomegfajta`, `darabszam`) VALUES
+(1, 'CBA WC papír 6 tekercs', 100, '', 2),
+(2, 'WD-40', 450, 'ml', 69),
+(3, 'Nivea Man izzadásgátló', 150, 'ml', 2),
+(4, 'Schwarzkopf Taft Hajspray', 250, 'ml', 2),
+(5, 'CBA szalvéta', 2, '', 2);
 
 --
 -- Indexek a kiírt táblákhoz
@@ -148,25 +192,25 @@ ALTER TABLE `felhasznalo`
 -- AUTO_INCREMENT a táblához `mirelit`
 --
 ALTER TABLE `mirelit`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT a táblához `szarazaruk`
 --
 ALTER TABLE `szarazaruk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT a táblához `tejtermek`
 --
 ALTER TABLE `tejtermek`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT a táblához `vegyiaruk`
 --
 ALTER TABLE `vegyiaruk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
