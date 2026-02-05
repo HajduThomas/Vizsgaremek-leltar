@@ -1,9 +1,9 @@
 :root {
-  --top-height: 102px;
+  --top-header-height: 70px;
   --top-option-height: 32px;
+  --top-height: calc(var(--top-header-height) + var(--top-option-height));
   --sidepanel-width: 280px;
-  --side-tab-width: 32px;
-  --slider-width: calc(var(--sidepanel-width) + var(--side-tab-width));
+  --side-tab-width: 26px;
 }
 
 html, body {
@@ -22,14 +22,24 @@ p, h1, h2 {
   text-align: center;
 }
 
+a {
+  text-decoration: none;
+}
+
 .slider {
-  width: var(--slider-width);
   height: 100%;
   position: fixed;
   left: calc(0px - (var(--sidepanel-width)));
   transition: 0.5s;
   z-index: 5;
   overflow: hidden;
+}
+
+.slider:hover {
+  left: 0;
+}
+.slider:hover .sidepanel {
+  box-shadow: 2px 0 12px 6px rgba(0, 0, 255, 0.2);
 }
 
 .sidepanel {
@@ -40,14 +50,6 @@ p, h1, h2 {
   float: left;
 }
 
-.slider:hover {
-  left: 0;
-}
-
-.slider:hover .sidepanel {
-  box-shadow: 2px 0 12px 6px rgba(0, 0, 0, 0.2);
-}
-
 .sideTab {
   width: var(--side-tab-width);
   height: 100%;
@@ -56,7 +58,7 @@ p, h1, h2 {
 
 .sideTab .tab {
   background-color: rgb(14, 97, 206);
-  width: calc(var(--side-tab-width) - 6px);
+  width: var(--side-tab-width);
   height: 60px;
   display: flex;
   justify-content: center;
@@ -66,25 +68,21 @@ p, h1, h2 {
   border-bottom-right-radius: 12px;
 }
 
-.sideTab img {
+.tab img {
   width: 100%;
   margin: auto 0;
 }
 
 .mainpanel {
-  background-color: white;
   height: 100%;
-  overflow: hidden;
 }
 
 .toppanel {
-  overflow: hidden;
-  /*background-color: blueviolet;*/
-  height: var(--top-height);
+  width: 100%;
 }
 
 .toppanel .header {
-  height: calc(100% - var(--top-option-height));
+  height: var(--top-header-height);
   background-color: rgb(121, 165, 185);
   padding: 12px;
 }
@@ -102,54 +100,53 @@ p, h1, h2 {
 }
 
 .toppanel .footrow {
-  width: 100%;
   background-color: rgb(188, 204, 230);
   height: var(--top-option-height);
+}
+
+.footrow button,
+.footrow input[type="text"] {
+  background-color: transparent;
+  color: black;
+  border: none;
 }
 
 .sidepanel .footrow {
   text-align: center;
 }
 
-.toppanel .footrow button,
-.toppanel .footrow input[type="text"] {
-  background-color: transparent;
-  color: black;
-  border: none;
-}
-
 .sidepanel .footrow button {
   height: var(--top-option-height);
 }
 
-.sidepanel .footrow button:hover {
-  filter: brightness(140%);
-}
-
-.sidepanel .footrow button:active {
-  filter: invert();
+.mainpanel .footrow {
+  padding: 2px 0 4px;
 }
 
 .mainpanel .footrow button,
 .mainpanel .footrow input[type="text"] {
-  height: calc( var(--top-option-height) - 6px);
-  position: relative;
-  top: 2px;
+  height: 100%;
   font-weight: bold;
   border-bottom: 2px solid black;
   border-radius: 4px;
   margin: 0 4px;
 }
 
+.mainpanel .footrow input[type="text"] {
+  width: 360px;
+  float: right;
+}
+
 .mainpanel .footrow button {
-  width: 90px;
+  width: 120px;
+  float: left;
 }
 
 .mainpanel .footrow button:hover,
 .mainpanel .footrow input[type="text"]:hover {
   border: 0;
   border-bottom: 2px solid blue;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 255, 0.1);
 }
 
 .mainpanel .footrow button:active,
@@ -158,25 +155,17 @@ p, h1, h2 {
   background-color: rgba(255, 255, 255, 0.3);
 }
 
-
-
-.container {
+.mainpanel .container {
   height: calc(100% - var(--top-height));
   overflow: auto;
-}
-
-.container a {
-  text-decoration: none;
 }
 
 .container .category {
   background-color: rgb(45, 106, 219);
   color: black;
-
   text-align: center;
   font-weight: bold;
   font-size: 20px;
-
   margin: 12px 8px;
   padding: 12px;
   border-radius: 8px;
@@ -192,7 +181,6 @@ p, h1, h2 {
 
 .content {
   width: 100%;
-
   border-spacing: 0;
   table-layout: fixed;
 }
@@ -205,26 +193,24 @@ p, h1, h2 {
 .content td {
   width: 240px;
   height: 36px;
-
   border-right: 1px solid black;
   border-bottom: 1px dotted black;
   padding: 8px;
   background-color: rgb(227, 235, 245);
 }
+
+.content tr:nth-child(odd) td:first-child {
+  background-color: color-mix(in srgb, rgb(176, 217, 230) 90%, rgb(0, 119, 255) 10%);
+}
+
 .content tr:nth-child(odd) td {
-  /*
-  adds filter to darken every other row
-  this way, it doesn't override the first rows color
-  */
-  filter: brightness(90%);
+  background-color: color-mix(in srgb, rgb(227, 235, 245) 90%, rgb(0, 119, 255) 10%);
 }
 
 .content th:nth-child(1),
 .content td:nth-child(1) {
   width: 80px;
-
   background-color: rgb(176, 217, 230);
-
   text-align: right;
   border-right: 2px solid black;
   position: sticky;
@@ -235,10 +221,8 @@ p, h1, h2 {
 
 .content th {
   height: 32px;
-  
   background-color: white;
   border-bottom: 2px solid black;
-  
   position: sticky;
   top: 0;
   z-index: 2;
@@ -247,8 +231,4 @@ p, h1, h2 {
 .content th:nth-child(1) {
   background-color: white;
   z-index: 3 !important;
-}
-
-.darker {
-  background-color: rgba(0, 0, 0, 0.2);
 }
