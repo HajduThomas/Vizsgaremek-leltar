@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2026. Jan 16. 10:27
+-- Létrehozás ideje: 2026. Feb 05. 08:50
 -- Kiszolgáló verziója: 10.4.32-MariaDB
--- PHP verzió: 8.0.30
+-- PHP verzió: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -47,15 +47,57 @@ INSERT INTO `felhasznalo` (`id`, `azonosito`, `jelszo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tábla szerkezet ehhez a táblához `termekek`
+-- Tábla szerkezet ehhez a táblához `mirelit`
 --
 
-CREATE TABLE `termekek` (
+CREATE TABLE `mirelit` (
   `id` int(11) NOT NULL,
   `nev` varchar(100) NOT NULL,
   `tomeg` int(11) NOT NULL,
-  `tomegfajta` smallint(6) NOT NULL,
-  `db` int(11) NOT NULL DEFAULT 0
+  `tomegfajta` varchar(100) NOT NULL,
+  `darabszam` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `szarazaruk`
+--
+
+CREATE TABLE `szarazaruk` (
+  `id` int(11) NOT NULL,
+  `nev` varchar(100) NOT NULL,
+  `tomeg` int(11) NOT NULL,
+  `tomegfajta` varchar(100) NOT NULL,
+  `darabszam` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `tejtermek`
+--
+
+CREATE TABLE `tejtermek` (
+  `id` int(11) NOT NULL,
+  `nev` varchar(100) NOT NULL,
+  `tomeg` int(11) NOT NULL,
+  `tomegfajta` varchar(100) NOT NULL,
+  `darabszam` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `vegyiaruk`
+--
+
+CREATE TABLE `vegyiaruk` (
+  `id` int(11) NOT NULL,
+  `nev` varchar(100) NOT NULL,
+  `tomeg` int(11) NOT NULL,
+  `tomegfajta` varchar(100) NOT NULL,
+  `darabszam` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -69,9 +111,27 @@ ALTER TABLE `felhasznalo`
   ADD PRIMARY KEY (`id`);
 
 --
--- A tábla indexei `termekek`
+-- A tábla indexei `mirelit`
 --
-ALTER TABLE `termekek`
+ALTER TABLE `mirelit`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- A tábla indexei `szarazaruk`
+--
+ALTER TABLE `szarazaruk`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- A tábla indexei `tejtermek`
+--
+ALTER TABLE `tejtermek`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- A tábla indexei `vegyiaruk`
+--
+ALTER TABLE `vegyiaruk`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -85,9 +145,27 @@ ALTER TABLE `felhasznalo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT a táblához `termekek`
+-- AUTO_INCREMENT a táblához `mirelit`
 --
-ALTER TABLE `termekek`
+ALTER TABLE `mirelit`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT a táblához `szarazaruk`
+--
+ALTER TABLE `szarazaruk`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT a táblához `tejtermek`
+--
+ALTER TABLE `tejtermek`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT a táblához `vegyiaruk`
+--
+ALTER TABLE `vegyiaruk`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
