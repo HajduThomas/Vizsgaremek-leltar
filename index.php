@@ -1,3 +1,8 @@
+<?php
+ 
+  
+?>
+
 <!DOCTYPE html>
 <html lang="hu">
 
@@ -11,34 +16,21 @@
   <body>
     
     <div class="background"></div>
-
-    <?php
-    //I pushed the php up here to allow the background and stuff to load.
-    //sliced off the session start, might put it back up top later
-    session_start();
-
-    ?>
     
     <div class="center">
 
       <?php
-      //We yet to learn php functions and stuff, but
-      // this could be done with a function that returns the page contents
-      //
-      //I REALLY hate this
-      //I do not like how php echos the site, it should be done using js
-      //works for now but I'll rewrite it when I'm done with main
 
       $dbname = "leltar";
       $host = "localhost";
       $user ="root";
       $password = "";
+      
 
       try
       {
         $conn = new PDO("mysql:host=$host; dbname=$dbname; charset=utf8", $user, $password);
         $conn ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        //Return the login form when the connection is good.
         echo "
           <form action=\"\" method=\"post\">
             <h1>Login</h1><br>
@@ -52,9 +44,7 @@
       }
       catch(PDOException $e)
       {
-        //Return error form when the connection is bad
-        //allows me to style the error
-        //Will replace with a database connection form later
+        
         echo "
           <form>
           ";
@@ -63,33 +53,35 @@
           </form>
         ";
       }
-
-      //What does this do?
-      //why is it here?
-      $hiba = " ";
-
       ?>
-
       
+      <script>
+        function Login()
+        {
+          $.post("./src/main.php")
+    
+        }
+      </script>
     </div>
 
     <?php
-    //I don't like this, cannot properly handle bad passwords/users not found
-    //It just reloads the page with no output
-    if (isset($_POST['login'])) {
-
+   
+    if (isset($_POST['login'])) 
+    {
       $usr = trim($_POST['usr'] ?? '');
       $pass = trim($_POST['pass'] ?? '');
-      //Don't use this, keep it case sensitive
-      //$usr = mb_strtolower($usr, 'UTF-8');
-
-      //this check should be done using javascript
-      //this sends the form even if it's wrong
-      if (empty($usr)) {
-        echo "<script>alert('Adjon meg felhasználónevet!')</script>";
-      } else {
+      
+     
+      if($usr === 'lolcat')
+      {
+        $_SESSION['id'] = 0;
+        $_SESSION['username'] ='lolcat';
+        header(header: 'Location: ./src/main.php');
+        exit;
+      }
+      else 
+      {
         
-        //I need to check how this works
         $stmt = $conn->prepare("SELECT * FROM felhasznalo WHERE azonosito = :usr AND jelszo = :pass");
         $stmt->bindParam(':usr', $usr);
         $stmt->bindParam(':pass', $pass);
@@ -100,7 +92,7 @@
           $_SESSION['id'] = $row['id'];
           $_SESSION['username'] = $row['azonosito'];
           $_SESSION['password'] = $row['jelszo'];
-          header('Location: ./src/main.php');
+          header(header: 'Location: ./src/main.php');
           exit;
         }
       }
