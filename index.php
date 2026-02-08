@@ -1,6 +1,13 @@
 <?php
- 
-  
+session_start();
+ob_start();
+
+$dbname = "leltar";
+$host = "localhost";
+$user = "root";
+$password = "";
+
+$loginError = false;
 ?>
 
 <!DOCTYPE html>
@@ -20,13 +27,6 @@
     <div class="center">
 
       <?php
-
-      $dbname = "leltar";
-      $host = "localhost";
-      $user ="root";
-      $password = "";
-      
-
       try
       {
         $conn = new PDO("mysql:host=$host; dbname=$dbname; charset=utf8", $user, $password);
@@ -56,13 +56,43 @@
       ?>
       
       <script>
-        function Login()
-        {
-          $.post("./src/main.php")
-    
-        }
+       
       </script>
     </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function()
+      {
+         const form = document.querySelector('form');
+          form.addEventListener('submit', function(event)
+          {
+            const usrInput = document.getElementById('usr');
+            const passInput = document.getElementById('pass');
+
+            if(usrInput)
+            {
+              usrInput.value = usrInput.value.trim();
+            }
+            if(passInput)
+            {
+              passInput.value = passInput.value.trim();
+            }
+
+            if(usrInput.value === '')
+            {
+              event.preventDefault();
+              alert('Adjon meg azonosítót!');
+              return;
+            }
+            //Ez is szintén ideiglenes
+            if(usrInput.value !== 'lolcat' && passInput.value === '')
+            {
+              event.preventDefault();
+              alert('Adjon meg jelszót!');
+            }
+          })
+      })
+    </script>
 
     <?php
    
@@ -71,14 +101,15 @@
       $usr = trim($_POST['usr'] ?? '');
       $pass = trim($_POST['pass'] ?? '');
       
-     
+      //Ideiglenesen marad
       if($usr === 'lolcat')
       {
         $_SESSION['id'] = 0;
-        $_SESSION['username'] ='lolcat';
-        header(header: 'Location: ./src/main.php');
+        $_SESSION['username'] = 'lolcat';
+        header('Location: ./src/main.php');
         exit;
       }
+
       else 
       {
         
@@ -87,17 +118,39 @@
         $stmt->bindParam(':pass', $pass);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        
             
-        if ($row) {
+        if ($row) 
+        {
           $_SESSION['id'] = $row['id'];
           $_SESSION['username'] = $row['azonosito'];
           $_SESSION['password'] = $row['jelszo'];
-          header(header: 'Location: ./src/main.php');
+          header('Location: ./src/main.php');
           exit;
+        }
+        else
+        {
+          $loginError = true;
         }
       }
     }
     ?>
+    
+    <?php if (isset($loginError) && $loginError === true): ?>
+    <script>
+      //Még teszt folyamat de ha nem egyezik a felhasználó vagy a jelszó akkor nem engedi tovább a felhasználót és egy alertet dob fel
+      alert('Hibás azonosító vagy jelszó!');
+    </script>
+    <?php endif; ?>
+
+    <?php ob_end_flush(); ?>
+
+    
+    
+    
+   
+
+
 
   </body>
 
