@@ -69,6 +69,10 @@ $loginError = false;
             const usrInput = document.getElementById('usr');
             const passInput = document.getElementById('pass');
 
+            //PHP-ból áthozva
+            const usr = usrInput.value.trim();
+            const pass = passInput.value.trim();
+
             if(usrInput)
             {
               usrInput.value = usrInput.value.trim();
@@ -78,17 +82,34 @@ $loginError = false;
               passInput.value = passInput.value.trim();
             }
 
+            if(usrInput.value === '' && passInput.value === '' )
+            {
+              event.preventDefault();
+              alert('Adjon meg azonosítót és jelszót is!');
+              return;
+            }
+
             if(usrInput.value === '')
             {
               event.preventDefault();
               alert('Adjon meg azonosítót!');
               return;
             }
+
+            //Ideiglenes
+            if (usrInput.value === 'lolcat' && passInput.value !== '') 
+            {
+              event.preventDefault();
+              alert('A lolcat felhasználóhoz nem tartozik jelszó!');
+              return;
+            }
+           
             //Ez is szintén ideiglenes
             if(usrInput.value !== 'lolcat' && passInput.value === '')
             {
               event.preventDefault();
               alert('Adjon meg jelszót!');
+              return
             }
           })
       })
@@ -101,6 +122,11 @@ $loginError = false;
       $usr = trim($_POST['usr'] ?? '');
       $pass = trim($_POST['pass'] ?? '');
       
+      if($usr === '' && $pass === '')
+      {
+        $loginError = true;
+      }
+
       //Ideiglenesen marad
       if($usr === 'lolcat')
       {
