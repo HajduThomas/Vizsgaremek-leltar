@@ -105,12 +105,12 @@ $loginError = false;
               return;
             }
            
-            //Ez is szintén ideiglenes
+            //A lolcat része Ideiglenes
             if(usrInput.value !== 'lolcat' && passInput.value === '')
             {
               event.preventDefault();
               alert('Adjon meg jelszót!');
-              return
+              return;
             }
 
             const fromData = new FormData();
