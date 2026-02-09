@@ -104,12 +104,12 @@ $loginError = false;
               return;
             }
            
-            //Ez is szintén ideiglenes
+            //A lolcat része Ideiglenes
             if(usrInput.value !== 'lolcat' && passInput.value === '')
             {
               event.preventDefault();
               alert('Adjon meg jelszót!');
-              return
+              return;
             }
           })
       })
@@ -161,14 +161,6 @@ $loginError = false;
       }
     }
     ?>
-    
-    <?php if (isset($loginError) && $loginError === true): ?>
-    <script>
-      //Még teszt folyamat de ha nem egyezik a felhasználó vagy a jelszó akkor nem engedi tovább a felhasználót és egy alertet dob fel
-      alert('Hibás azonosító vagy jelszó!');
-    </script>
-    <?php endif; ?>
-
     <?php ob_end_flush(); ?>
 
     
