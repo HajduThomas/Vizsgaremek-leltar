@@ -1,3 +1,18 @@
+<?php
+session_start();
+if(!isset($_SESSION['id']) || !isset($_SESSION['username']))
+{
+  header('Location: ../index.php');
+  exit;
+}
+
+$dbname = "leltar";
+$host = "localhost";
+$user = "root";
+$password = "";
+
+?>
+
 <!DOCTYPE html>
 <html lang="hu">
 

@@ -66,6 +66,7 @@ $loginError = false;
          const form = document.querySelector('form');
           form.addEventListener('submit', function(event)
           {
+            event.preventDefault();
             const usrInput = document.getElementById('usr');
             const passInput = document.getElementById('pass');
 
@@ -111,6 +112,22 @@ $loginError = false;
               alert('Adjon meg jelszót!');
               return
             }
+
+            const fromData = new FormData();
+            fromData.append('usr', usr);
+            fromData.append('pass', pass);
+            fromData.append('login', 'true');
+
+            fetch(window.location.href, 
+            {
+              method: 'POST',
+              body: fromData
+            })
+            .then(response => response.json())
+            .catch(error =>{
+              console.error('Error:', error);
+              alert('Hibás felhasználó vagy jelszó!');
+            });
           })
       })
     </script>
@@ -119,8 +136,16 @@ $loginError = false;
    
     if (isset($_POST['login'])) 
     {
+      header('Content-Type: application/json');
       $usr = trim($_POST['usr'] ?? '');
       $pass = trim($_POST['pass'] ?? '');
+      $response = ['success' => false];
+
+      if($usr === '' && $pass === '')
+      {
+        echo json_encode($response);
+        exit;
+      }
       
       if($usr === '' && $pass === '')
       {
@@ -144,6 +169,7 @@ $loginError = false;
         $stmt->bindParam(':pass', $pass);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $usr = $stmt->fetch();
         
             
         if ($row) 
@@ -151,6 +177,7 @@ $loginError = false;
           $_SESSION['id'] = $row['id'];
           $_SESSION['username'] = $row['azonosito'];
           $_SESSION['password'] = $row['jelszo'];
+          $response['success'] = true;
           header('Location: ./src/main.php');
           exit;
         }
@@ -158,17 +185,11 @@ $loginError = false;
         {
           $loginError = true;
         }
+        echo json_encode($response);
+        exit;
       }
     }
     ?>
-    
-    <?php if (isset($loginError) && $loginError === true): ?>
-    <script>
-      //Még teszt folyamat de ha nem egyezik a felhasználó vagy a jelszó akkor nem engedi tovább a felhasználót és egy alertet dob fel
-      alert('Hibás azonosító vagy jelszó!');
-    </script>
-    <?php endif; ?>
-
     <?php ob_end_flush(); ?>
 
     
