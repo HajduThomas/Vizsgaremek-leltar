@@ -18,8 +18,8 @@
   try {
     $dbname = "tester";
     $host = "localhost";
-    $user ="malog";
-    $password = "sans";
+    $user ="root";
+    $password = "";
 
     $db = new PDO(
         "mysql:host=$host;dbname=$dbname;charset=utf8",
