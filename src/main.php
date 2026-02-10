@@ -14,6 +14,52 @@
 
   <body>
 
+  <?php
+  try {
+    $db = new PDO(
+        "mysql:host=localhost;dbname=leltar;charset=utf8",
+        "root",
+        ""
+    );
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $error) {
+    echo "<p>Adatbázis hiba: {$error->getMessage()}</p>";
+    die();
+}
+
+$categories = [
+  "mirelit" => "Mirelit",
+  "szarazaruk" => "Szárazáruk",
+  "tejtermek" => "Tejtermék",
+  "vegyiaruk" => "Vegyiáruk"
+];
+
+$currentCategory = $_GET["cat"] ?? "mirelit";
+
+if (!array_key_exists($currentCategory, $categories)) {
+  $currentCategory = "mirelit";
+}
+
+$search = $_GET["search"] ?? "";
+
+if ($search !== ""){
+  $stmt = $db->prepare("
+  SELECT * FROM `$currentCategory`
+  WHERE nev LIKE :search OR tomegfajta LIKE :search
+  ");
+  $stmt->execute([
+    ":search" => "%$search%"
+  ]);
+} else {
+  $stmt = $db->prepare("SELECT * FROM `$currentCategory`");
+  $stmt->execute();
+}
+
+$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+?>
+  
     <div class="slider">
       <div class="sidepanel">
         <div class="toppanel">
@@ -33,6 +79,11 @@
         </div>
 
         <div id="catSelect" class="container">
+          <?php
+          foreach($categories as $key => $value){
+            echo "<a href='?cat=$key'><div class='category'>$value</div></a>";
+          }
+          ?>
         </div>
 
       </div>
@@ -45,14 +96,25 @@
       <div class="toppanel">
 
         <div class="header">
-          <p id="category">Category</p>
+          <p id="category"><?= $categories[$currentCategory] ?></p>
         </div>
         
         <div class="footrow">
           <button class="tag2">Option 1</button>
           <button class="tag2">Option 2</button>
           <button class="tag2">Option 3</button>
-          <input type="text" placeholder="Search..." autocomplete="off">
+
+          <form method="GET" style="display:inline;">
+              <input type="hidden" name="cat" value="<?= $currentCategory ?>">
+
+            <input
+              type="text"
+              name="search"
+              placeholder="Search..."
+              autocomplete="off"
+              value="<?= htmlspecialchars($search) ?>"
+            >
+          </form>
         </div>
 
       </div>
@@ -60,11 +122,27 @@
       <div class="container">
 
         <table class="content" id="dataTable">
-          <tbody></tbody>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Név</th>
+              <th>Tömeg</th>
+              <th>Tömegfajta</th>
+              <th>Darabszám</th>
+            </tr>
+          </thead>
+          <tbody>
+          <?php
+          foreach ($data as $row){
+            echo "<tr><td>{$row['id']}</td><td>{$row['nev']}</td><td>{$row['tomeg']}</td><td>{$row['tomegfajta']}</td><td>{$row['darabszam']}</td></tr>";
+          }
+          ?>
+          </tbody>
         </table>
 
+        
         <script>
-
+        /*
         //TODO:
         //implement reading from sql
         //implement pagination
@@ -75,10 +153,12 @@
         const catDisplay = document.getElementById("category");
         const catSelect = document.getElementById("catSelect");
 
+
         //This is only for testing
         //replace with sql
         const rows = 200;
         const cols = 7;
+
 
         const results = [
           {
@@ -108,7 +188,8 @@
           }
         ]
 
-        function fillTable(id) {
+        <script>
+        function fil  lTable(id) {
           
           var row;
           var col;
@@ -177,14 +258,14 @@
         
         //
         for (let i = 0; i < results.length; i++) {
-          /*
+          ---------
           //alt, might use
           var catButton = document.createElement("button");
           catButton.className = "category";
           catButton.addEventListener("click", changeCat);
           catButton.innerText = results[i].catName;
           catButton.id = i;
-          */
+          ---------
           var catButton = document.createElement("a");
           var catDiv = document.createElement("div");
           catDiv.className = "category";
@@ -198,7 +279,7 @@
         }
 
         catDisplay.innerText = results[0].catName;
-        
+        */
       </script>
 
       </div>
