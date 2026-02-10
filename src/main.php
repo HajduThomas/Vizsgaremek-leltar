@@ -16,10 +16,15 @@
 
   <?php
   try {
+    $dbname = "tester";
+    $host = "localhost";
+    $user ="malog";
+    $password = "sans";
+
     $db = new PDO(
-        "mysql:host=localhost;dbname=leltar;charset=utf8",
-        "root",
-        ""
+        "mysql:host=$host;dbname=$dbname;charset=utf8",
+        $user,
+        $password
     );
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $error) {
@@ -27,17 +32,25 @@
     die();
 }
 
+//need to make this automatic
+//using a query like this: SELECT * FROM INFORMATION_SCHEMA.TABLES or something
+//
+//do need a way to exlude users/felhaszanalo table
+//maybe need to create a category table that links all the tables together or something
 $categories = [
-  "mirelit" => "Mirelit",
-  "szarazaruk" => "Szárazáruk",
-  "tejtermek" => "Tejtermék",
-  "vegyiaruk" => "Vegyiáruk"
+  "showcase" => "Showcase",
+  "sizetest" => "Size Test",
+  "music" => "Music",
+  "vegyiaruk" => "Vegyiaruk",
+  "tejtermek" => "Tejtermekek",
+  "szarazaruk" => "Szarazaruk",
+  "mirelit" => "Mirelit Aru"
 ];
 
-$currentCategory = $_GET["cat"] ?? "mirelit";
+$currentCategory = $_GET["cat"] ?? "showcase";
 
 if (!array_key_exists($currentCategory, $categories)) {
-  $currentCategory = "mirelit";
+  $currentCategory = "showcase";
 }
 
 $search = $_GET["search"] ?? "";
@@ -56,7 +69,6 @@ if ($search !== ""){
 }
 
 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 
 ?>
   
@@ -124,17 +136,22 @@ $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <table class="content" id="dataTable">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Név</th>
-              <th>Tömeg</th>
-              <th>Tömegfajta</th>
-              <th>Darabszám</th>
+              <?php
+              $row = $data[0];
+              foreach ($row as $key => $value) {
+                echo "<th>{$key}</th>";
+              }
+              ?>
             </tr>
           </thead>
           <tbody>
           <?php
           foreach ($data as $row){
-            echo "<tr><td>{$row['id']}</td><td>{$row['nev']}</td><td>{$row['tomeg']}</td><td>{$row['tomegfajta']}</td><td>{$row['darabszam']}</td></tr>";
+            echo "<tr>";
+            foreach ($row as $key => $value) {
+              echo "<td>{$value}</td>";
+            }
+            echo "</tr>";
           }
           ?>
           </tbody>
@@ -143,6 +160,8 @@ $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
         <script>
         /*
+         * old categories
+         * kept for reference
         //TODO:
         //implement reading from sql
         //implement pagination
