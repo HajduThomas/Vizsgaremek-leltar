@@ -24,25 +24,27 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Tábla szerkezet ehhez a táblához `felhasznalo`
+-- Tábla szerkezet ehhez a táblához `user`
 --
 
-CREATE TABLE `felhasznalo` (
+CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `azonosito` varchar(100) DEFAULT NULL,
-  `jelszo` varchar(100) DEFAULT NULL
+  `jelszo` varchar(100) DEFAULT NULL,
+  `type` bit(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- A tábla adatainak kiíratása `felhasznalo`
+-- A tábla adatainak kiíratása `user`
 --
 
-INSERT INTO `felhasznalo` (`id`, `azonosito`, `jelszo`) VALUES
-(1, 'mate', '69420'),
-(2, 'janos', 'mate2006'),
-(3, 'anna', 'ocsipok'),
-(4, 'lolcat', ''),
-(5, 'thoma$', '6_8!');
+INSERT INTO `user` (`id`, `azonosito`, `jelszo`, `type`) VALUES
+(1, 'mate', '69420', 1),
+(2, 'janos', 'mate2006', 2),
+(3, 'anna', 'ocsipok', 1),
+(4, 'lolcat', '', 1),
+(5, 'thoma$', '6_8!', 2),
+(6, 'malog', '', 2);
 
 -- --------------------------------------------------------
 
@@ -63,9 +65,9 @@ CREATE TABLE `termekek` (
 --
 
 --
--- A tábla indexei `felhasznalo`
+-- A tábla indexei `user`
 --
-ALTER TABLE `felhasznalo`
+ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -79,10 +81,10 @@ ALTER TABLE `termekek`
 --
 
 --
--- AUTO_INCREMENT a táblához `felhasznalo`
+-- AUTO_INCREMENT a táblához `user`
 --
-ALTER TABLE `felhasznalo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT a táblához `termekek`
