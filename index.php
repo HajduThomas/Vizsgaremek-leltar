@@ -6,8 +6,6 @@ $dbname = "leltar";
 $host = "localhost";
 $user = "root";
 $password = "";
-
-$loginError = false;
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +15,7 @@ $loginError = false;
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="src/index.css">
-      <title>Leltár program</title>
+      <title>Login</title>
   </head>
 
   <body>
@@ -32,14 +30,14 @@ $loginError = false;
         $conn = new PDO("mysql:host=$host; dbname=$dbname; charset=utf8", $user, $password);
         $conn ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         echo "
-          <form action=\"\" method=\"post\">
-            <h1>Login</h1><br>
-            <label for=\"usr\">Username:</label>
-            <input type=\"text\" name=\"usr\" id=\"usr\" placeholder=\"Azonosito\"><br>
-            <label for=\"pass\">Password:</label>
-            <input type=\"password\" name=\"pass\" id=\"pass\" placeholder=\"Jelszó\"><br><br>
-            <input type=\"submit\" name=\"login\" id=\"login\" value=\"Belépés\">
-          </form>
+        <form action=\"\" method=\"post\">
+          <h1>Login</h1><br>
+          <label for=\"usr\">Username:</label>
+          <input type=\"text\" name=\"usr\" id=\"usr\" placeholder=\"Azonosito\"><br>
+          <label for=\"pass\">Password:</label>
+          <input type=\"password\" name=\"pass\" id=\"pass\" placeholder=\"Jelszó\"><br><br>
+          <input type=\"submit\" name=\"login\" id=\"login\" value=\"Belépés\">
+        </form>
         ";
       }
       catch(PDOException $e)
@@ -62,10 +60,10 @@ $loginError = false;
     <script>
       document.addEventListener('DOMContentLoaded', function()
       {
-         const form = document.querySelector('form');
+          const form = document.querySelector('form');
           form.addEventListener('submit', function(event)
           {
-            event.preventDefault();
+            var ok = true;
             const usrInput = document.getElementById('usr');
             const passInput = document.getElementById('pass');
 
@@ -73,57 +71,29 @@ $loginError = false;
             const usr = usrInput.value.trim();
             const pass = passInput.value.trim();
 
-            if(usrInput)
-            {
-              usrInput.value = usrInput.value.trim();
-            }
-            if(passInput)
-            {
-              passInput.value = passInput.value.trim();
-            }
-
             if(usrInput.value === '' && passInput.value === '' )
             {
+              ok = false;
               alert('Adjon meg azonosítót és jelszót is!');
-              return;
             }
 
-            if(usrInput.value === '')
+            else if(usrInput.value === '')
             {
+              ok = false;
               alert('Adjon meg azonosítót!');
-              return;
-            }
-
-            //Ideiglenes
-            if (usrInput.value === 'lolcat' && passInput.value !== '') 
-            {
-              return;
             }
            
-            //A lolcat része Ideiglenes
-            if(usrInput.value !== 'lolcat' && passInput.value === '')
+            else if(passInput.value === '')
             {
+              ok = false;
               alert('Adjon meg jelszót!');
-              return;
             }
 
-            const fromData = new FormData();
-            fromData.append('usr', usr);
-            fromData.append('pass', pass);
-            fromData.append('login', 'true');
-
-            fetch(window.location.href, 
-            {
-              method: 'POST',
-              body: fromData
-            })
-            .then(response => response.json())
-            .catch(error =>{
-              console.error('Error:', error);
-              alert('Hibás felhasználó vagy jelszó!');
-            });
-          })
-      })
+            if (!ok) {
+              event.preventDefault();
+            }
+          });
+      });
     </script>
 
     <?php
@@ -133,30 +103,6 @@ $loginError = false;
       header('Content-Type: application/json');
       $usr = trim($_POST['usr'] ?? '');
       $pass = trim($_POST['pass'] ?? '');
-      $response = ['success' => false];
-
-      if($usr === '' && $pass === '')
-      {
-        echo json_encode($response);
-        exit;
-      }
-      
-      if($usr === '' && $pass === '')
-      {
-        $loginError = true;
-      }
-
-      //Ideiglenesen marad
-      if($usr === 'lolcat')
-      {
-        $_SESSION['id'] = 0;
-        $_SESSION['username'] = 'lolcat';
-        header('Location: ./src/main.php');
-        exit;
-      }
-
-      else 
-      {
         
         $stmt = $conn->prepare("SELECT * FROM felhasznalo WHERE azonosito = :usr AND jelszo = :pass");
         $stmt->bindParam(':usr', $usr);
@@ -166,14 +112,14 @@ $loginError = false;
         $usr = $stmt->fetch();
         
             
-        if ($row) 
+        if ($row)
         {
+          $loginError = false;
           $_SESSION['id'] = $row['id'];
           $_SESSION['username'] = $row['azonosito'];
           $_SESSION['password'] = $row['jelszo'];
           $response['success'] = true;
           header('Location: ./src/main.php');
-          exit;
         }
         else
         {
@@ -182,16 +128,8 @@ $loginError = false;
         echo json_encode($response);
         exit;
       }
-    }
     ?>
     <?php ob_end_flush(); ?>
-
-    
-    
-    
-   
-
-
 
   </body>
 
