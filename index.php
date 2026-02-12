@@ -45,7 +45,8 @@ $loginError = false;
       catch(PDOException $e)
       {
         
-        echo "
+        echo 
+        "
           <form>
           ";
           die("Sikertelen adatbázis csatlakozás: ".$e->getMessage());
@@ -53,11 +54,9 @@ $loginError = false;
           </form>
         ";
       }
-      ?>
+
       
-      <script>
-       
-      </script>
+      ?>
     </div>
 
     <script>
@@ -84,14 +83,12 @@ $loginError = false;
 
             if(usrInput.value === '' && passInput.value === '' )
             {
-              event.preventDefault();
               alert('Adjon meg azonosítót és jelszót is!');
               return;
             }
 
             if(usrInput.value === '')
             {
-              event.preventDefault();
               alert('Adjon meg azonosítót!');
               return;
             }
@@ -99,15 +96,12 @@ $loginError = false;
             //Ideiglenes
             if (usrInput.value === 'lolcat' && passInput.value !== '') 
             {
-              event.preventDefault();
-              alert('A lolcat felhasználóhoz nem tartozik jelszó!');
               return;
             }
            
             //A lolcat része Ideiglenes
             if(usrInput.value !== 'lolcat' && passInput.value === '')
             {
-              event.preventDefault();
               alert('Adjon meg jelszót!');
               return;
             }
