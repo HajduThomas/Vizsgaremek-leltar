@@ -1,6 +1,12 @@
+:root {
+  --default-light: #e2eaf0;
+  --default-dark: #111111;
+}
+
 body {
-  background-color: black;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  background-color: var(--default-dark);
+  color: var(--default-dark);
   height: 100%;
   margin: 0%;
 }

@@ -7,6 +7,7 @@
   --side-tab-width: 26px;
   /*Colors*/
   --default-light: #e2eaf0;
+  --default-dark: #111111;
   /*Temporary names until I figure out a better way*/
   --main-base: #5D93BA;
   --main-light: #A5C9E3;
@@ -22,12 +23,12 @@
 }
 
 html, body {
-  height: 100%;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   background-color: var(--default-light);
-  color: black;
-  padding: 0% !important;
-  margin: 0% !important;
+  color: var(--default-dark);
+  height: 100%;
+  padding: 0%;
+  margin: 0%;
 }
 
 * {
@@ -36,6 +37,7 @@ html, body {
 
 p, h1, h2 {
   text-align: center;
+  margin: 0;
 }
 
 a {
@@ -94,99 +96,110 @@ a {
   height: 100%;
 }
 
-.toppanel {
+/*header*/
+
+header {
   width: 100%;
+  height: var(--top-height);
 }
 
-.toppanel .header {
+.top {
   height: var(--top-header-height);
   padding: 12px;
   background-color: var(--main-base);
 }
 
-.toppanel img {
+header img {
   display: block;
   height: 100%;
   margin: 0 auto;
 }
 
-.toppanel #category {
+.catDisplay {
   margin: 0;
   font-size: 36px;
   font-weight: bold;
   color: var(--main-font-light);
 }
 
-.toppanel .footrow {
+/*option row*/
+
+.options {
   height: var(--top-option-height);
   background-color: var(--comp-base);
-  overflow: hidden;
+  display: inline-flex;
+  width: inherit;
 }
 
-.footrow button,
-.footrow input[type="text"] {
+.options button,
+.options input[type="text"] {
   border: none;
   background-color: transparent;
   color: inherit;
-  transition: 160ms;
+  transition: 60ms;
 }
 
-.sidepanel .footrow {
-  text-align: center;
+/*Side ootion row*/
+
+.sideOp {
+  justify-content: center;
 }
 
-.sidepanel .footrow button {
+.sideOp button {
   height: var(--top-option-height);
 }
 
-.sidepanel .footrow button:hover {
+.sideOp button:hover {
   filter: brightness(140%);
 }
 
-.sidepanel .footrow button:active {
+.sideOp button:active {
   filter: invert();
 }
 
-.mainpanel .footrow {
-  padding: 3px 0 3px;
+/*Main option row*/
+
+.mainOp {
+  padding: 3px 0;
+  justify-content: space-between;
 }
 
-.mainpanel .footrow button,
-.mainpanel .footrow input[type="text"] {
+.swidth {
+  min-width: 240px;
+}
+
+.mainOp button,
+.mainOp input[type="text"] {
+  background-color: var(--comp-light);
+  color: var(--comp-font-dark);
   height: 100%;
   margin: 0 4px;
   font-weight: bold;
   border-bottom: 2px solid var(--comp-dark);
   border-radius: 4px;
-  background-color: var(--comp-light);
-  color: var(--comp-font-dark);
 }
 
-.mainpanel .footrow input[type="text"] {
-  width: 360px;
-  float: right;
+.mainOp button {
+  width: 24px;
 }
 
-.mainpanel .footrow button {
-  width: 120px;
-  float: left;
-}
-
-.mainpanel .footrow button:hover,
-.mainpanel .footrow input[type="text"]:hover {
+.mainOp button:hover,
+.mainOp input[type="text"]:hover {
   border: 0;
   border-bottom: 2px solid var(--comp-font-dark);
   background-color: var(--comp-dark);
   color: var(--comp-font-light);
 }
 
-.mainpanel .footrow button:active,
-.mainpanel .footrow input[type="text"]:focus {
+.mainOp button:active,
+.mainOp input[type="text"]:focus {
   border-bottom: 2px solid var(--comp-font-dark);
   outline: none;
   background-color: var(--comp-font-light);
   color: var(--comp-font-dark);
 }
+
+/*Containers*/
 
 .container {
   height: calc(100% - var(--top-height));

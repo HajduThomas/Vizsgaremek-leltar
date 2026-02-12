@@ -84,7 +84,7 @@
       } else {
         
         //This might be vulnerable to sql code exec, need to look into it.
-        $stmt = $conn->prepare("SELECT * FROM felhasznalo WHERE azonosito = :usr AND jelszo = :pass");
+        $stmt = $conn->prepare("SELECT * FROM user WHERE azonosito = :usr AND jelszo = :pass");
         $stmt->bindParam(':usr', $usr);
         $stmt->bindParam(':pass', $pass);
         $stmt->execute();

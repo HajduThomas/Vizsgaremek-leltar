@@ -16,21 +16,19 @@
 
     <div class="slider">
       <div class="sidepanel">
-        <div class="toppanel">
-
-          <div class="header">
+        <header>
+          <div class="top">
             <img src="./assets/pixelcat.png" alt="pixelcat">
           </div>
-          
-          <div class="footrow">
+          <div class="options sideOp">
             <button><img src="./assets/pixelcat.png" alt="1"></button>
-            <button><img src="./assets/pixelcat.png" alt="1"></button>
-            <button><img src="./assets/pixelcat.png" alt="1"></button>
-            <button><img src="./assets/pixelcat.png" alt="1"></button>
-            <button><img src="./assets/pixelcat.png" alt="1"></button>
+            <button><img src="./assets/pixelcat.png" alt="2"></button>
+            <button><img src="./assets/pixelcat.png" alt="3"></button>
+            <button><img src="./assets/pixelcat.png" alt="4"></button>
+            <button><img src="./assets/pixelcat.png" alt="5"></button>
           </div>
 
-        </div>
+        </header>
 
         <div id="catSelect" class="container">
         </div>
@@ -43,21 +41,22 @@
     </div>
 
     <div class="mainpanel">
-      <div class="toppanel">
-
-        <div class="header">
-          <p id="category">Category</p>
+      <header>
+        <div class="top">
+          <h1 class="catDisplay" id="category">Category</p>
         </div>
         
-        <div class="footrow">
-          <button>Option 1</button>
-          <button>Option 2</button>
-          <button>Option 3</button>
-          <input type="text" placeholder="Search..." autocomplete="off">
-          
+        <div class="options mainOp">
+          <input class="swidth" type="text" placeholder="Search..." autocomplete="off">
+          <div class="pages">
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+          </div>
+          <div class="swidth"></div>
         </div>
 
-      </div>
+      </header>
       
       <div class="container">
 
