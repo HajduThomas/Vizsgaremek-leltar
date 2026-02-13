@@ -48,7 +48,7 @@
         
         <div class="options mainOp">
           <input class="swidth" type="text" placeholder="Search..." autocomplete="off">
-          <div class="pages">
+          <div class="swidth">
             <button>1</button>
             <button>2</button>
             <button>3</button>

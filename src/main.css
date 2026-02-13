@@ -45,21 +45,40 @@ a {
   color: inherit;
 }
 
-.slider {
-  height: 100%;
-  position: fixed;
-  left: calc(0px - (var(--sidepanel-width)));
-  overflow: hidden;
-  transition: 0.5s;
-  z-index: 5;
+@media screen and (min-width: 1201px) {
+  .slider {
+    position: static;
+    left: 0;
+    float: left;
+  }
+  .sideTab {
+    display: none;
+  }
+  .mainpanel {
+    width: calc(100% - var(--sidepanel-width));
+    position: absolute;
+    left: var(--sidepanel-width);
+  }
 }
 
-/*Need to rething the hover tab*/
-.slider:hover {
-  left: 0 !important;
+@media screen and (max-width: 1200px) {
+  .slider {
+    position: fixed;
+    left: calc(0px - (var(--sidepanel-width)));
+    transition: 0.5s;
+    z-index: 5;
+  }
+  .slider:hover {
+    left: 0 !important;
+  }
+  .slider:hover .sidepanel {
+    box-shadow: 2px 0 12px 6px color-mix(in srgb, var(--main-dark), transparent 80%);
+  }
 }
-.slider:hover .sidepanel {
-  box-shadow: 2px 0 12px 6px color-mix(in srgb, var(--main-dark), transparent 80%);
+
+.slider {
+  height: 100%;
+  overflow: hidden;
 }
 
 .sidepanel {
@@ -71,7 +90,7 @@ a {
 
 .sideTab {
   width: var(--side-tab-width);
-  height: var(--top-height);
+  height: inherit;
   float: left;
 }
 
@@ -161,11 +180,15 @@ header img {
 
 .mainOp {
   padding: 3px 0;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .swidth {
-  min-width: 240px;
+  min-width: 160px;
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
 }
 
 .mainOp button,
@@ -173,7 +196,6 @@ header img {
   background-color: var(--comp-light);
   color: var(--comp-font-dark);
   height: 100%;
-  margin: 0 4px;
   font-weight: bold;
   border-bottom: 2px solid var(--comp-dark);
   border-radius: 4px;
