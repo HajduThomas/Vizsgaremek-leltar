@@ -18,8 +18,8 @@
   try {
     $dbname = "tester";
     $host = "localhost";
-    $user ="root";
-    $password = "";
+    $user ="malog";
+    $password = "sans";
 
     $db = new PDO(
         "mysql:host=$host;dbname=$dbname;charset=utf8",
@@ -47,29 +47,35 @@ $categories = [
   "mirelit" => "Mirelit Aru"
 ];
 
-$currentCategory = $_GET["cat"] ?? "showcase";
+$opt = false;
 
-if (!array_key_exists($currentCategory, $categories)) {
-  $currentCategory = "showcase";
-}
-
-$search = $_GET["search"] ?? "";
-
-if ($search !== ""){
-  $stmt = $db->prepare("
-  SELECT * FROM `$currentCategory`
-  WHERE nev LIKE :search OR tomegfajta LIKE :search
-  ");
-  $stmt->execute([
-    ":search" => "%$search%"
-  ]);
+if ($_GET["opt"]) {
+  $opt = true;
 } else {
-  $stmt = $db->prepare("SELECT * FROM `$currentCategory`");
-  $stmt->execute();
+
+  $currentCategory = $_GET["cat"] ?? "showcase";
+
+  if (!array_key_exists($currentCategory, $categories)) {
+    $currentCategory = "showcase";
+  }
+
+  $search = $_GET["search"] ?? "";
+
+  if ($search !== ""){
+    $stmt = $db->prepare("
+    SELECT * FROM `$currentCategory`
+    WHERE nev LIKE :search OR tomegfajta LIKE :search
+    ");
+    $stmt->execute([
+      ":search" => "%$search%"
+    ]);
+  } else {
+    $stmt = $db->prepare("SELECT * FROM `$currentCategory`");
+    $stmt->execute();
+  }
+
+  $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-
-$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 ?>
   
     <div class="slider">
@@ -81,11 +87,7 @@ $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
           </div>
           
           <div class="footrow">
-            <button class="tag1"><img src="./assets/pixelcat.png" alt="1"></button>
-            <button class="tag1"><img src="./assets/pixelcat.png" alt="1"></button>
-            <button class="tag1"><img src="./assets/pixelcat.png" alt="1"></button>
-            <button class="tag1"><img src="./assets/pixelcat.png" alt="1"></button>
-            <button class="tag1"><img src="./assets/pixelcat.png" alt="1"></button>
+            <a href='?opt=1' class="tag1"><img src="./assets/pixelcat.png" alt="1"></a>
           </div>
 
         </div>
@@ -108,13 +110,15 @@ $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <div class="toppanel">
 
         <div class="header">
-          <p id="category"><?= $categories[$currentCategory] ?></p>
+          <p id="category">
+            <?php
+            if ($opt) { echo 'Options!'; }
+            else { echo $categories[$currentCategory]; };
+           ?>
+          </p>
         </div>
         
         <div class="footrow">
-          <button class="tag2">Option 1</button>
-          <button class="tag2">Option 2</button>
-          <button class="tag2">Option 3</button>
 
           <form method="GET" style="display:inline;">
               <input type="hidden" name="cat" value="<?= $currentCategory ?>">
@@ -132,20 +136,22 @@ $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
       </div>
       
       <div class="container">
-
-        <table class="content" id="dataTable">
-          <thead>
-            <tr>
-              <?php
-              $row = $data[0];
-              foreach ($row as $key => $value) {
-                echo "<th>{$key}</th>";
-              }
-              ?>
-            </tr>
-          </thead>
-          <tbody>
-          <?php
+        <?php if ($opt) {
+          echo '<form style="text-align: center">';
+          echo '<legend>options?</legend><br>';
+          echo '<button>yes</button><button>no</button>';
+          echo '</form>';
+        } else {
+          echo '<table class="content" id="dataTable">';
+          echo '<thead>';
+          echo '<tr>';
+          $row = $data[0];
+          foreach ($row as $key => $value) {
+            echo "<th>{$key}</th>";
+          }
+          echo '</tr>';
+          echo '</thead>';
+          echo '<tbody>';
           foreach ($data as $row){
             echo "<tr>";
             foreach ($row as $key => $value) {
@@ -153,9 +159,11 @@ $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
             }
             echo "</tr>";
           }
+          echo '</tbody>';
+          echo '</table>';
+        }
+              
           ?>
-          </tbody>
-        </table>
 
         
         <script>
