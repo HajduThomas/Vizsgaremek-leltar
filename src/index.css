@@ -15,11 +15,6 @@ body {
   box-sizing: border-box;
 }
 
-@font-face {
-  font-family: Strive;
-  src: url(./assets/Impact-Strive.otf);
-}
-
 .background {
   position: fixed;
   height: 100%;

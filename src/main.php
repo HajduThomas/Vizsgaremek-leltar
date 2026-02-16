@@ -16,53 +16,51 @@
 
     <div class="slider">
       <div class="sidepanel">
-        <header>
-          <div class="top">
-            <img src="./assets/pixelcat.png" alt="pixelcat">
-          </div>
-          <div class="options sideOp">
-            <button><img src="./assets/pixelcat.png" alt="1"></button>
-            <button><img src="./assets/pixelcat.png" alt="2"></button>
-            <button><img src="./assets/pixelcat.png" alt="3"></button>
-            <button><img src="./assets/pixelcat.png" alt="4"></button>
-            <button><img src="./assets/pixelcat.png" alt="5"></button>
-          </div>
+        <div class="top">
+          <div class="logo"></div>
+        </div>
 
-        </header>
-
-        <div id="catSelect" class="container">
+        <div class="container">
+          <div id="categories" class="categories">
+            <h2>Tables</h2>
+            <!--Insert categories here-->
+          </div>
         </div>
 
       </div>
       
       <div class="sideTab">
-        <div class="tab"><img src="./assets/pixelcat.png" alt=">"></div>
+        <div class="tab"></div>
       </div>
     </div>
 
     <div class="mainpanel">
       <header>
         <div class="top">
-          <h1 class="catDisplay" id="category">Category</p>
+          <div class="swidth ovr"></div>
+          <h1 class="swidth catDisplay" id="category"></h1>
+          <div class="swidth ovr">
+            <div class="menu"></div>
+          </div>
+          
         </div>
         
-        <div class="options mainOp">
-          <input class="swidth" type="text" placeholder="Search..." autocomplete="off">
-          <div class="swidth">
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
+        <div class="options">
+
+          <div class="swidth ovr">
+            <button class="bclr">1</button>
+            <button class="bclr">2</button>
+            <button class="bclr">3</button>
           </div>
-          <div class="swidth"></div>
+          <input class="swidth bclr" type="text" placeholder="Search..." autocomplete="off">
+          <div class="swidth ovr"></div>
         </div>
 
       </header>
       
       <div class="container">
 
-        <table class="content" id="dataTable">
-          <tbody></tbody>
-        </table>
+        <table class="content" id="dataTable"><!--Insert table contents here--></table>
 
         <script>
 
@@ -74,7 +72,7 @@
 
         const dataTable = document.getElementById("dataTable");
         const catDisplay = document.getElementById("category");
-        const catSelect = document.getElementById("catSelect");
+        const categories = document.getElementById("categories");
 
         //This is only for testing
         //replace with sql
@@ -106,7 +104,9 @@
             names: ["Latin Lingo", "Purple Pills", "A Blast Beat", "Shield Sister", "Lagtrain", "Levitate", "MoeChakkaFire", "Methods of Madness", "Extras (city pop cover)"],
             descs: ["Cypress Hill", "D12", "Dune", "Garrett Williamson", "girl_dm_ / darkbluecat", "Hollywood Undead", "issey", "James Landino", "jen"],
             durs: ["3:58", "5:04", "3:05", "2:35", "4:11", "3:24", "2:35", "1:58", "6:07"]
-          }
+          },
+          //category capacity
+          //{catName: "fill"},{catName: "fill"},{catName: "fill"},{catName: "fill"},{catName: "fill"},{catName: "fill"},{catName: "fill"},{catName: "fill"},{catName: "fill"},{catName: "fill"},{catName: "fill"},{catName: "fill"},{catName: "fill"},{catName: "fill"},{catName: "fill"},{catName: "fill"},{catName: "fill"},{catName: "fill"}
         ]
 
         function fillTable(id) {
@@ -176,28 +176,15 @@
           fillTable(target.cat);
         }
         
-        //
         for (let i = 0; i < results.length; i++) {
-          /*
-          //alt, might use
-          var catButton = document.createElement("button");
-          catButton.className = "category";
-          catButton.addEventListener("click", changeCat);
-          catButton.innerText = results[i].catName;
-          catButton.id = i;
-          */
           var catButton = document.createElement("a");
-          var catDiv = document.createElement("div");
-          catDiv.className = "category";
-          catDiv.innerText = results[i].catName;
-          catButton.appendChild(catDiv);
+          catButton.className = "category bclr";
+          catButton.innerText = results[i].catName;
           catButton.href = "#0";
           catButton.addEventListener("click", changeCat);
           catButton.cat = i;
-
-          catSelect.appendChild(catButton);
+          categories.appendChild(catButton);
         }
-
         catDisplay.innerText = results[0].catName;
         
       </script>
