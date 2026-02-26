@@ -25,7 +25,9 @@
         </div>
         <div class='sum'>
             
-          <h2 class='catTop'>Tables</h2>
+          <div class='catTop'>
+            <h2>Tables</h2>
+          </div>
           <div id="categories" class="container catCont">
             <!--Categories go here-->
           </div>
