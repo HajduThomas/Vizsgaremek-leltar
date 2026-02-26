@@ -13,6 +13,13 @@ if (time() > $_SESSION['expire']) {
     header("Location: ../index.php");
     exit;
 }
+
+if(isset($_POST['out'])){
+  session_unset();
+  session_destroy();
+  header("Location: ../index.php");
+  exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="hu">
@@ -118,11 +125,8 @@ $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="footrow">
           <button class="tag2">Option 1</button>
           <button class="tag2">Option 2</button>
-          <button class="tag2">Option 3</button>
-
           <form method="GET" style="display:inline;">
               <input type="hidden" name="cat" value="<?= $currentCategory ?>">
-
             <input
               type="text"
               name="search"
@@ -130,6 +134,9 @@ $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
               autocomplete="off"
               value="<?= htmlspecialchars($search) ?>"
             >
+          </form>
+          <form method="POST" style="display:inline;">
+            <button class="tag2" name="out">Kijelentkezés</button>
           </form>
         </div>
 

@@ -107,7 +107,7 @@ if (isset($_SESSION['id'])) {
           $_SESSION['username'] = $row['azonosito'];
           $_SESSION['password'] = $row['jelszo'];
           //majd át kell írni, hogy ne 5 másodperc legyen
-          $_SESSION['expire'] = time() + 5;
+          $_SESSION['expire'] = time() + 300;
           header('Location: ./src/main.php');
           exit;
         }
