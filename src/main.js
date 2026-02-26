@@ -62,7 +62,7 @@ function fillTable(id) {
         catDisplay.innerText = results[id].catName;
 
         options.style.display = "flex";
-        dataTable.style.display = "table";
+        dataTable.style.display = "flex";
         menu2.style.display = "none";
 
         for (let i = 0; i <= rows; i++) {
@@ -113,7 +113,7 @@ function fillTable(id) {
         }
 
         table.appendChild(tbody);
-        table.className = "content";
+        table.className = "dTable";
         dataTable.replaceChildren(table);
     }
 }
@@ -141,5 +141,5 @@ menu.cat = 'menu';
 menu.addEventListener('click', changeCat);
 
 document.getElementById("hue").oninput = function () {
-    document.documentElement.style.setProperty("--main-hue", this.value * 12);
+    document.documentElement.style.setProperty("--clr-hue", this.value * 12);
 }
