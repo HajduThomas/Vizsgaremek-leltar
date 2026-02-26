@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if (isset($_SESSION['id'])) 
+{
+  header("Location: src/main.php");
+  exit; 
+}
+?>
 <!DOCTYPE html>
 <html lang="hu">
 
@@ -5,6 +14,7 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="src/index.css">
+      <script src="login.js"></script>
       <title>Login</title>
   </head>
 
@@ -13,142 +23,103 @@
     <div class="background"></div>
 
     <?php
-    session_start();
+    //I pushed the php up here to allow the background and stuff to load.
+    //sliced off the session start, might put it back up top later
     ?>
-
+    
     <div class="center">
 
-    <?php
+      <?php
+      //We yet to learn php functions and stuff, but
+      // this could be done with a function that returns the page contents
+      //
+      //I REALLY hate this
+      //I do not like how php echos the site, it should be done using js
+      //works for now but I'll rewrite it when I'm done with main
+
       $dbname = "leltar";
       $host = "localhost";
-      $user = "root";
+      $user ="root";
       $password = "";
 
-      $error = '';
-      $usr = '';
-
-      try {
+      try
+      {
         $conn = new PDO("mysql:host=$host; dbname=$dbname; charset=utf8", $user, $password);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        if (isset($_POST['login'])) {
-          $usr = trim($_POST['usr'] ?? '');
-          $pass = trim($_POST['pass'] ?? '');
-
-          if (empty($usr)) {
-            $error = 'Adjon meg felhasználónevet!';
-          } else {
-            if ($usr === 'lolcat') 
-            {
-              // lolcat esetén jelszó nélkül is beengedjük, ha létezik a felhasználó
-              $stmt = $conn->prepare("SELECT * FROM felhasznalo WHERE azonosito = :usr");
-              $stmt->bindParam(':usr', $usr);
-            } 
-            else 
-            {
-              if (empty($pass)) 
-                {
-                    $error = 'Adjon meg jelszót!';
-                } 
-              else 
-                {
-                    $stmt = $conn->prepare("SELECT * FROM felhasznalo WHERE azonosito = :usr AND jelszo = :pass");
-                    $stmt->bindParam(':usr', $usr);
-                    $stmt->bindParam(':pass', $pass);
-                }
-            }
-
-            if (!empty($stmt)) 
-            {
-              $stmt->execute();
-              $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-              if ($row) 
-                {
-                    $_SESSION['id'] = $row['id'];
-                    $_SESSION['username'] = $row['azonosito'];
-                    $_SESSION['password'] = $row['jelszo'];
-                    header('Location: ./src/main.php');
-                    exit;
-                } 
-                else 
-                {
-                    $error = 'Helytelen felhasználó vagy jelszó';
-                }
-            }
-          }
-        }
-
+        $conn ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        //Return the login form when the connection is good.
         echo "
           <form action=\"\" method=\"post\">
             <h1>Login</h1><br>
-        ";
-
-        if ($error && $error === 'Helytelen felhasználó vagy jelszó') 
-        {
-            echo "<p style=\"color: red;\">" . htmlspecialchars($error) . "</p><br>";
-        } 
-        elseif ($error) 
-        {
-          // Az empty hibákat nem írjuk ki a formba, mert JS kezeli, de PHP véd
-        }
-
-        echo "
             <label for=\"usr\">Username:</label>
-            <input type=\"text\" name=\"usr\" id=\"usr\" placeholder=\"Azonosito\" value=\"" . htmlspecialchars($usr) . "\"><br>
+            <input type=\"text\" name=\"usr\" id=\"usr\" placeholder=\"Azonosito\"><br>
             <label for=\"pass\">Password:</label>
             <input type=\"password\" name=\"pass\" id=\"pass\" placeholder=\"Jelszó\"><br><br>
             <input type=\"submit\" name=\"login\" id=\"login\" value=\"Belépés\">
           </form>
         ";
-      } 
-      catch (PDOException $e) 
-      {
-        echo "<form>";
-        die("Sikertelen adatbázis csatlakozás: " . $e->getMessage());
-        echo "</form>";
       }
+      catch(PDOException $e)
+      {
+        //Return error form when the connection is bad
+        //allows me to style the error
+        //Will replace with a database connection form later
+        echo "
+          <form>
+          ";
+          die("Sikertelen adatbázis csatlakozás: ".$e->getMessage());
+          echo "
+          </form>
+        ";
+      }
+
+      //What does this do?
+      //why is it here?
+
       ?>
 
+      
     </div>
 
-    <script>
-    document.addEventListener('DOMContentLoaded', function() 
+    <?php
+    //I don't like this, cannot properly handle bad passwords/users not found
+    //It just reloads the page with no output
+    if (isset($_POST['login'])) 
     {
-        const form = document.querySelector('form');
-        if (form)
-          {
-            form.addEventListener('submit', function(event) 
-            {
-                const usrInput = document.getElementById('usr');
-                const passInput = document.getElementById('pass');
-                const usr = usrInput.value.trim();
-                const pass = passInput.value.trim();
-                
-                if (!usr) 
-                  {
-                    alert('Adjon meg felhasználónevet!');
-                    event.preventDefault();
-                    return;
-                }
-                
-                //lolcat ideiglenes
-                else if (usr === 'lolcat') 
-                {
-                    return;
-                }
-                
-                else if (!pass) 
-                {
-                    alert('Adjon meg jelszót!');
-                    event.preventDefault();
-                }
-            });
-        }
-    });
-    </script>
 
-<?php ob_end_flush(); ?>
+      $usr = trim($_POST['usr'] ?? '');
+      $pass = trim($_POST['pass'] ?? '');
+      //Don't use this, keep it case sensitive
+      //$usr = mb_strtolower($usr, 'UTF-8');
+
+      //this check should be done using javascript
+      //this sends the form even if it's wrong
+      if (empty($usr)) 
+      {
+        echo "<script>alert('Adjon meg felhasználónevet!')</script>";
+      } 
+      else 
+      {
+        
+        //I need to check how this works
+        $stmt = $conn->prepare("SELECT * FROM felhasznalo WHERE azonosito = :usr AND jelszo = :pass");
+        $stmt->bindParam(':usr', $usr);
+        $stmt->bindParam(':pass', $pass);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);       
+            
+        if ($row) 
+        {
+          $_SESSION['id'] = $row['id'];
+          $_SESSION['username'] = $row['azonosito'];
+          $_SESSION['password'] = $row['jelszo'];
+          //majd át kell írni, hogy ne 5 másodperc legyen
+          $_SESSION['expire'] = time() + 300;
+          header('Location: ./src/main.php');
+          exit;
+        }
+      }
+    }
+    ?>
 
   </body>
 

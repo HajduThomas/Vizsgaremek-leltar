@@ -1,18 +1,29 @@
 <?php
 session_start();
-if(!isset($_SESSION['id']) || !isset($_SESSION['username']))
+
+// Ha nincs bejelentkezve
+if (!isset($_SESSION['id'])) {
+    header("Location: ../index.php");
+    exit;
+}
+
+// Ha lejárt az idő
+if (time() > $_SESSION['expire']) 
 {
-  header('Location: ../index.php');
+  session_destroy();
+  header("Location: ../index.php");
   exit;
 }
 
-$dbname = "leltar";
-$host = "localhost";
-$user = "root";
-$password = "";
+if(isset($_POST['out']))
+{
+  session_unset();
+  session_destroy();
+  header("Location: ../index.php");
+  exit;
+}
 
 ?>
-
 <!DOCTYPE html>
 <html lang="hu">
 
@@ -22,13 +33,66 @@ $password = "";
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="./main.css">
       <link rel="icon" href="./assets/pixelcat.png">
-
       <title>Leltarozo</title>
-
+      
   </head>
 
   <body>
 
+  <?php
+  try 
+  {
+    $db = new PDO(
+        "mysql:host=localhost;dbname=leltar;charset=utf8",
+        "root",
+        ""
+    );
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} 
+catch (PDOException $error) 
+{
+    echo "<p>Adatbázis hiba: {$error->getMessage()}</p>";
+    die();
+}
+
+$categories = 
+[
+  "mirelit" => "Mirelit",
+  "szarazaruk" => "Szárazáruk",
+  "tejtermek" => "Tejtermék",
+  "vegyiaruk" => "Vegyiáruk"
+];
+
+$currentCategory = $_GET["cat"] ?? "mirelit";
+
+if (!array_key_exists($currentCategory, $categories)) 
+{
+  $currentCategory = "mirelit";
+}
+
+$search = $_GET["search"] ?? "";
+
+if ($search !== "")
+{
+  $stmt = $db->prepare("
+  SELECT * FROM `$currentCategory`
+  WHERE nev LIKE :search OR tomegfajta LIKE :search
+  ");
+  $stmt->execute([
+    ":search" => "%$search%"
+  ]);
+} 
+else 
+{
+  $stmt = $db->prepare("SELECT * FROM `$currentCategory`");
+  $stmt->execute();
+}
+
+$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+?>
+  
     <div class="slider">
       <div class="sidepanel">
         <div class="toppanel">
@@ -48,6 +112,11 @@ $password = "";
         </div>
 
         <div id="catSelect" class="container">
+          <?php
+          foreach($categories as $key => $value){
+            echo "<a href='?cat=$key'><div class='category'>$value</div></a>";
+          }
+          ?>
         </div>
 
       </div>
@@ -60,26 +129,54 @@ $password = "";
       <div class="toppanel">
 
         <div class="header">
-          <p id="category">Category</p>
+          <p id="category"><?= $categories[$currentCategory] ?></p>
         </div>
         
-        <div class="footrow">
+        <div class="footrow" method="post">
           <button class="tag2">Option 1</button>
           <button class="tag2">Option 2</button>
-          <button class="tag2">Option 3</button>
-          <input type="text" placeholder="Search..." autocomplete="off">
-        </div>
+          
+          <form  method="GET" style="display:inline;">
+              <input type="hidden" name="cat" value="<?= $currentCategory ?>">
 
+            <input
+              type="text"
+              name="search"
+              placeholder="Search..."
+              autocomplete="off"
+              value="<?= htmlspecialchars($search) ?>"
+            >
+          </form>
+          <form method="post" style="display:inline;">
+            <button class="tag2" name="out" >Kijelentkezés</button>
+          </form>
+        </div>
       </div>
       
       <div class="container">
 
         <table class="content" id="dataTable">
-          <tbody></tbody>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Név</th>
+              <th>Tömeg</th>
+              <th>Tömegfajta</th>
+              <th>Darabszám</th>
+            </tr>
+          </thead>
+          <tbody>
+          <?php
+          foreach ($data as $row){
+            echo "<tr><td>{$row['id']}</td><td>{$row['nev']}</td><td>{$row['tomeg']}</td><td>{$row['tomegfajta']}</td><td>{$row['darabszam']}</td></tr>";
+          }
+          ?>
+          </tbody>
         </table>
 
+        
         <script>
-
+        /*
         //TODO:
         //implement reading from sql
         //implement pagination
@@ -90,10 +187,12 @@ $password = "";
         const catDisplay = document.getElementById("category");
         const catSelect = document.getElementById("catSelect");
 
+
         //This is only for testing
         //replace with sql
         const rows = 200;
         const cols = 7;
+
 
         const results = [
           {
@@ -123,7 +222,8 @@ $password = "";
           }
         ]
 
-        function fillTable(id) {
+        <script>
+        function fil  lTable(id) {
           
           var row;
           var col;
@@ -192,14 +292,14 @@ $password = "";
         
         //
         for (let i = 0; i < results.length; i++) {
-          /*
+          ---------
           //alt, might use
           var catButton = document.createElement("button");
           catButton.className = "category";
           catButton.addEventListener("click", changeCat);
           catButton.innerText = results[i].catName;
           catButton.id = i;
-          */
+          ---------
           var catButton = document.createElement("a");
           var catDiv = document.createElement("div");
           catDiv.className = "category";
@@ -213,7 +313,7 @@ $password = "";
         }
 
         catDisplay.innerText = results[0].catName;
-        
+        */
       </script>
 
       </div>
