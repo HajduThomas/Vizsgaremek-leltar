@@ -1,3 +1,19 @@
+<?php
+session_start();
+
+// Ha nincs bejelentkezve
+if (!isset($_SESSION['id'])) {
+    header("Location: ../index.php");
+    exit;
+}
+
+// Ha lejárt az idő
+if (time() > $_SESSION['expire']) {
+    session_destroy();
+    header("Location: ../index.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="hu">
 

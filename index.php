@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if (isset($_SESSION['id'])) {
+    header("Location: src/main.php");
+    exit; 
+}
+?>
 <!DOCTYPE html>
 <html lang="hu">
 
@@ -15,8 +23,6 @@
     <?php
     //I pushed the php up here to allow the background and stuff to load.
     //sliced off the session start, might put it back up top later
-    session_start();
-
     ?>
     
     <div class="center">
@@ -100,6 +106,7 @@
           $_SESSION['id'] = $row['id'];
           $_SESSION['username'] = $row['azonosito'];
           $_SESSION['password'] = $row['jelszo'];
+          $_SESSION['expire'] = time() + 5;
           header('Location: ./src/main.php');
           exit;
         }
