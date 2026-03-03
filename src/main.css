@@ -14,7 +14,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --clr-fore: hsl(var(--clr-hue), var(--clr-sat), 92%);
+    --clr-fore: hsl(var(--clr-hue), var(--clr-sat), 97%);
     --clr-body: hsl(var(--clr-hue), var(--clr-sat), 8%);
     --clr-main: hsl(var(--clr-hue), var(--clr-sat), 4%);
     --clr-border: hsl(var(--clr-hue), var(--clr-sat), 16%);
@@ -61,14 +61,54 @@ a {
 /*
  * This for options
  * W.I.P
+ * Great thanks to our sponsor: W3SCHOOLS for providing me with free css :)
  */
 
-.menu2 {
-  width: 100%;
-  height: 100%;
+.setOption {
   display: flex;
-  flex-direction: column;
-  padding: 12px;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80%;
+  margin: 1vh auto;
+  min-height: 3rem;
+  align-items: center;
+}
+
+.setOption label {
+  font-size: 1.4rem;
+}
+
+.setOption input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 40%;
+  height: .8rem;
+  border-radius: 6px;
+  background-color: var(--clr-main-alt);
+  border: 1px solid var(--clr-fore);
+  outline: none;
+}
+
+.setOption input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1.4rem;
+  height: 1.4rem;
+  background: var(--clr-fore);
+  outline: none;
+  border: 1px solid var(--clr-fore);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.setOption input[type="range"]::-moz-range-thumb {
+  width: 1.4rem;
+  height: 1.4rem;
+  background: var(--clr-hl);
+  outline: none;
+  border: 1px solid var(--clr-fore);
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 /* 

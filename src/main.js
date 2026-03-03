@@ -141,5 +141,5 @@ menu.cat = 'menu';
 menu.addEventListener('click', changeCat);
 
 document.getElementById("hue").oninput = function () {
-    document.documentElement.style.setProperty("--clr-hue", this.value * 12);
+    document.documentElement.style.setProperty("--clr-hue", this.value);
 }
