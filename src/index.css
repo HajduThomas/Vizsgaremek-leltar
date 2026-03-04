@@ -34,55 +34,53 @@ body {
   top: 40%;
   transform: translate(-50%, -50%);
   width: 50%;
-  
-  max-width: 480px;
-}
-
-form {
   background-color: white;
   padding: 20px;
   border-radius: 20px;
+  max-width: 480px;
 }
 
-form h1 {
+.center h1,
+.center h2 {
   text-align: center;
 }
 
-form input[type=text],
-form input[type=password] {
+.center input[type=text],
+.center input[type=password] {
   width: 78%; 
 }
 
-form input[type=submit] {
+.center input[type=submit] {
   display: block;
   margin: 0 auto;
   width: 86px;
 }
 
-form input {
+.center input {
   padding: 4px;
   background-color: rgb(242, 242, 242);
   border: none;
   border-bottom: 2px solid black;
-  transition: 0.2s;
+  transition: 100ms;
   border-radius: 4px;
   padding: 6px;
   outline: none;
 }
 
-form input:hover {
+.center input:hover {
   background-color: rgb(230, 230, 242);
 }
 
-form input:active,
-form input:focus {
+.center input:active,
+.center input[type=text]:focus,
+.center input[type=password]:focus {
   outline: none;
   background-color: rgb(224, 224, 242);
   border: none;
   border-bottom: 2px solid blue;
 }
 
-form label {
+.center label {
   display: inline-block;
   width: 20%;
   margin: 8px 0;
