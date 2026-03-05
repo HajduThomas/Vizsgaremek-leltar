@@ -1,5 +1,7 @@
 <?php
 header("Content-type: application/json");
+session_start();
+
 
 function response($msg, $code=200){
   if (empty($msg)){
@@ -15,7 +17,8 @@ $host = "localhost";
 $user ="root";
 $password = "";
 
-try {
+try 
+{
   $conn = new PDO("mysql:host=$host; dbname=$dbname; charset=utf8", $user, $password);
   $conn ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e){
@@ -39,7 +42,7 @@ if ($method == "POST") {
     response("JS skipped empty username/password check.\nplease enter username/password.", 500);
   } else {
     try {
-      $stmt = $conn->prepare("SELECT * FROM users WHERE azonosito = :usr AND jelszo = :pass");
+      $stmt = $conn->prepare("SELECT * FROM user WHERE azonosito = :usr AND jelszo = :pass");
       $stmt->bindParam(':usr', $usr);
       $stmt->bindParam(':pass', $pass);
       $stmt->execute();
