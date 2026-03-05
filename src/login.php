@@ -12,8 +12,8 @@ function response($msg, $code=200){
 
 $dbname = "leltar";
 $host = "localhost";
-$user ="malog";
-$password = "sans";
+$user ="root";
+$password = "";
 
 try {
   $conn = new PDO("mysql:host=$host; dbname=$dbname; charset=utf8", $user, $password);
@@ -34,15 +34,25 @@ if ($method == "GET") {
 if ($method == "POST") {
   $loginData = json_decode(file_get_contents("php://input"), true);
   $usr = $loginData["usr"];
-  if ($usr == '' || $usr === null) {
-    response("How?", 500);
+  $pass = $loginData["pass"];
+  if ($usr == '' || $usr === null || $pass == '' || $pass === null) {
+    response("JS skipped empty username/password check.\nplease enter username/password.", 500);
   } else {
     try {
-      response($usr);
+      $stmt = $conn->prepare("SELECT * FROM users WHERE azonosito = :usr AND jelszo = :pass");
+      $stmt->bindParam(':usr', $usr);
+      $stmt->bindParam(':pass', $pass);
+      $stmt->execute();
+      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+      if ($row) {
+        response("Found user");
+      } else {
+        response("User not found.", 401);
+      }
       //TODO: Check database, redirect
       //TIP: httpcode 400-499 for bad user info
     } catch (PDOException $e){
-      response("Adatbázis hiba", 500);
+      response("Adatbázis hiba:\n".$e->getMessage(), 500);
     }
   }
 }
