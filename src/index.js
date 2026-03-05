@@ -22,7 +22,7 @@ center.addEventListener('submit', function(event) {
     .then(result => {
         console.log(result);
         if (result.status == 200) {
-          window.location = window.location.href + "/src/main.php";
+          window.location = window.location.href + "src/main.html";
         } else if (result.status == 401) {
           errorShow("User not found.");
         } else {
