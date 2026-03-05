@@ -14,6 +14,7 @@ if (time() > $_SESSION['expire']) {
     exit;
 }
 
+// Ha kijelentkezik
 if(isset($_POST['out'])){
   session_unset();
   session_destroy();
@@ -125,6 +126,44 @@ $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="footrow">
           <button class="tag2">Option 1</button>
           <button class="tag2">Option 2</button>
+
+          <button class="tag2">Hozzáad</button>
+          <?php
+          /*
+          //Ez lesz a hozzáadó rész, csak meg kell csinálni a "Hozzáad" gombot pontosan
+
+            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitAdd"])) {
+            
+                $nev = trim($_POST["nev"]);
+                $tomeg = (int)$_POST["tomeg"];
+                $tomegfajta = trim($_POST["tomegfajta"]);
+                $darabszam = (int)$_POST["darabszam"];
+            
+                try {
+            
+                    $sql = "INSERT INTO `$currentCategory` (nev, tomeg, tomegfajta, darabszam) 
+                            VALUES (:nev, :tomeg, :tomegfajta, :darabszam)";
+            
+                    $query = $db->prepare($sql);
+            
+                    $query->bindParam(":nev", $nev);
+                    $query->bindParam(":tomeg", $tomeg);
+                    $query->bindParam(":tomegfajta", $tomegfajta);
+                    $query->bindParam(":darabszam", $darabszam);
+            
+                    $query->execute();
+            
+                    echo "<p style='color:lightgreen'>Termék sikeresen hozzáadva!</p>";
+            
+                } catch (PDOException $error) {
+                    echo "<p>Adatbázis hiba: {$error->getMessage()}</p>";
+                }
+            }
+          */
+          ?>
+
+          <button class="tag2">Törlés</button>
+
           <form method="GET" style="display:inline;">
               <input type="hidden" name="cat" value="<?= $currentCategory ?>">
             <input
