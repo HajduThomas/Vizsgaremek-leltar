@@ -4,39 +4,42 @@
   --top-option-height: 42px;
   --top-height: calc(var(--top-header-height) + var(--top-option-height));
   --sidepanel-w-min: 260px;
-  --sidepanel-w-normal: 10vw;
+  --sidepanel-w-normal: 16vw;
   --side-tab-width: 26px;
   /*Colors*/
   --clr-hue: 206;
-  --clr-sat: 60%;
  
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --clr-fore: hsl(var(--clr-hue), var(--clr-sat), 97%);
-    --clr-body: hsl(var(--clr-hue), var(--clr-sat), 8%);
-    --clr-main: hsl(var(--clr-hue), var(--clr-sat), 4%);
-    --clr-border: hsl(var(--clr-hue), var(--clr-sat), 16%);
-    --clr-main-alt: hsl(var(--clr-hue), var(--clr-sat), 6%);
+
+    --clr-fore: hsl(var(--clr-hue), 100%, 100%);
+    --clr-body: hsl(var(--clr-hue), 10%, 2%);
+    --clr-main: hsl(var(--clr-hue), 30%, 8%);
+    --clr-main-alt: hsl(var(--clr-hue), 20%, 5%);
+    --clr-main-head: hsl(var(--clr-hue), 20%, 4%);
+    --clr-border: hsl(var(--clr-hue), 60%, 17%);
     --clr-hl: hsl(var(--clr-hue), 80%, 26%);
   }
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    --clr-fore: hsl(var(--clr-hue), var(--clr-sat), 8%);
-    --clr-body: hsl(var(--clr-hue), var(--clr-sat), 92%);
-    --clr-main: hsl(var(--clr-hue), var(--clr-sat), 96%);
-    --clr-border: hsl(var(--clr-hue), var(--clr-sat), 84%);
-    --clr-main-alt: hsl(var(--clr-hue), var(--clr-sat), 94%);
+    --clr-fore: hsl(var(--clr-hue), 100%, 0%);
+    --clr-body: hsl(var(--clr-hue), 10%, 96%);
+    --clr-main: hsl(var(--clr-hue), 30%, 90%);
+    --clr-main-alt: hsl(var(--clr-hue), 20%, 93%);
+    --clr-main-head: hsl(var(--clr-hue), 20%, 94%);
+    --clr-border: hsl(var(--clr-hue), 60%, 83%);
     --clr-hl: hsl(var(--clr-hue), 80%, 74%);
   }
 }
 
 html, body {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: Calibri, 'Trebuchet MS', sans-serif;
   background-color: var(--clr-body);
+  transition: background-color 600ms, color 600ms;
   color: var(--clr-fore);
   height: 100%;
   padding: 0%;
@@ -45,9 +48,10 @@ html, body {
 
 * {
   box-sizing: border-box;
+  transition-timing-function: ease-in-out;
 }
 
-h1, h2 {
+h1, h2, p {
   text-align: center;
   font-weight: bold;
   margin: 0;
@@ -116,7 +120,7 @@ a {
  * Have sidepanel slide only from tab
  */
 
-@media screen and (min-width: 1201px) {
+@media screen and (min-width: 601px) {
   .slider {
     left: 0;
     float: left;
@@ -129,7 +133,7 @@ a {
   }
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 600px) {
   .slider {
     position: fixed;
     left: calc(0px - (var(--sidepanel-w-min)));
@@ -143,6 +147,7 @@ a {
   }
   .sidepanel {
     border-right: 2px solid var(--clr-main);
+    background-color: var(--clr-body);
     width: var(--sidepanel-w-min);
   }
 }
@@ -155,7 +160,6 @@ a {
 .sidepanel {
   height: 100%;
   float: left;
-  background-color: var(--clr-body);
   display: flex;
   flex-direction: column;
 }
@@ -175,6 +179,7 @@ a {
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
   background-color: var(--clr-main);
+  transition: background-color 600ms;
   position: relative;
   top: 5px;
 }
@@ -202,6 +207,10 @@ a {
 .menu {
   border-radius: 50%;
   height: 100%;
+  /*option for dark logos*/
+  filter: drop-shadow(1px 0 0 var(--clr-main)) drop-shadow(0 -1px 0 var(--clr-main))
+    drop-shadow(-1px 0 0 var(--clr-main)) drop-shadow(0 1px 0 var(--clr-main));
+
 }
 
 .menu:hover {
@@ -210,8 +219,8 @@ a {
 }
 
 .menu:active {
-  filter: drop-shadow(3px 0 0 var(--clr-hl)) drop-shadow(0 -3px 0 var(--clr-hl))
-    drop-shadow(-3px 0 0 var(--clr-hl)) drop-shadow(0 3px 0 var(--clr-hl));
+  filter: drop-shadow(2px 0 0 var(--clr-hl)) drop-shadow(0 -2px 0 var(--clr-hl))
+    drop-shadow(-2px 0 0 var(--clr-hl)) drop-shadow(0 2px 0 var(--clr-hl));
 }
 
 .menu:not(:active) {
@@ -231,7 +240,8 @@ a {
 }
 
 .sclr {
-  border-bottom: 2px solid var(--clr-border);
+  /*border-bottom: 2px solid var(--clr-border);*/
+  box-shadow: 0 2px var(--clr-border);
 }
 
 .bclr:hover, .bclr:focus-visible, .sclr:hover {
@@ -248,13 +258,13 @@ a {
 
 .sclr:focus {
   background-color: var(--clr-main-alt);
-  border-bottom-color: var(--clr-hl);
+  box-shadow: 0 2px var(--clr-hl);
   color: inherit;
   outline: none;
 }
 
 .sclr:not(:focus) {
-  transition: border-bottom-color 200ms ease-out;
+  transition: box-shadow 200ms ease-out, background-color 200ms ease-out;
 }
 
 .options {
@@ -266,15 +276,17 @@ a {
   padding: 6px;
   justify-content: space-evenly;
   border-bottom: 2px solid var(--clr-border);
+  transition: border-color 600ms;
 }
 
 .options button {
   height: 100%;
-  aspect-ratio: 4/3;
+  aspect-ratio: "4 / 3";
 }
 
 .catTop {
   border-bottom: 2px solid var(--clr-border);
+  transition: border-color 600ms;
   min-height: var(--top-option-height);
   max-height: var(--top-option-height);
   font-size: 1em;
@@ -295,6 +307,7 @@ a {
   width: 60%;
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 12px;
 }
 
@@ -314,6 +327,7 @@ a {
 
 .sumMain {
   background-color: var(--clr-main);
+  transition: background-color 600ms;
 }
 
 .container {
@@ -331,6 +345,7 @@ a {
 
 .mainCont {
   scrollbar-width: none;
+  scrollbar-gutter: inherit;
 }
 
 .mainCont:focus-visible, .mainCont:hover {
@@ -357,6 +372,7 @@ a {
   border-bottom-style: solid;
   border-color: var(--clr-border);
   background-color: var(--clr-main);
+  transition: background-color 600ms, border-color 600ms;
 }
 
 .dTable tr:nth-child(odd) td {
@@ -375,7 +391,7 @@ a {
   height: 32px;
   border-bottom-style: double;
   border-bottom-width: 3px;
-  background-color: var(--clr-main-alt);
+  background-color: var(--clr-main-head);
   position: sticky;
   top: 0;
   z-index: 1;
