@@ -58,6 +58,7 @@ function fillTable(id) {
         var col;
         var tbody = document.createElement("tbody");
         var table = document.createElement("table");
+        var drag;
 
         catDisplay.innerText = results[id].catName;
 
@@ -87,6 +88,18 @@ function fillTable(id) {
                             col.innerText = "Extra";
                             break;
                     }
+                    drag = document.createElement("span");
+                    drag.className = "resize-handle";
+
+                    drag.addEventListener('mousedown', colMoveInit);
+                    const max = 1 + 'fr';
+                    columns.push({
+                        col,
+                        // The initial size value for grid-template-columns:
+                        size: `minmax(${180}px, ${max})` 
+                    });
+                    
+                    if (o+1 < cols) col.append(drag);
                 } else {
                     switch (o) {
                         case 0:
@@ -114,9 +127,36 @@ function fillTable(id) {
 
         table.appendChild(tbody);
         table.className = "dTable";
+        table.id = "dTable";
         dataTable.replaceChildren(table);
     }
 }
+
+var colResizeTarget;
+const columns = [];
+
+// Some code "borrowed" from Webdevtrick ( https://webdevtrick.com/resizable-table-columns/ )
+// Please don't shoot be for this, others in my class only use AI code, just let me have this.
+const colMove = e => requestAnimationFrame( () => {
+    horizontalScrollOffset = dataTable.scrollLeft;
+    const width = horizontalScrollOffset + e.clientX - colResizeTarget.offsetLeft;
+    console.log("MainScrollOffset:"+horizontalScrollOffset + "\nClientX (mouse posX):" + e.clientX + "\nTargetOffset (?):" + colResizeTarget.offsetLeft);
+    console.log("Dragged column size:"+colResizeTarget.clientWidth);
+    colResizeTarget.style.width = width+"px";
+});
+
+const colMoveStop = () => {
+    window.removeEventListener('mousemove', colMove);
+    window.removeEventListener('mouseup', colMoveStop);
+}
+
+const colMoveInit = ({target}) => {
+    colResizeTarget = target.parentNode;
+    window.addEventListener('mousemove', colMove);
+    window.addEventListener('mouseup', colMoveStop);
+}
+
+//End of "borrowed" code
 
 fillTable(0);
 
