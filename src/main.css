@@ -13,7 +13,6 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-
     --clr-fore: hsl(var(--clr-hue), 100%, 100%);
     --clr-body: hsl(var(--clr-hue), 30%, 5%);
     --clr-main: hsl(var(--clr-hue), 30%, 8%);
