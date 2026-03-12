@@ -40,7 +40,7 @@ $results = [
   },
   //category capacity test
   { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }
-]
+];
 
 
 function fillTable(id) {
@@ -59,7 +59,7 @@ function fillTable(id) {
     $options.show();
     $dataTable.show();
     $menu2.hide();
-    
+
     let $row, $col, $drag;
     let $tbody = $("<tbody>");
     for (let i = 0; i <= rows; i++) {
@@ -84,14 +84,14 @@ function fillTable(id) {
               $col.text("Extra");
               break;
           }
-
-          if (o + 1 < cols) {
-            $drag = $("<span>", {'class': 'resize-handle'});
+          $($col).on('dblclick', function (e) {
+            $(e.target).removeAttr('style');
+          });
+          if (o != cols - 1) {
+            $drag = $("<span>", { 'class': 'resize-handle' });
             $drag.mousedown(colMoveInit);
             $col.append($drag);
           }
-
-
         } else {
           switch (o) {
             case 0:
@@ -101,7 +101,7 @@ function fillTable(id) {
               $col.text(($results[id].catName == "fill") ? "This is filler" : $results[id].names[(i - 1) % $results[id].names.length]);
               break;
             case 2:
-              $col.text(($results[id].catName == "fill") ? "Testing sizes" : $results[id].descs[(i - 1) % $results[id].descs.length]);
+              $col.text(($results[id].catName == "fill") ? "Testingsizeswwwwwwwwwwwwww" : $results[id].descs[(i - 1) % $results[id].descs.length]);
               break;
             case 3:
               $col.text(($results[id].catName == "fill") ? "DON'T LOOK DON'T LOOK DON'T LOOK DON'T LOOK DON'T LOOK DON'T LOOK" : $results[id].durs[(i - 1) % $results[id].durs.length]);
@@ -112,12 +112,12 @@ function fillTable(id) {
           }
         }
         $row.append($col);
-        $row.attr('id', i);
       }
+      if (i == 0) $row.attr('id', i);
       $tbody.append($row);
     }
 
-    let $table = $("<table>", {'class':'dTable', 'id':'dTable'}).append($tbody);
+    let $table = $("<table>", { 'class': 'dTable', 'id': 'dTable' }).append($tbody);
     $dataTable.html($table);
   }
 }
@@ -133,19 +133,19 @@ const colMove = e => requestAnimationFrame(() => {
   const width = horizontalScrollOffset + e.clientX - $colResizeTarget.offsetLeft;
   //console.log("MainScrollOffset:" + horizontalScrollOffset + "\nClientX (mouse posX):" + e.clientX + "\nTargetOffset (?):" + $colResizeTarget.offsetLeft);
   //console.log("Dragged column size:" + $colResizeTarget.clientWidth);
-  $colResizeTarget.style.width = width + "px";
+  $($colResizeTarget).attr('style', "width: " + width + "px");
 });
 
 const colMoveStop = () => {
   window.removeEventListener('mousemove', colMove);
   window.removeEventListener('mouseup', colMoveStop);
-}
+};
 
 const colMoveInit = ({ target }) => {
   $colResizeTarget = target.parentNode;
   window.addEventListener('mousemove', colMove);
   window.addEventListener('mouseup', colMoveStop);
-}
+};
 
 //End of "borrowed" code
 
@@ -159,7 +159,7 @@ function changeCat(event) {
 
 
 for (let i = 0; i < $results.length; i++) {
-  var catButton = $("<a>", {'class': 'category bclr', 'href': '#0'})
+  var catButton = $("<a>", { 'class': 'category bclr', 'href': '#0' })
     .prop('cat', i)
     .text($results[i].catName)
     .click(changeCat);
@@ -167,8 +167,8 @@ for (let i = 0; i < $results.length; i++) {
 }
 
 var menu = $("#menu");
-menu.prop('cat','menu')
-.click(changeCat);
+menu.prop('cat', 'menu')
+  .click(changeCat);
 
 $("#hue").on('input', function () {
   $(':root').css('--clr-hue', this.value);

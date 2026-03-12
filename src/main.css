@@ -3,44 +3,47 @@
   --top-header-height: 78px;
   --top-option-height: 42px;
   --top-height: calc(var(--top-header-height) + var(--top-option-height));
-  --sidepanel-w-min: 260px;
-  --sidepanel-w-normal: 18vmax;
+  --sidepanel-w: 260px;
   --side-tab-width: 26px;
   /*Colors*/
   --clr-hue: 206;
- 
+
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --clr-fore: hsl(var(--clr-hue), 100%, 100%);
-    --clr-body: hsl(var(--clr-hue), 30%, 5%);
-    --clr-main: hsl(var(--clr-hue), 30%, 8%);
-    --clr-main-alt: hsl(var(--clr-hue), 20%, 6%);
-    --clr-main-head: hsl(var(--clr-hue), 40%, 4%);
+    --clr-body: hsl(var(--clr-hue), 12%, 5%);
+    --clr-main: hsl(var(--clr-hue), 12%, 8%);
+    --clr-main-alt: hsl(var(--clr-hue), 20%, 8%);
+    --clr-main-head: hsl(var(--clr-hue), 30%, 8%);
     --clr-border: hsl(var(--clr-hue), 60%, 17%);
     --clr-hl: hsl(var(--clr-hue), 80%, 26%);
+  }
+
+  .optIcon {
+    filter: invert();
   }
 }
 
 @media (prefers-color-scheme: light) {
   :root {
     --clr-fore: hsl(var(--clr-hue), 100%, 0%);
-    --clr-body: hsl(var(--clr-hue), 30%, 95%);
-    --clr-main: hsl(var(--clr-hue), 30%, 90%);
-    --clr-main-alt: hsl(var(--clr-hue), 20%, 93%);
-    --clr-main-head: hsl(var(--clr-hue), 20%, 94%);
-    --clr-border: hsl(var(--clr-hue), 60%, 83%);
-    --clr-hl: hsl(var(--clr-hue), 80%, 74%);
+    --clr-body: hsl(var(--clr-hue), 12%, 92%);
+    --clr-main: hsl(var(--clr-hue), 12%, 89%);
+    --clr-main-alt: hsl(var(--clr-hue), 20%, 89%);
+    --clr-main-head: hsl(var(--clr-hue), 30%, 89%);
+    --clr-border: hsl(var(--clr-hue), 60%, 80%);
+    --clr-hl: hsl(var(--clr-hue), 80%, 71%);
   }
 }
 
-html, body {
+body {
   font-family: Calibri, 'Trebuchet MS', sans-serif;
   background-color: var(--clr-body);
   transition: background-color 600ms, color 600ms;
   color: var(--clr-fore);
-  height: 100%;
+  height: 100vh;
   padding: 0%;
   margin: 0%;
 }
@@ -50,7 +53,9 @@ html, body {
   transition-timing-function: ease-in-out;
 }
 
-h1, h2, p {
+h1,
+h2,
+p {
   font-size: 1em;
   text-align: center;
   font-weight: bold;
@@ -62,20 +67,24 @@ a {
   color: inherit;
 }
 
-/*
- * This for options
- * W.I.P
- * Great thanks to our sponsor: W3SCHOOLS for providing me with free css :)
- */
+img {
+  height: 100%;
+}
+
+.fCtr {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .setOption {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   width: 80%;
   margin: 1vh auto;
   min-height: 3em;
-  align-items: center;
 }
 
 .setOption label {
@@ -83,32 +92,22 @@ a {
 }
 
 .setOption input[type="range"] {
-  -webkit-appearance: none;
   appearance: none;
   width: 40%;
   height: .8em;
   border-radius: 6px;
   background-color: var(--clr-main-alt);
-  border: 1px solid var(--clr-fore);
+  transition: background-color 600ms, border-color 600ms;
+  border: 1px solid var(--clr-border);
   outline: none;
 }
 
-.setOption input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 1.4em;
-  height: 1.4em;
-  background: var(--clr-fore);
-  outline: none;
-  border: 1px solid var(--clr-fore);
-  border-radius: 50%;
-  cursor: pointer;
-}
-
+.setOption input[type="range"]::-webkit-slider-thumb,
 .setOption input[type="range"]::-moz-range-thumb {
   width: 1.4em;
   height: 1.4em;
-  background: var(--clr-hl);
+  background-color: var(--clr-hl);
+  transition: background-color 600ms;
   outline: none;
   border: 1px solid var(--clr-fore);
   border-radius: 50%;
@@ -120,35 +119,40 @@ a {
  * Have sidepanel slide only from tab
  */
 
-@media screen and (min-width: 601px) {
+@media screen and (min-width: 1201px) {
   .slider {
     left: 0;
     float: left;
   }
+
   .sideTab {
     display: none;
   }
+
   .sidepanel {
-    width: var(--sidepanel-w-normal);
+    width: var(--sidepanel-w);
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1200px) {
   .slider {
     position: fixed;
-    left: calc(0px - (var(--sidepanel-w-min)));
+    left: calc(-1 * (var(--sidepanel-w)));
     z-index: 5;
   }
+
   .slider:hover {
     left: 0;
   }
+
   .slider:hover .sidepanel {
     box-shadow: 2px 0 12px 12px color-mix(in srgb, var(--clr-body), transparent 80%);
   }
+
   .sidepanel {
     border-right: 2px solid var(--clr-main);
     background-color: var(--clr-body);
-    width: var(--sidepanel-w-min);
+    width: var(--sidepanel-w);
   }
 }
 
@@ -170,9 +174,10 @@ a {
   float: left;
 }
 
+/*All of this will be abolished*/
 .tab {
   height: 60px;
-  background-image: url(./assets/pixelcat.png);
+  background-image: url(./assets/icons/chevron-compact-right.svg);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -193,9 +198,6 @@ a {
 .top {
   min-height: var(--top-header-height);
   max-height: var(--top-header-height);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   padding: 6px;
 }
 
@@ -227,14 +229,11 @@ a {
   transition: filter 300ms ease-out;
 }
 
-.logo {
-  height: 100%;
-}
-
-.bclr, .sclr {
+.bclr,
+.sclr {
   border: none;
   color: inherit;
-  border-radius: 4px;
+  border-radius: 6px;
   background: none;
 }
 
@@ -243,7 +242,9 @@ a {
   box-shadow: 0 2px var(--clr-border);
 }
 
-.bclr:hover, .bclr:focus-visible, .sclr:hover {
+.bclr:hover,
+.bclr:focus-visible,
+.sclr:hover {
   outline: 2px solid var(--clr-hl);
 }
 
@@ -278,9 +279,14 @@ a {
   transition: border-color 600ms;
 }
 
-.options button {
+.options button,
+.options input {
   height: 100%;
-  aspect-ratio: "4 / 3";
+  aspect-ratio: 12 / 10;
+}
+
+.optIcon {
+  height: 1em;
 }
 
 .catTop {
@@ -289,13 +295,12 @@ a {
   min-height: var(--top-option-height);
   max-height: var(--top-option-height);
   font-size: 1.4em;
-  align-content: center;
   width: 100%;
 }
 
 .category {
   margin: 6px;
-  padding: 4px;
+  padding: .3em;
   font-size: 1.2em;
   text-align: center;
   scroll-snap-align: start;
@@ -304,9 +309,6 @@ a {
 .swidth {
   min-width: 160px;
   width: 60%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 12px;
 }
 
@@ -337,6 +339,13 @@ a {
 }
 
 .catCont {
+  background:
+    linear-gradient( to bottom, var(--clr-body) 6px, transparent 12px),
+    linear-gradient( to top, var(--clr-body) 6px, transparent 12px) 0 100%,
+    linear-gradient(to bottom, var(--clr-border) 2px, transparent 6px),
+    linear-gradient(to top, var(--clr-border) 2px, transparent 6px) 0% 100%;
+  background-attachment: local, local, scroll, scroll;
+
   scroll-padding: 6px;
   scroll-snap-type: y proximity;
   scrollbar-width: none;
@@ -344,15 +353,15 @@ a {
 
 .mainCont {
   scrollbar-width: none;
-  scrollbar-gutter: inherit;
 }
 
-.mainCont:focus-visible, .mainCont:hover {
+.mainCont:focus-visible,
+.mainCont:hover {
   outline: none;
   scrollbar-width: auto;
 }
 
-/*Datatable*/
+/* || Datatable*/
 
 .dTable {
   width: 100%;
@@ -363,9 +372,10 @@ a {
 
 .dTable th,
 .dTable td {
-  min-width: 180px;
-  width: 180px;
-  padding: 4px 12px;
+  min-width: 120px;
+  width: 200px;
+  overflow: hidden;
+  padding: 8px 12px;
   border-width: 1px;
   border-left-style: dashed;
   border-bottom-style: solid;
@@ -377,21 +387,12 @@ a {
 .resize-handle {
   position: absolute;
   top: 0;
-  right: -3px;
+  right: 0px;
   bottom: 0;
   background: black;
   opacity: 0;
   width: 6px;
   cursor: col-resize;
-}
-
-.resize-handle:hover,
-.header--being-resized .resize-handle {
-  opacity: 0.5;
-}
- 
-th:hover .resize-handle {
-  opacity: 0.3;
 }
 
 .dTable tr:nth-child(odd) td {
@@ -402,7 +403,6 @@ th:hover .resize-handle {
 .dTable td:nth-child(1) {
   min-width: 64px;
   width: 64px;
-  padding: 8px;
   border-left-style: none;
 }
 
@@ -418,4 +418,3 @@ th:hover .resize-handle {
 
 /*for testing*/
 /*.category:last-child, .dTable tr:last-child td {box-shadow: inset 0 -4px yellow;}
-

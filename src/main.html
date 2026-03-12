@@ -1,107 +1,105 @@
 <!DOCTYPE html>
 <html lang="hu">
 
-  <head>
-    
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="stylesheet" href="./main.css">
-      <link rel="icon" href="./assets/pixelcat.png">
-      <script src="jquery-4.0.0.min.js"></script>
-      <!--seperated for easy removal-->
-      <script src="main.js" defer></script>
+<head>
 
-      <title>Leltarozo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./main.css">
+  <link rel="icon" href="./assets/pixelcat.png">
+  <script src="jquery-4.0.0.min.js"></script>
+  <!--seperated for easy removal-->
+  <script src="main.js" defer></script>
 
-  </head>
+  <title>Leltarozo</title>
 
-  <body>
+</head>
 
-    <div class="slider">
-      <div class="sidepanel">
-        <div class="top">
-          <a id='menu' class="menu">
-            <img src="./assets/pixelcat.png" class="logo"></img>
-          </a>
-        </div>
-        <div class='sum'>
-            
-          <div class='catTop'>
-            <h2>Tables</h2>
-          </div>
-          <div id="categories" class="container catCont">
-            <!--Categories go here-->
-          </div>
-        </div>
+<body>
 
+  <div class="slider">
+    <div class="sidepanel">
+      <div class="top fCtr">
+        <a id="menu" class="menu">
+          <img alt="Logo Here!" src="./assets/pixelcat.png" class="logo">
+        </a>
       </div>
-      
-      <div class="sideTab">
-        <div class="tab"></div>
+      <div class="sum">
+
+        <div class="catTop fCtr">
+          <h2>Tables</h2>
+        </div>
+        <div id="categories" class="container catCont">
+          <!--Categories go here-->
+        </div>
       </div>
+
     </div>
 
-    <div class="mainpanel">
-      <div class="top">
-        <h1 class="swidth catDisplay" id="category"></h1>
-      </div>
-      
-      <div class="sum sumMain">
-        <div id="options" class="options">
-          <div class="swidth ovr">
-            <!--1:1 to google mail lol-->
-            <button class="bclr">[ ]</button> <!--nonfuctional-->
-            <button class="bclr">G</button> <!--nonfuctional-->
-            <button class="bclr">:</button> <!--nonfuctional-->
-          </div>
-          <input class="swidth sclr" type="text" placeholder="Search..." autocomplete="off">
-          <div class="swidth ovr">
-            <!--Pagination-->
-            <button id='prew' class="bclr"><</button>
-            <!--Need to fix this-->
-            <p id='curPg'>2</p>
-            <button id='next' class="bclr">></button>
-          </div>
-        </div>
-        <div id="dataTable" class="container mainCont"></div>
-        <div id="menu2" class="container mainCont">
-          <div class="setOption">
-            <label name="">Hue</label>
-            <input type="range" name="hue" id="hue" min="1" max="360" value="206" autocomplete="off">
-          </div>
-          <div class="setOption">
-            <label name="mode">Dark mode</label>
-            <input type="checkbox" name="mode" id="mode" autocomplete="off">
-          </div>
-          <div class="setOption">
-            <label name="mode">fill</label>
-            <input type="checkbox" name="mode" id="mode" autocomplete="off">
-          </div>
-          <div class="setOption">
-            <label name="mode">fill</label>
-            <input type="checkbox" name="mode" id="mode" autocomplete="off">
-          </div>
-          <div class="setOption">
-            <label name="mode">fill</label>
-            <input type="checkbox" name="mode" id="mode" autocomplete="off">
-          </div>
-          <div class="setOption">
-            <label name="mode">fill</label>
-            <input type="checkbox" name="mode" id="mode" autocomplete="off">
-          </div>
-          <div class="setOption">
-            <label name="mode">fill</label>
-            <input type="checkbox" name="mode" id="mode" autocomplete="off">
-          </div>
-          <div class="setOption">
-            <label name="mode">fill</label>
-            <input type="checkbox" name="mode" id="mode" autocomplete="off">
-          </div>
-        </div>
-      </div>
-      
+    <div class="sideTab">
+      <div class="tab"></div>
     </div>
-    
-  </body>
+  </div>
+
+  <div class="mainpanel">
+    <div class="top fCtr">
+      <h1 class="swidth catDisplay" id="category">Placeholder</h1>
+    </div>
+
+    <div class="sum sumMain">
+      <div id="options" class="options">
+        <div class="swidth ovr fCtr">
+          <!--1:1 to google mail lol-->
+          <button class="bclr fCtr"><img src="./assets/icons/square.svg" alt="[]" class="optIcon"></button> <!--nonfuctional-->
+          <button class="bclr fCtr"><img src="./assets/icons/arrow-clockwise.svg" alt="O" class="optIcon"></button> <!--nonfuctional-->
+          <button class="bclr fCtr"><img src="./assets/icons/three-dots-vertical.svg" alt="X" class="optIcon"></button> <!--nonfuctional-->
+        </div>
+        <input class="swidth sclr fCtr" type="text" placeholder="Search..." autocomplete="off">
+        <div class="swidth ovr fCtr">
+          <!--Pagination-->
+          <button id="prew" class="bclr fCtr"><img src="./assets/icons/chevron-left.svg" alt="&lt;" class="optIcon"></button>
+          <!--Need to fix this-->
+          <p id="curPg" class="fCtr">2</p>
+          <button id="next" class="bclr fCtr"><img src="./assets/icons/chevron-right.svg" alt="&gt;" class="optIcon"></button>
+        </div>
+      </div>
+      <div id="dataTable" class="container mainCont"></div>
+      <div id="menu2" class="container mainCont">
+        <div class="setOption">
+          <label>Hue</label>
+          <input type="range" id="hue" min="1" max="360" value="206" autocomplete="off">
+        </div>
+        <div class="setOption">
+          <label>Dark mode</label>
+          <input type="checkbox" id="mode">
+        </div>
+        <div class="setOption">
+          <label>fill</label>
+          <input type="checkbox" id="fill1">
+        </div>
+        <div class="setOption">
+          <label>fill</label>
+          <input type="checkbox" id="fill2">
+        </div>
+        <div class="setOption">
+          <label>fill</label>
+          <input type="checkbox" id="fill3">
+        </div>
+        <div class="setOption">
+          <label>fill</label>
+          <input type="checkbox" id="fill4">
+        </div>
+        <div class="setOption">
+          <label>fill</label>
+          <input type="checkbox" id="fill5">
+        </div>
+        <div class="setOption">
+          <input type="button" value="Save" class="bclr">
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
 
 </html>
