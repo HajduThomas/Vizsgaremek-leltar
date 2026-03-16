@@ -17,11 +17,11 @@
 
 <body>
 
-  <div class="slider">
-    <div class="sidepanel">
+  <div class="slider" id="slider">
+    <div class="panel">
       <div class="top fCtr">
         <a id="menu" class="menu">
-          <img alt="Logo Here!" src="./assets/pixelcat.png" class="logo">
+          <img alt="Logo Here!" src="./assets/pixelcat.png">
         </a>
       </div>
       <div class="sum">
@@ -35,30 +35,38 @@
       </div>
 
     </div>
-
-    <div class="sideTab">
-      <div class="tab"></div>
-    </div>
   </div>
 
-  <div class="mainpanel">
-    <div class="top fCtr">
-      <h1 class="swidth catDisplay" id="category">Placeholder</h1>
+  <div class="panel">
+    <div class="top fSpc">
+      <div class="optSides fCtr">
+        <div class="bclr tab fCtr" id="tab">
+          <img src="./assets/icons/chevron-compact-right.svg" alt=">">
+        </div>
+      </div>
+      <div class="optMiddle fCtr">
+        <h1 class="catDisplay" id="category">Category name</h1>
+      </div>
+      <div class="optSides fCtr">
+        <div class="bclr tab fCtr">
+          <img src="./assets/icons/box-arrow-in-right.svg" alt="Quit">
+        </div>
+      </div>
     </div>
 
     <div class="sum sumMain">
-      <div id="options" class="options">
-        <div class="swidth ovr fCtr">
-          <!--1:1 to google mail lol-->
+      <div id="options" class="options fSpc">
+        <div class="optSides fCtr">
           <button class="bclr fCtr"><img src="./assets/icons/square.svg" alt="[]" class="optIcon"></button> <!--nonfuctional-->
           <button class="bclr fCtr"><img src="./assets/icons/arrow-clockwise.svg" alt="O" class="optIcon"></button> <!--nonfuctional-->
           <button class="bclr fCtr"><img src="./assets/icons/three-dots-vertical.svg" alt="X" class="optIcon"></button> <!--nonfuctional-->
         </div>
-        <input class="swidth sclr fCtr" type="text" placeholder="Search..." autocomplete="off">
-        <div class="swidth ovr fCtr">
+        <div class="optMiddle fCtr" id="search">
+          <input class="sclr" type="text" placeholder="Search..." autocomplete="off">
+        </div>
+        <div class="optSides fCtr">
           <!--Pagination-->
           <button id="prew" class="bclr fCtr"><img src="./assets/icons/chevron-left.svg" alt="&lt;" class="optIcon"></button>
-          <!--Need to fix this-->
           <p id="curPg" class="fCtr">2</p>
           <button id="next" class="bclr fCtr"><img src="./assets/icons/chevron-right.svg" alt="&gt;" class="optIcon"></button>
         </div>
@@ -99,6 +107,8 @@
       </div>
     </div>
   </div>
+  
+  <div class="cover"></div>
 
 </body>
 

@@ -166,9 +166,21 @@ for (let i = 0; i < $results.length; i++) {
   $("#categories").append(catButton);
 }
 
-var menu = $("#menu");
-menu.prop('cat', 'menu')
+$("#menu").prop('cat', 'menu')
   .click(changeCat);
+
+$("#tab").click( () => {
+  $(".slider").addClass("sdrActive");
+  $(".cover").show().click(rmvCvr);
+  $(".category, #menu").click(rmvCvr);
+});
+
+const rmvCvr = () => {
+  $(".slider").removeClass("sdrActive");
+  $(".cover").hide();
+}
+
+$(".cover").hide();
 
 $("#hue").on('input', function () {
   $(':root').css('--clr-hue', this.value);

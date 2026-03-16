@@ -21,7 +21,8 @@
     --clr-hl: hsl(var(--clr-hue), 80%, 26%);
   }
 
-  .optIcon {
+  .optIcon,
+  .tab img {
     filter: invert();
   }
 }
@@ -38,7 +39,7 @@
   }
 }
 
-body {
+html, body {
   font-family: Calibri, 'Trebuchet MS', sans-serif;
   background-color: var(--clr-body);
   transition: background-color 600ms, color 600ms;
@@ -77,13 +78,18 @@ img {
   justify-content: center;
 }
 
+.fSpc {
+  display: flex;
+  justify-content: space-around;
+}
+
 .setOption {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 80%;
-  margin: 1vh auto;
+  margin: 2px auto;
   min-height: 3em;
 }
 
@@ -119,51 +125,56 @@ img {
  * Have sidepanel slide only from tab
  */
 
-@media screen and (min-width: 1201px) {
+@media (min-width: 1201px) {
   .slider {
     left: 0;
     float: left;
   }
 
-  .sideTab {
+  #tab {
     display: none;
-  }
-
-  .sidepanel {
-    width: var(--sidepanel-w);
   }
 }
 
-@media screen and (max-width: 1200px) {
+@media (max-width: 1200px) {
   .slider {
     position: fixed;
     left: calc(-1 * (var(--sidepanel-w)));
     z-index: 5;
-  }
-
-  .slider:hover {
-    left: 0;
-  }
-
-  .slider:hover .sidepanel {
-    box-shadow: 2px 0 12px 12px color-mix(in srgb, var(--clr-body), transparent 80%);
-  }
-
-  .sidepanel {
-    border-right: 2px solid var(--clr-main);
-    background-color: var(--clr-body);
-    width: var(--sidepanel-w);
+    border-right: 2px solid;
   }
 }
 
 .slider {
+  background-color: var(--clr-body);
+  border-color: var(--clr-main);
   transition: 0.5s;
   height: 100%;
+  width: var(--sidepanel-w);
 }
 
-.sidepanel {
+.sdrActive {
+  left: 0;
+  box-shadow: 12px 0px 12px color-mix(in srgb, var(--clr-body), transparent 40%);
+}
+
+.cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 4;
+  opacity: .20;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: var(--clr-body);
+}
+
+.panel {
   height: 100%;
-  float: left;
+  padding: 0 12px 12px;
   display: flex;
   flex-direction: column;
 }
@@ -174,25 +185,14 @@ img {
   float: left;
 }
 
-/*All of this will be abolished*/
 .tab {
-  height: 60px;
-  background-image: url(./assets/icons/chevron-compact-right.svg);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
+  height: 100%;
   background-color: var(--clr-main);
-  transition: background-color 600ms;
-  position: relative;
-  top: 5px;
+  aspect-ratio: 12 / 10;
 }
 
-.mainpanel {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+.tab img {
+  height: 2rem;
 }
 
 .top {
@@ -240,6 +240,8 @@ img {
 .sclr {
   /*border-bottom: 2px solid var(--clr-border);*/
   box-shadow: 0 2px var(--clr-border);
+  width: 100%;
+  max-width: 600px;
 }
 
 .bclr:hover,
@@ -270,19 +272,19 @@ img {
 .options {
   min-height: var(--top-option-height);
   max-height: var(--top-option-height);
+  flex-wrap: wrap;
   width: 100%;
-  display: flex;
   align-items: stretch;
   padding: 6px;
-  justify-content: space-evenly;
   border-bottom: 2px solid var(--clr-border);
   transition: border-color 600ms;
 }
 
 .options button,
-.options input {
+.options input,
+.options p {
   height: 100%;
-  aspect-ratio: 12 / 10;
+  aspect-ratio: 1 / 1;
 }
 
 .optIcon {
@@ -306,22 +308,23 @@ img {
   scroll-snap-align: start;
 }
 
-.swidth {
-  min-width: 160px;
-  width: 60%;
-  gap: 12px;
+.optMiddle {
+  flex-grow: 2;
+  height: 100%;
 }
 
-.ovr {
-  width: 15%;
+.optSides {
+  flex-grow: 1;
   height: 100%;
+  gap: 6px;
+  width: 18%;
+  min-width: 100px;
 }
 
 .sum {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  margin: 0 12px 12px;
   height: 100%;
   border-radius: 12px;
 }
