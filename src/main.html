@@ -1,66 +1,115 @@
 <!DOCTYPE html>
 <html lang="hu">
 
-  <head>
-    
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="stylesheet" href="./main.css">
-      <link rel="icon" href="./assets/pixelcat.png">
-      <!--seperated for easy removal-->
-      <script src="main.js" defer></script>
+<head>
 
-      <title>Leltarozo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./main.css">
+  <link rel="icon" href="./assets/pixelcat.png">
+  <script src="jquery-4.0.0.min.js"></script>
+  <!--seperated for easy removal-->
+  <script src="main.js" defer></script>
 
-  </head>
+  <title>Leltarozo</title>
 
-  <body>
+</head>
 
-    <div class="slider">
-      <div class="sidepanel">
-        <div class="top">
-          <div id='menu' class="menu"></div>
-        </div>
+<body>
 
-        <div class="categories">
+  <div class="slider" id="slider">
+    <div class="panel">
+      <div class="top fCtr">
+        <a id="menu" class="menu">
+          <img alt="Logo Here!" src="./assets/pixelcat.png">
+        </a>
+      </div>
+      <div class="sum">
+
+        <div class="catTop fCtr">
           <h2>Tables</h2>
-          <div id="categories" class="container">
-            <!--Insert categories here-->
-          </div>
         </div>
-
+        <div id="categories" class="container catCont">
+          <!--Categories go here-->
+        </div>
       </div>
-      
-      <div class="sideTab">
-        <div class="tab"></div>
+
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="top fSpc">
+      <div class="optSides fCtr">
+        <div class="bclr tab fCtr" id="tab">
+          <img src="./assets/icons/chevron-compact-right.svg" alt=">">
+        </div>
+      </div>
+      <div class="optMiddle fCtr">
+        <h1 class="catDisplay" id="category">Category name</h1>
+      </div>
+      <div class="optSides fCtr">
+        <div class="bclr tab fCtr">
+          <img src="./assets/icons/box-arrow-in-right.svg" alt="Quit">
+        </div>
       </div>
     </div>
 
-    <div class="mainpanel">
-      <header>
-        <div class="top">
-          <h1 class="swidth catDisplay" id="category"></h1>
+    <div class="sum sumMain">
+      <div id="options" class="options fSpc">
+        <div class="optSides fCtr">
+          <button class="bclr fCtr"><img src="./assets/icons/square.svg" alt="[]" class="optIcon"></button> <!--nonfuctional-->
+          <button class="bclr fCtr"><img src="./assets/icons/arrow-clockwise.svg" alt="O" class="optIcon"></button> <!--nonfuctional-->
+          <button class="bclr fCtr"><img src="./assets/icons/three-dots-vertical.svg" alt="X" class="optIcon"></button> <!--nonfuctional-->
         </div>
-      </header>
-      <div id="options" class="options">
-        <div class="swidth ovr">
+        <div class="optMiddle fCtr" id="search">
+          <input class="sclr" type="text" placeholder="Search..." autocomplete="off">
+        </div>
+        <div class="optSides fCtr">
           <!--Pagination-->
-          <button class="bclr">1</button>
-          <button class="bclr">2</button>
-          <button class="bclr">3</button>
+          <button id="prew" class="bclr fCtr"><img src="./assets/icons/chevron-left.svg" alt="&lt;" class="optIcon"></button>
+          <p id="curPg" class="fCtr">2</p>
+          <button id="next" class="bclr fCtr"><img src="./assets/icons/chevron-right.svg" alt="&gt;" class="optIcon"></button>
         </div>
-        <input class="swidth bclr" type="text" placeholder="Search..." autocomplete="off">
-        <div class="swidth ovr"></div>
       </div>
-      <div class="container">
-        <table id="dataTable" class="content"></table>
-        <form id="menu2" class="menu2">
-          <h2>hue</h2><input type="range" name="hue" id="hue" min="1" max="30" value="17" autocomplete="off">
-        </form>
+      <div id="dataTable" class="container mainCont"></div>
+      <div id="menu2" class="container mainCont">
+        <div class="setOption">
+          <label>Hue</label>
+          <input type="range" id="hue" min="1" max="360" value="206" autocomplete="off">
+        </div>
+        <div class="setOption">
+          <label>Dark mode</label>
+          <input type="checkbox" id="mode">
+        </div>
+        <div class="setOption">
+          <label>fill</label>
+          <input type="checkbox" id="fill1">
+        </div>
+        <div class="setOption">
+          <label>fill</label>
+          <input type="checkbox" id="fill2">
+        </div>
+        <div class="setOption">
+          <label>fill</label>
+          <input type="checkbox" id="fill3">
+        </div>
+        <div class="setOption">
+          <label>fill</label>
+          <input type="checkbox" id="fill4">
+        </div>
+        <div class="setOption">
+          <label>fill</label>
+          <input type="checkbox" id="fill5">
+        </div>
+        <div class="setOption">
+          <input type="button" value="Save" class="bclr">
+        </div>
       </div>
-      
     </div>
-    
-  </body>
+  </div>
+  
+  <div class="cover"></div>
+
+</body>
 
 </html>

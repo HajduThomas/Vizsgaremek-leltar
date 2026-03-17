@@ -1,0 +1,9 @@
+:root {
+  --clr-fore: #fff;
+  --clr-body: #000;
+  --clr-main: #0a0a0a;
+  --clr-main-alt: #0a0a0a;
+  --clr-main-head: #0a0a0a;
+  --clr-border: #1a1a1a;
+  --clr-hl: hsl(var(--clr-hue), 80%, 12%);
+}
