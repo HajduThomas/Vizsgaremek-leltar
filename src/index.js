@@ -1,4 +1,4 @@
-const uri = window.location.href + '/src/login.php';
+const uri = 'src/login.php';
 const center = document.getElementById("center");
 var $error = null;
 
@@ -16,13 +16,16 @@ center.addEventListener('submit', function(event) {
     fetch(uri,{
         method: 'POST',
         headers: {'Content-type': 'application/json'},
-        body: JSON.stringify(loginData)
+        body: JSON.stringify(loginData),
+        credentials: 'include'
     })
     .then(response => response.json().then(data => ({status: response.status, data})))
     .then(result => {
         console.log(result);
         if (result.status == 200) {
-          window.location = window.location.href + "src/main.html";
+          setTimeout(() => {
+            window.location = "src/main.php";
+        }, 120);
         } else if (result.status == 401) {
           errorShow("User not found.");
         } else {
@@ -42,6 +45,7 @@ document.addEventListener('DOMContentLoaded',function(){
         if (result.status == 200) {
             //console.log("work");
             buildLogin();
+            window.location = "src/main.php";
         } else {
             center.innerHTML = "<h2>"+result.data+"</h2>";
         }

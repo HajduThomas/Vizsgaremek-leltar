@@ -48,7 +48,9 @@ if ($method == "POST") {
       $stmt->execute();
       $row = $stmt->fetch(PDO::FETCH_ASSOC);
       if ($row) {
-        response("Found user");
+        session_regenerate_id(true);
+        $_SESSION["user"] = $usr;
+        response("Found user", 200); //talán változik... nem biztos
       } else {
         response("User not found.", 401);
       }
@@ -58,6 +60,15 @@ if ($method == "POST") {
       response("Adatbázis hiba:\n".$e->getMessage(), 500);
     }
   }
+}
+
+if ($method == "GET") {
+  if(!isset($_SESSION["user"])) {
+    http_response_code(401);
+    echo json_encode(["error" => "Not logged in"]);
+    exit();
+  }
+  echo json_encode(["ok" => true]);
 }
 
 ?>
