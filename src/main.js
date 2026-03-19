@@ -39,7 +39,7 @@ $results = [
     durs: ["3:58", "5:04", "3:05", "2:35", "4:11", "3:24", "2:35", "1:58", "6:07"]
   },
   //category capacity test
-  { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }
+  //{ catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }
 ];
 
 
@@ -182,6 +182,29 @@ const rmvCvr = () => {
 
 $(".cover").hide();
 
+//Options after here (preferably)
+
 $("#hue").on('input', function () {
   $(':root').css('--clr-hue', this.value);
 });
+
+$('#themeL').click( () => $(':root').attr('data-theme', 'light'));
+$('#themeD').click( () => $(':root').attr('data-theme', 'dark'));
+$('#themeA').click( () => $(':root').attr('data-theme', 'amoled'));
+
+const lightTheme = window.matchMedia('(prefers-color-scheme: dark)');
+const setColorTheme = () => {
+  var theme = "light";
+
+  if (!window.matchMedia) {
+    return false;
+  } else if (lightTheme.matches) {
+    theme = "dark";
+  }
+  
+  $(':root').attr('data-theme', theme);
+}
+
+lightTheme.addEventListener('change', setColorTheme);
+
+setColorTheme();
