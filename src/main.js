@@ -334,28 +334,45 @@ const rmvCvr = () => {
 $(".cover").hide();
 
 //Options after here (preferably)
+//set defaults and localstorage
 
-$("#hue").on('input', function () {
-  $(':root').css('--clr-hue', this.value);
-});
+var hue = 206;
+var theme = "light";
 
-$('#themeL').click( () => $(':root').attr('data-theme', 'light'));
-$('#themeD').click( () => $(':root').attr('data-theme', 'dark'));
-$('#themeA').click( () => $(':root').attr('data-theme', 'amoled'));
+if (localStorage.getItem('hue') != null) hue = localStorage.getItem('hue');
+else localStorage.setItem('hue', hue);
 
 const lightTheme = window.matchMedia('(prefers-color-scheme: dark)');
-const setColorTheme = () => {
-  var theme = "light";
-
+if (localStorage.getItem('theme') != null) theme = localStorage.getItem('theme');
+else {
   if (!window.matchMedia) {
-    return false;
   } else if (lightTheme.matches) {
     theme = "dark";
   }
-  
-  $(':root').attr('data-theme', theme);
+  localStorage.setItem('theme', theme);
 }
 
-lightTheme.addEventListener('change', setColorTheme);
+$(':root').attr('data-theme', theme);
+$(':root').css('--clr-hue', hue);
+$('#hue').attr('value', hue);
 
-setColorTheme();
+//buttons
+
+$("#hue").on('input', function () {
+  $(':root').css('--clr-hue', this.value);
+  localStorage.setItem('hue', this.value);
+});
+
+$('#themeL').click( () => {
+  $(':root').attr('data-theme', 'light');
+  localStorage.setItem('theme', 'light');
+});
+$('#themeD').click( () =>  {
+  $(':root').attr('data-theme', 'dark');
+  localStorage.setItem('theme', 'dark');
+});
+$('#themeA').click( () => {
+  $(':root').attr('data-theme', 'amoled');
+  localStorage.setItem('theme', 'amoled');
+});
+

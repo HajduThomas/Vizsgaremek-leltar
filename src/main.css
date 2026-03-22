@@ -8,21 +8,22 @@
   /*Colors*/
   --clr-hue: 206;
   
+  /*default light theme*/
   --clr-fore: hsl(var(--clr-hue), 100%, 0%);
-  --clr-body: hsl(var(--clr-hue), 12%, 92%);
-  --clr-main: hsl(var(--clr-hue), 12%, 89%);
-  --clr-main-alt: hsl(var(--clr-hue), 20%, 89%);
-  --clr-main-head: hsl(var(--clr-hue), 30%, 89%);
-  --clr-border: hsl(var(--clr-hue), 60%, 80%);
+  --clr-body: hsl(var(--clr-hue), 12%, 96%);
+  --clr-main: hsl(var(--clr-hue), 0%, 100%);
+  --clr-main-alt: hsl(var(--clr-hue), 20%, 98%);
+  --clr-main-head: hsl(var(--clr-hue), 46%, 98%);
+  --clr-border: hsl(var(--clr-hue), 60%, 70%);
   --clr-hl: hsl(var(--clr-hue), 80%, 71%);
 }
 
 [data-theme="dark"] {
   --clr-fore: hsl(var(--clr-hue), 100%, 100%);
   --clr-body: hsl(var(--clr-hue), 12%, 5%);
-  --clr-main: hsl(var(--clr-hue), 12%, 8%);
-  --clr-main-alt: hsl(var(--clr-hue), 20%, 8%);
-  --clr-main-head: hsl(var(--clr-hue), 30%, 8%);
+  --clr-main: hsl(var(--clr-hue), 0%, 7%);
+  --clr-main-alt: hsl(var(--clr-hue), 8%, 7%);
+  --clr-main-head: hsl(var(--clr-hue), 20%, 7%);
   --clr-border: hsl(var(--clr-hue), 60%, 17%);
   --clr-hl: hsl(var(--clr-hue), 80%, 26%);
 }
@@ -38,7 +39,7 @@
   --clr-main: hsl(var(--clr-hue), 0%, 0.7%);
   --clr-main-alt: hsl(var(--clr-hue), 0%, 0.7%);
   --clr-main-head: hsl(var(--clr-hue), 90%, 0.7%);
-  --clr-border: hsl(var(--clr-hue), 90%, 12%);
+  --clr-border: hsl(var(--clr-hue), 90%, 10%);
   --clr-hl: hsl(var(--clr-hue), 90%, 24%);
 }
 
