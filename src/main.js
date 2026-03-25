@@ -143,3 +143,14 @@ menu.addEventListener('click', changeCat);
 document.getElementById("hue").oninput = function () {
     document.documentElement.style.setProperty("--main-hue", this.value * 12);
 }
+
+
+document.getElementById("logoutBtn").addEventListener("click", function () {
+    fetch("src/logout.php", {
+        method: "GET",
+        credentials: "include"
+    })
+    .then(() => {
+        window.location.href = "../index.html";
+    });
+});

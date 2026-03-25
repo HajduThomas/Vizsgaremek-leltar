@@ -30,9 +30,11 @@ $uri = $_SERVER["REQUEST_URI"];     // localhost/restful/szerver.php/filmek/1
 $path = trim(parse_url($uri,PHP_URL_PATH),"/");   // fimek/1
 $pathArray = explode("/",$path);
 
+/*
 if ($method == "GET") {
   response("ok");
 }
+*/
 
 if ($method == "POST") {
   $loginData = json_decode(file_get_contents("php://input"), true);

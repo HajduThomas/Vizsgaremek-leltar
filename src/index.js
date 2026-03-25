@@ -1,5 +1,4 @@
 const uri = 'src/login.php';
-const center = document.getElementById("center");
 var $error = null;
 
 center.addEventListener('submit', function(event) {
@@ -44,8 +43,8 @@ document.addEventListener('DOMContentLoaded',function(){
         console.log(result);
         if (result.status == 200) {
             //console.log("work");
-            buildLogin();
             window.location = "src/main.php";
+            buildLogin();
         } else {
             center.innerHTML = "<h2>"+result.data+"</h2>";
         }
@@ -53,6 +52,8 @@ document.addEventListener('DOMContentLoaded',function(){
 })
 
 function buildLogin() {
+    const center = document.getElementById("center");
+
     const $title = $("<h1>", {text: "Login"});
     const $lusr = $("<label>", {"for": "usr", text: "Username:"});
     const $iusr = $("<input>", {"type": "text", "id": "usr", "placeholder": "username..."});
