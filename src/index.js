@@ -4,7 +4,6 @@ var $error = null;
 
 center.addEventListener('submit', function(event) {
     event.preventDefault()
-    //TODO: check for null/empty spaces
     const loginData = {
         usr: document.getElementById("usr").value,
         pass: document.getElementById("pass").value
@@ -23,7 +22,7 @@ center.addEventListener('submit', function(event) {
         console.log(result);
         if (result.status == 200) {
           window.location = window.location.href + "src/main.html";
-        } else if (result.status == 401) {
+        } else if (result.status == 404) {
           errorShow("User not found.");
         } else {
             center.innerHTML = "<h2>"+result.data+"</h2>";
@@ -38,7 +37,7 @@ document.addEventListener('DOMContentLoaded',function(){
     })
     .then(response => response.json().then(data => ({status: response.status, data})))
     .then(result => {
-        console.log(result);
+        //console.log(result);
         if (result.status == 200) {
             //console.log("work");
             buildLogin();
@@ -49,12 +48,12 @@ document.addEventListener('DOMContentLoaded',function(){
 })
 
 function buildLogin() {
-    $title = $("<h1>", {text: "Login"});
-    $usrIn = $("<div>", {"class": "fCtr inrow"});
+    $title = $("<h2>", {"class": "fCtr" ,text: "Login"});
+    $usrIn = $("<div>", {"class": "inrow"});
       $lusr = $("<label>", {"for": "usr", text: "Username:"});
       $iusr = $("<input>", {"id": "usr","class": "sclr", "type": "text", "placeholder": "username..."});
     $usrIn.append($lusr, $iusr);
-    $passIn = $("<div>", {"class": "fCtr inrow"});
+    $passIn = $("<div>", {"class": "inrow"});
       $lpass = $("<label>", {"for": "pass", text: "Password:"});
       $ipass = $("<input>", {"id": "pass", "class": "sclr", "type": "password", "placeholder": "password..."});
     $passIn.append($lpass, $ipass);

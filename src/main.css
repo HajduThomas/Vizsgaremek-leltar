@@ -62,12 +62,15 @@ html, body {
 }
 
 h1,
-h2,
-p {
-  font-size: 1em;
+h2{
+  font-size: 2em;
   text-align: center;
   font-weight: bold;
   margin: 0;
+}
+
+h2 {
+  font-size: 1.8em;
 }
 
 a {
@@ -205,11 +208,6 @@ img {
   padding: 6px;
 }
 
-.catDisplay {
-  margin: 0;
-  font-size: 2em;
-}
-
 .menu {
   border-radius: 50%;
   height: 100%;
@@ -296,7 +294,6 @@ img {
   border-bottom: 2px solid var(--clr-border);
   min-height: var(--top-option-height);
   max-height: var(--top-option-height);
-  font-size: 1.4em;
   width: 100%;
 }
 

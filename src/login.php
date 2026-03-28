@@ -10,7 +10,7 @@ function response($msg, $code=200){
   exit;
 }
 
-$dbname = "leltar";
+$dbname = "tester";
 $host = "localhost";
 $user ="malog";
 $password = "sans";
@@ -38,6 +38,7 @@ if ($method == "POST") {
   if ($usr == '' || $usr === null || $pass == '' || $pass === null) {
     response("JS skipped empty username/password check.\nplease enter username/password.", 500);
   } else {
+    //TODO:Redo query to check for password issues
     try {
       $stmt = $conn->prepare("SELECT * FROM users WHERE azonosito = :usr AND jelszo = :pass");
       $stmt->bindParam(':usr', $usr);
@@ -47,7 +48,7 @@ if ($method == "POST") {
       if ($row) {
         response("Found user");
       } else {
-        response("User not found.", 401);
+        response("User not found.", 404);
       }
       //TODO: Check database, redirect
       //TIP: httpcode 400-499 for bad user info
