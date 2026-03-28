@@ -50,15 +50,19 @@ $(document).on('DOMContentLoaded',function(){
 })
 
 function buildLogin() {
-    const $title = $("<h1>", {text: "Login"});
-    const $lusr = $("<label>", {"for": "usr", text: "Username:"});
-    const $iusr = $("<input>", {"type": "text", "id": "usr", "placeholder": "username..."});
-    const $lpass = $("<label>", {"for": "pass", text: "Password:"});
-    const $ipass = $("<input>", {"type": "password","id": "pass", "placeholder": "password..."});
-    const $submit = $("<input>", {"type": "submit", "value": "Login"});
-    $error = $("<p>", {"id": "error", "class": "error"}).hide();
-    center.empty();
-    center.append($title, $lusr, $iusr, $lpass, $ipass, $error, $submit);
+    $title = $("<h1>", {text: "Login"});
+    $usrIn = $("<div>", {"class": "fCtr inrow"});
+      $lusr = $("<label>", {"for": "usr", text: "Username:"});
+      $iusr = $("<input>", {"id": "usr","class": "sclr", "type": "text", "placeholder": "username..."});
+    $usrIn.append($lusr, $iusr);
+    $passIn = $("<div>", {"class": "fCtr inrow"});
+      $lpass = $("<label>", {"for": "pass", text: "Password:"});
+      $ipass = $("<input>", {"id": "pass", "class": "sclr", "type": "password", "placeholder": "password..."});
+    $passIn.append($lpass, $ipass);
+    $submit = $("<input>", {"class": "bclr", "type": "submit", "value": "Login"});
+    $error = $("<label>", {"id": "error", "class": "error"}).hide();
+    $(center).empty();
+    $(center).append($title, $usrIn, $passIn, $error, $submit);
 }
 
 function errorShow($msg) {
@@ -67,3 +71,23 @@ function errorShow($msg) {
     $error.show();
   }
 }
+
+var hue = 206;
+var theme = "light";
+
+if (localStorage.getItem('hue') != null) hue = localStorage.getItem('hue');
+else localStorage.setItem('hue', hue);
+
+const lightTheme = window.matchMedia('(prefers-color-scheme: dark)');
+if (localStorage.getItem('theme') != null) theme = localStorage.getItem('theme');
+else {
+  if (!window.matchMedia) {
+  } else if (lightTheme.matches) {
+    theme = "dark";
+  }
+  localStorage.setItem('theme', theme);
+}
+
+
+$(':root').attr('data-theme', theme);
+$(':root').css('--clr-hue', hue);
