@@ -1,31 +1,5 @@
 <?php
-header("Content-type: application/json");
-
-function response($msg, $code=200){
-  if (empty($msg)){
-    return;
-  }
-  http_response_code($code);
-  echo json_encode($msg);
-  exit;
-}
-
-$dbname = "tester";
-$host = "localhost";
-$user ="malog";
-$password = "sans";
-
-try {
-  $conn = new PDO("mysql:host=$host; dbname=$dbname; charset=utf8", $user, $password);
-  $conn ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e){
-  response("Adatbázis kapcsolati hiba:\n{$e->getmessage()}", 500);
-}
-
-$method = $_SERVER["REQUEST_METHOD"];   // GET / POST / PUT / DELETE
-$uri = $_SERVER["REQUEST_URI"];     // localhost/restful/szerver.php/filmek/1
-$path = trim(parse_url($uri,PHP_URL_PATH),"/");   // fimek/1
-$pathArray = explode("/",$path);
+require 'dbcon.php';
 
 if ($method == "POST") {
   $catData = json_decode(file_get_contents("php://input"), true);
