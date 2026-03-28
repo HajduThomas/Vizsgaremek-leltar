@@ -1,3 +1,6 @@
+const uri = window.location.protocol + "//" + window.location.hostname + ":" +
+  window.location.port + '/src/main.php';
+console.log(uri);
 const $catDisplay = $("#category");
 const $options = $("#options");
 const $menu2 = $("#menu2");
@@ -39,9 +42,8 @@ $results = [
     durs: ["3:58", "5:04", "3:05", "2:35", "4:11", "3:24", "2:35", "1:58", "6:07"]
   },
   //category capacity test
-  { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }
+  //{ catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }
 ];
-
 
 function fillTable(id) {
 
@@ -157,14 +159,36 @@ function changeCat(event) {
   fillTable(target.cat);
 }
 
-
 for (let i = 0; i < $results.length; i++) {
   var catButton = $("<a>", { 'class': 'category bclr', 'href': '#0' })
     .prop('cat', i)
     .text($results[i].catName)
-    .click(changeCat);
+    .click(GetSQL);
   $("#categories").append(catButton);
 }
+
+function GetSQL(event) {
+  event.preventDefault()
+  let catData = {
+      cat: event.currentTarget.text,
+      search: ""
+  }
+  console.log(catData.cat);
+  if (catData.cat === '') {
+    console.log("what");
+    return;
+  }
+  fetch(uri,{
+      method: 'POST',
+      body: JSON.stringify(catData)
+  })
+  .then(response => response.json().then(data => ({status: response.status, data})))
+  .then(result => {
+      console.log(result.data);
+  })
+};
+
+//options
 
 $("#menu").prop('cat', 'menu')
   .click(changeCat);
