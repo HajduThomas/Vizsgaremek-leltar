@@ -1,5 +1,4 @@
-const uri = window.location.protocol + "//" + window.location.hostname + ":" +
-  window.location.port + '/src/main.php';
+const uri = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.php";
 console.log(uri);
 const $catDisplay = $("#category");
 const $options = $("#options");
@@ -30,7 +29,7 @@ $results = [
     durs: ["3:30", "4:43", "4:36", "3:50", "3:41", "6:45", "3:11", "3:40"]
   },
   {
-    catName: "Still Music",
+    catName: "Size Test",
     names: ["Nasty * Nasty * Spell", "God Only Knows", "Judgement", "KILLSWITCH", "Titanium", "WWW", "HUGE W", "Kinetic", "reason"],
     descs: ["Camellia", "bitbreaker", "meganeko", "mekaloton", "Mittsies", "Moe Shop / Edoga-Sullivan", "Mori Calliope", "Pete Cottrell", "Rad Cat"],
     durs: ["4:24", "4:47", "5:29", "2:15", "3:06", "3:30", "4:09", "3:49", "2:45"]
@@ -115,12 +114,11 @@ function fillTable(id) {
         }
         $row.append($col);
       }
-      if (i == 0) $row.attr('id', i);
       $tbody.append($row);
     }
 
     let $table = $("<table>", { 'class': 'dTable', 'id': 'dTable' }).append($tbody);
-    $dataTable.html($table);
+    $dataTable.html($table).scrollTop(0);
   }
 }
 
@@ -159,33 +157,88 @@ function changeCat(event) {
   fillTable(target.cat);
 }
 
-for (let i = 0; i < $results.length; i++) {
-  var catButton = $("<a>", { 'class': 'category bclr', 'href': '#0' })
-    .prop('cat', i)
-    .text($results[i].catName)
-    .click(GetSQL);
+$categories = [
+  {sql: "showcase",
+    display: "Showcase"},
+  {sql: "sizetest",
+    display: "Size Test"},
+  {sql: "music",
+    display: "Music"},
+  {sql: "vegyiaruk",
+    display: "Vegyiaruk"},
+  {sql: "tejtermek",
+    display: "Tejtermekek"},
+  {sql: "szarazaruk",
+    display: "Szarazaruk"},
+  {sql: "mirelit",
+    display: "Mirelit Aru"}
+];
+
+for (let i = 0; i < ($results.length + $categories.length); i++) {
+  var catButton = $("<a>", { 'class': 'category bclr' })
+  if (i < $results.length) {
+    catButton.prop('cat', i)
+      .text($results[i].catName)
+      .click(changeCat);
+  } else {
+    let o = i - $results.length;
+    catButton.prop('cat', $categories[o].sql)
+      .text($categories[o].display)
+      .click(GetSQL);
+  }
   $("#categories").append(catButton);
 }
 
 function GetSQL(event) {
   event.preventDefault()
   let catData = {
-      cat: event.currentTarget.text,
+      cat: event.currentTarget.cat,
       search: ""
   }
-  console.log(catData.cat);
-  if (catData.cat === '') {
-    console.log("what");
-    return;
-  }
+  //console.log(catData.cat);
   fetch(uri,{
       method: 'POST',
       body: JSON.stringify(catData)
   })
   .then(response => response.json().then(data => ({status: response.status, data})))
   .then(result => {
-      console.log(result.data);
-  })
+
+    let $row, $col, $drag;
+    let $tbody = $("<tbody>");
+
+    //set column names
+    $row = $("<tr>");
+    Object.keys(result.data[0]).forEach((key, i)=>{
+      //console.log(key);
+      
+      $col = $("<th>").text(key);
+      $($col).on('dblclick', function (e) {
+        $(e.target).removeAttr('style');
+      });
+      if (i != Object.keys(result.data[0]).length - 1) {
+        $drag = $("<span>", { 'class': 'resize-handle' });
+        $drag.mousedown(colMoveInit);
+        $col.append($drag);
+      }
+      $row.append($col);
+    });
+    $tbody.append($row);
+    
+    //fill table
+    //console.log(result.data);
+    result.data.forEach(row => {
+      $row = $("<tr>");
+      Object.keys(row).forEach((key, i)=>{
+        //console.log(row[key]);
+        
+        $col = $("<td>").text(row[key]);
+        $row.append($col);
+      });
+      $tbody.append($row);
+    });
+    let $table = $("<table>", { 'class': 'dTable', 'id': 'dTable' }).append($tbody);
+    $dataTable.html($table).scrollTop(0);
+  });
 };
 
 //options

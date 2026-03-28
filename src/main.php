@@ -27,25 +27,11 @@ $uri = $_SERVER["REQUEST_URI"];     // localhost/restful/szerver.php/filmek/1
 $path = trim(parse_url($uri,PHP_URL_PATH),"/");   // fimek/1
 $pathArray = explode("/",$path);
 
-$categories = [
-  "showcase" => "Showcase",
-  "sizetest" => "Size Test",
-  "Music" => "Music",
-  "vegyiaruk" => "Vegyiaruk",
-  "tejtermek" => "Tejtermekek",
-  "szarazaruk" => "Szarazaruk",
-  "mirelit" => "Mirelit Aru"
-];
-
 if ($method == "POST") {
   $catData = json_decode(file_get_contents("php://input"), true);
   $currentCategory = $catData["cat"];
   $search = $catData["search"];
   try {
-
-    if (!array_key_exists($currentCategory, $categories)) {
-      $currentCategory = 'showcase';
-    }
 
     if ($search !== "" && $search !== null){
       $stmt = $conn->prepare("
@@ -56,14 +42,10 @@ if ($method == "POST") {
         ":search" => "%$search%"
       ]);
     } else {
-      $stmt = $conn->query("DESCRIBE $currentCategory");
-      $cols = array($stmt->fetchAll(PDO::FETCH_COLUMN));
       $stmt = $conn->query("SELECT * FROM $currentCategory");
       $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
-    
-    response($cols+$data);
+    response($data);
 
   } catch (PDOException $e){
     response("Adatbázis hiba:\n".$e->getMessage(), 500);

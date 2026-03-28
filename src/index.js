@@ -1,4 +1,5 @@
-const uri = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port + '/src/login.php';
+const uri = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/src/login.php";
+console.log(uri);
 const center = $("#center");
 var $error = null;
 
