@@ -12,8 +12,8 @@ function response($msg, $code=200){
 
 $dbname = "leltar";
 $host = "localhost";
-$user ="root";
-$password = "";
+$user ="malog";
+$password = "sans";
 
 try {
   $conn = new PDO("mysql:host=$host; dbname=$dbname; charset=utf8", $user, $password);
