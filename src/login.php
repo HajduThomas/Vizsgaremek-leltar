@@ -29,4 +29,6 @@ if ($method == "POST") {
   }
 }
 
+response("Bad request", 400);
+
 ?>
