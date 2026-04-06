@@ -31,11 +31,10 @@
   top: 40%;
   transform: translate(-50%, -50%);
   background-color: var(--clr-main);
-  padding: 20px;
+  padding: 36px;
   border-radius: 12px;
-  width: 50vmax;
-  max-width: 400px;
-  aspect-ratio: 4 / 3;
+  width: 60vmin;
+  max-width: 600px;
   flex-direction: column;
 }
 
@@ -50,6 +49,7 @@
 .center input[type=password],
 .center input[type=submit] {
   margin: 6px;
+  font-size: 1em;
   height: 2em;
   width: initial;
 }
