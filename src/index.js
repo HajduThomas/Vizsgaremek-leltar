@@ -1,49 +1,52 @@
-const uri = window.location.href + '/src/login.php';
-const center = document.getElementById("center");
+const uri = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
+console.log(uri);
+const center = $("#center");
 var $error = null;
 
-center.addEventListener('submit', function(event) {
+center.on('submit', function(event) {
     event.preventDefault()
-    //TODO: check for null/empty spaces
-    const loginData = {
-        usr: document.getElementById("usr").value,
-        pass: document.getElementById("pass").value
+    let loginData = {
+        usr: $("#usr").val(),
+        pass: $("#pass").val()
     }
     if (loginData.usr == '' || loginData.pass == '') {
       errorShow("Please enter a username and password.");
       return;
     }
-    fetch(uri,{
+    fetch(uri + "/src/login.php",{
         method: 'POST',
-        headers: {'Content-type': 'application/json'},
         body: JSON.stringify(loginData)
     })
+    //TODO: Redo with proper .catch clause
     .then(response => response.json().then(data => ({status: response.status, data})))
     .then(result => {
-        console.log(result);
-        if (result.status == 200) {
-          window.location = window.location.href + "src/main.html";
+        //console.log(result);
+        if (result.status == 302) {
+          window.location = uri + "/src/main.html";
         } else if (result.status == 401) {
           errorShow("User not found.");
+        } else if (result.status == 500) {
+          center.html("<h1>"+result.data+"</h1>");
         } else {
-            center.innerHTML = "<h2>"+result.data+"</h2>";
-          }
+          center.html("<h1> Critical Error! </h1>");
+        }
     })
 });
 
-document.addEventListener('DOMContentLoaded',function(){
-    // console.log('Helló');
-    fetch(uri,{
+$(document).on('DOMContentLoaded',function(){
+    fetch(uri + "/src/login.php",{
         method: 'GET'
     })
+    //TODO: Redo with proper .catch clause
     .then(response => response.json().then(data => ({status: response.status, data})))
     .then(result => {
-        console.log(result);
+        //console.log(result);
         if (result.status == 200) {
-            //console.log("work");
             buildLogin();
+        } else if (result.status == 500) {
+          center.html("<h1>"+result.data+"</h1>");
         } else {
-            center.innerHTML = "<h2>"+result.data+"</h2>";
+          center.html("<h1> Critical Error! </h1>");
         }
     })
 })
@@ -56,8 +59,8 @@ function buildLogin() {
     const $ipass = $("<input>", {"type": "password","id": "pass", "placeholder": "password..."});
     const $submit = $("<input>", {"type": "submit", "value": "Login"});
     $error = $("<p>", {"id": "error", "class": "error"}).hide();
-    $(center).empty();
-    $(center).append($title, $lusr, $iusr, $lpass, $ipass, $error, $submit);
+    center.empty();
+    center.append($title, $lusr, $iusr, $lpass, $ipass, $error, $submit);
 }
 
 function errorShow($msg) {
