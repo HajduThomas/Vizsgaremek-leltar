@@ -1,6 +1,6 @@
 //Setting uri for use when fetching from php
 //Substring needed for compatibility with linux and xampp testing
-const uri = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.php";
+const uri = window.location.href.substring(0, window.location.href.lastIndexOf('/') - 4);
 //console.log(uri); //For testing
 //Put often used elements in variables for ease of use
 const $catDisplay = $("#category");
@@ -147,6 +147,7 @@ function fillTable(id) {
     let $table = $("<table>", { 'class': 'dTable', 'id': 'dTable' }).append($tbody);
     //Replace old table with new one, and scroll to the top
     $dataTable.html($table).scrollTop(0);
+    rmvCvr();
   }
 }
 
@@ -177,8 +178,6 @@ const colMoveInit = ({ target }) => {
 };
 
 //End of "borrowed" code
-
-fillTable(0); //Run table fill on startup, using the first table
 
 //I don't know how else to do this ;-;
 //Getting target category seperatly because reasons
@@ -240,15 +239,17 @@ for (let i = 0; i < ($results.length + $categories.length); i++) {
 //SQL reading
 
 function GetSQL(event) {
-  event.preventDefault() //event preventDefault
+  event.preventDefault(); //event preventDefault
+  
   //putting the selected categories name and the search query into one object
+  $catDisplay.text(event.currentTarget.text);
   let catData = {
       cat: event.currentTarget.cat, //Get selected category, store as cat (short for category)
       search: "" //Get the search query, currently under developement
   }
   //console.log(catData.cat); //For testing
   //fetch api, trying to fetch data from the uri
-  fetch(uri,{
+  fetch(uri  + "/src/main.php",{
       method: 'POST', //using post method, to give and get data
       body: JSON.stringify(catData) //Encodes the "catData" object into json for sending to php
   })
@@ -311,11 +312,17 @@ function GetSQL(event) {
     let $table = $("<table>", { 'class': 'dTable', 'id': 'dTable' }).append($tbody);
     //Replace old table with the new requested one, and scroll to the top.
     $dataTable.html($table).scrollTop(0);
+    rmvCvr();
   });
 };
 
 //Options
 //Work In Progress (W.I.P. for short)
+
+//good enough for now
+$("#exit").click( () => {
+  if (confirm("Are you sure you want to log out?") == true) window.location = uri + "/index.html";
+})
 
 $("#menu").prop('cat', 'menu')
   .click(changeCat);
@@ -323,7 +330,6 @@ $("#menu").prop('cat', 'menu')
 $("#tab").click( () => {
   $(".slider").addClass("sdrActive");
   $(".cover").show().click(rmvCvr);
-  $(".category, #menu").click(rmvCvr);
 });
 
 const rmvCvr = () => {
@@ -336,3 +342,5 @@ $(".cover").hide();
 $("#hue").on('input', function () {
   $(':root').css('--clr-hue', this.value);
 });
+
+fillTable(0); //Run table fill on startup, using the first table
