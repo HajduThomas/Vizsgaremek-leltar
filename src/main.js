@@ -44,7 +44,7 @@ $results = [
     durs: ["3:58", "5:04", "3:05", "2:35", "4:11", "3:24", "2:35", "1:58", "6:07"]
   },
   //category capacity test
-  { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }
+  //{ catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }, { catName: "fill" }
 ];
 
 //Category changing method, needs category index for use

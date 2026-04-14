@@ -11,10 +11,13 @@ function response($msg, $code=200){
   exit;
 }
 
+//Could be moved to external json file for easy editing, but
+//unsure if thats a good idea or not.
+//TODO: Set password for database, stop using default, doesnt work on linux
 $dbname = "tester";
 $host = "localhost";
-$user ="malog";
-$password = "sans";
+$user ="root";
+$password = "";
 
 try {
   $conn = new PDO("mysql:host=$host; dbname=$dbname; charset=utf8", $user, $password);
