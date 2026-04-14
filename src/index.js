@@ -17,6 +17,7 @@ center.on('submit', function(event) {
         method: 'POST',
         body: JSON.stringify(loginData)
     })
+    //TODO: Redo with proper .catch clause
     .then(response => response.json().then(data => ({status: response.status, data})))
     .then(result => {
         //console.log(result);
@@ -36,6 +37,7 @@ $(document).on('DOMContentLoaded',function(){
     fetch(uri + "/src/login.php",{
         method: 'GET'
     })
+    //TODO: Redo with proper .catch clause
     .then(response => response.json().then(data => ({status: response.status, data})))
     .then(result => {
         //console.log(result);

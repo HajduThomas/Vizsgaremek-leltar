@@ -3,9 +3,6 @@
 header("Content-type: application/json");
 
 function response($msg, $code=200){
-  if (empty($msg)){
-    return;
-  }
   http_response_code($code);
   echo json_encode($msg);
   exit;
