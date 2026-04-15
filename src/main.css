@@ -94,75 +94,31 @@ img {
   justify-content: space-around;
 }
 
-.setOption {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 80%;
-  margin: 2px auto;
-  min-height: 3em;
-}
-
-.setOption label {
-  font-size: 1.4em;
-}
-
-.setOption input[type="range"] {
-  appearance: none;
-  width: 40%;
-  height: .8em;
-  border-radius: 6px;
-  background-color: var(--clr-main-alt);
-  border: 1px solid var(--clr-border);
-  outline: none;
-}
-
-.setOption input[type="range"]::-webkit-slider-thumb,
-.setOption input[type="range"]::-moz-range-thumb {
-  width: 1.4em;
-  height: 1.4em;
-  background-color: var(--clr-hl);
-  outline: none;
-  border: 1px solid var(--clr-fore);
-  border-radius: 50%;
-  cursor: pointer;
-}
-
 /* 
  * Add touch screen support
  * Have sidepanel slide only from tab
  */
 
-@media (min-width: 1201px) {
-  .slider {
-    left: 0;
-    float: left;
-  }
-
-  #tab {
-    display: none;
-  }
-}
-
-@media (max-width: 1200px) {
-  .slider {
-    position: fixed;
-    left: calc(-1 * (var(--sidepanel-w)));
-    z-index: 5;
-    border-right: 2px solid var(--clr-border);
-  }
-}
-
 .slider {
-  background-color: var(--clr-body);
-  transition: left 600ms;
-  height: 100%;
+  float: left;
   width: var(--sidepanel-w);
+  background-color: var(--clr-body);
+  transition: transform 600ms;
+  height: 100%;
+  min-width: var(--sidepanel-w);
+}
+
+.shide {
+  position: fixed;
+  transform: translateX(-100%);
+  z-index: 5;
+  border-right: 2px solid var(--clr-border);
+  width: 30vw;
+  max-width: 360px;
 }
 
 .sdrActive {
-  left: 0;
+  transform: none;
   box-shadow: 12px 0px 12px color-mix(in srgb, var(--clr-body), transparent 40%);
 }
 
@@ -200,7 +156,7 @@ img {
 }
 
 .tab img {
-  height: 2rem;
+  height: 2em;
 }
 
 .top {
@@ -210,6 +166,7 @@ img {
 }
 
 .menu {
+  cursor: pointer;
   border-radius: 50%;
   height: 100%;
   /*option for dark logos*/
@@ -231,12 +188,23 @@ img {
   transition: filter 300ms ease-out;
 }
 
+.sdclr,
+.chclr,
 .bclr,
 .sclr {
   border: none;
   color: inherit;
   border-radius: 6px;
   background: none;
+  cursor: pointer;
+  appearance: none;
+}
+
+.chclr {
+  background: var(--clr-border);
+  width: 1.4em;
+  height: 1.4em;
+  border: 1px solid var(--clr-hl);
 }
 
 .sclr {
@@ -245,16 +213,19 @@ img {
   max-width: 600px;
 }
 
+.chclr:hover,
 .bclr:hover,
 .bclr:focus-visible,
 .sclr:hover {
   outline: 2px solid var(--clr-hl);
 }
 
+.chclr:checked,
 .bclr:active {
   background-color: var(--clr-hl);
 }
 
+.chclr:not(:checked),
 .bclr:not(:active) {
   transition: background-color 200ms ease-out;
 }
@@ -268,6 +239,40 @@ img {
 
 .sclr:not(:focus) {
   transition: box-shadow 200ms ease-out, background-color 200ms ease-out;
+}
+
+.setOption {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: 2px auto;
+  min-height: 3em;
+}
+
+.setOption label {
+  font-size: 1.4em;
+}
+
+.sdclr {
+  width: 40%;
+  height: .8em;
+  border-radius: 6px;
+  background-color: var(--clr-main-alt);
+  border: 1px solid var(--clr-border);
+  outline: none;
+}
+
+.sdclr::-webkit-slider-thumb,
+.sdclr::-moz-range-thumb {
+  width: 1.4em;
+  height: 1.4em;
+  background-color: var(--clr-hl);
+  outline: none;
+  border: 1px solid var(--clr-fore);
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 .options {

@@ -2,6 +2,7 @@
 //Substring needed for compatibility with linux and xampp testing
 const uri = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.php";
 //console.log(uri); //For testing
+
 //Put often used elements in variables for ease of use
 const $catDisplay = $("#category");
 const $options = $("#options");
@@ -10,7 +11,104 @@ const $dataTable = $("#dataTable");
 
 //jquery etiquette:
 // dollar sign ($) before objects, like elements ($('#h1')) 
-// don't use $ for simple variables numbers/strings
+// don't use $ for simple variables like numbers/strings/arrays
+
+//moved up here to make the slider hidden before it loads
+var Smol = window.matchMedia("(max-width: 1200px)");
+const isSmol = () => {
+  console.log(shide);
+  if (Smol.matches || shide) {
+    $('#slider').addClass("shide");
+    $('#tab').show();
+  } else {
+    $('#slider').removeClass("shide");
+    $('#tab').hide();
+  }
+}
+$(Smol).change(() => {
+  isSmol();
+});
+
+var hue = 206;
+var theme = "light";
+var shide = false;
+
+if (localStorage.getItem('hue') != null) hue = localStorage.getItem('hue');
+else localStorage.setItem('hue', hue);
+
+const lightTheme = window.matchMedia('(prefers-color-scheme: dark)');
+if (localStorage.getItem('theme') != null) theme = localStorage.getItem('theme');
+else {
+  if (!window.matchMedia) {
+  } else if (lightTheme.matches) {
+    theme = "dark";
+  }
+  localStorage.setItem('theme', theme);
+}
+
+if (localStorage.getItem('shide') != null) shide = JSON.parse(localStorage.getItem('shide'));
+else localStorage.setItem('shide', shide);
+
+//first run here to make sure hide is defined
+isSmol();
+
+//Options
+//Work In Progress
+
+$("#menu").prop('cat', 'menu').click(changeCat);
+
+
+
+$("#tab").click( () => {
+  $(".slider").addClass("sdrActive");
+  $(".cover").show().click(rmvCvr);
+  $(".category, #menu").click(rmvCvr);
+});
+
+const rmvCvr = () => {
+  $(".slider").removeClass("sdrActive");
+  $(".cover").hide();
+}
+
+$(".cover").hide();
+
+//Options after here (preferably)
+//set defaults and localstorage
+
+
+$('#ksc').prop('checked', shide);
+
+$(':root').attr('data-theme', theme);
+$(':root').css('--clr-hue', hue);
+$('#hue').attr('value', hue);
+
+//buttons
+
+$("#hue").on('input', () => {
+  $(':root').css('--clr-hue', this.value);
+  localStorage.setItem('hue', this.value);
+});
+
+$('#themeL').click( () => {
+  $(':root').attr('data-theme', 'light');
+  localStorage.setItem('theme', 'light');
+});
+$('#themeD').click( () =>  {
+  $(':root').attr('data-theme', 'dark');
+  localStorage.setItem('theme', 'dark');
+});
+$('#themeA').click( () => {
+  $(':root').attr('data-theme', 'amoled');
+  localStorage.setItem('theme', 'amoled');
+});
+
+//ksc = keep slider closed
+$('#ksc').click( () => {
+  if ($('#ksc').is(":checked")) shide = true;
+  else shide = false;
+  localStorage.setItem('shide', shide);
+  isSmol();
+});
 
 //Define how many rows and columns to mimic using results json
 const rows = 200;
@@ -149,7 +247,6 @@ function fillTable(id) {
     $dataTable.html($table).scrollTop(0);
   }
 }
-
 
 // Some code "borrowed" from Webdevtrick ( https://webdevtrick.com/resizable-table-columns/ )
 // Please don't shoot be for this, others in my class only use AI code, just let me have this.
@@ -313,66 +410,3 @@ function GetSQL(event) {
     $dataTable.html($table).scrollTop(0);
   });
 };
-
-//Options
-//Work In Progress (W.I.P. for short)
-
-$("#menu").prop('cat', 'menu')
-  .click(changeCat);
-
-$("#tab").click( () => {
-  $(".slider").addClass("sdrActive");
-  $(".cover").show().click(rmvCvr);
-  $(".category, #menu").click(rmvCvr);
-});
-
-const rmvCvr = () => {
-  $(".slider").removeClass("sdrActive");
-  $(".cover").hide();
-}
-
-$(".cover").hide();
-
-//Options after here (preferably)
-//set defaults and localstorage
-
-var hue = 206;
-var theme = "light";
-
-if (localStorage.getItem('hue') != null) hue = localStorage.getItem('hue');
-else localStorage.setItem('hue', hue);
-
-const lightTheme = window.matchMedia('(prefers-color-scheme: dark)');
-if (localStorage.getItem('theme') != null) theme = localStorage.getItem('theme');
-else {
-  if (!window.matchMedia) {
-  } else if (lightTheme.matches) {
-    theme = "dark";
-  }
-  localStorage.setItem('theme', theme);
-}
-
-$(':root').attr('data-theme', theme);
-$(':root').css('--clr-hue', hue);
-$('#hue').attr('value', hue);
-
-//buttons
-
-$("#hue").on('input', function () {
-  $(':root').css('--clr-hue', this.value);
-  localStorage.setItem('hue', this.value);
-});
-
-$('#themeL').click( () => {
-  $(':root').attr('data-theme', 'light');
-  localStorage.setItem('theme', 'light');
-});
-$('#themeD').click( () =>  {
-  $(':root').attr('data-theme', 'dark');
-  localStorage.setItem('theme', 'dark');
-});
-$('#themeA').click( () => {
-  $(':root').attr('data-theme', 'amoled');
-  localStorage.setItem('theme', 'amoled');
-});
-
