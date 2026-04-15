@@ -75,7 +75,15 @@
       <div id="menu2" class="container mainCont">
         <div class="setOption">
           <label>Hue</label>
-          <input type="range" id="hue" min="1" max="360" autocomplete="off">
+          <input class="sdclr" type="range" id="hue" min="1" max="360" autocomplete="off">
+        </div>
+        <div class="setOption">
+          <label>Theme</label>
+          <select id="mode">
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+            <option value="amoled">Amoled</option>
+          </select>
         </div>
         <div class="setOption">
           <label>Dark mode</label>
@@ -92,8 +100,8 @@
           </div>
         </div>
         <div class="setOption">
-          <label>fill</label>
-          <input type="checkbox" id="fill1">
+          <label>Keep sidepanel closed</label>
+          <input class="chclr" type="checkbox" id="ksc">
         </div>
         <div class="setOption">
           <label>fill</label>
@@ -110,9 +118,6 @@
         <div class="setOption">
           <label>fill</label>
           <input type="checkbox" id="fill5">
-        </div>
-        <div class="setOption">
-          <input id="settingSave" type="button" value="Save" class="bclr">
         </div>
       </div>
     </div>

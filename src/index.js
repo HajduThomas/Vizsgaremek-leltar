@@ -1,12 +1,13 @@
-const uri = window.location.href + '/src/login.php';
-const center = document.getElementById("center");
+const uri = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/src/login.php";
+console.log(uri);
+const center = $("#center");
 var $error = null;
 
-center.addEventListener('submit', function(event) {
+center.on('submit', function(event) {
     event.preventDefault()
-    const loginData = {
-        usr: document.getElementById("usr").value,
-        pass: document.getElementById("pass").value
+    let loginData = {
+        usr: $("#usr").val(),
+        pass: $("#pass").val()
     }
     if (loginData.usr == '' || loginData.pass == '') {
       errorShow("Please enter a username and password.");
@@ -14,24 +15,24 @@ center.addEventListener('submit', function(event) {
     }
     fetch(uri,{
         method: 'POST',
-        headers: {'Content-type': 'application/json'},
         body: JSON.stringify(loginData)
     })
     .then(response => response.json().then(data => ({status: response.status, data})))
     .then(result => {
-        console.log(result);
-        if (result.status == 200) {
+        //console.log(result);
+        if (result.status == 302) {
           window.location = window.location.href + "src/main.html";
         } else if (result.status == 404) {
           errorShow("User not found.");
+        } else if (result.status == 500) {
+          center.html("<h1>"+result.data+"</h1>");
         } else {
-            center.innerHTML = "<h2>"+result.data+"</h2>";
-          }
+          center.html("<h1> Critical Error! </h1>");
+        }
     })
 });
 
-document.addEventListener('DOMContentLoaded',function(){
-    // console.log('Helló');
+$(document).on('DOMContentLoaded',function(){
     fetch(uri,{
         method: 'GET'
     })
@@ -39,10 +40,11 @@ document.addEventListener('DOMContentLoaded',function(){
     .then(result => {
         //console.log(result);
         if (result.status == 200) {
-            //console.log("work");
             buildLogin();
+        } else if (result.status == 500) {
+          center.html("<h1>"+result.data+"</h1>");
         } else {
-            center.innerHTML = "<h2>"+result.data+"</h2>";
+          center.html("<h1> Critical Error! </h1>");
         }
     })
 })
