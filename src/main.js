@@ -16,7 +16,6 @@ const $dataTable = $("#dataTable");
 //moved up here to make the slider hidden before it loads
 var Smol = window.matchMedia("(max-width: 1200px)");
 const isSmol = () => {
-  console.log(shide);
   if (Smol.matches || shide) {
     $('#slider').addClass("shide");
     $('#tab').show();
@@ -57,8 +56,6 @@ isSmol();
 
 $("#menu").prop('cat', 'menu').click(changeCat);
 
-
-
 $("#tab").click( () => {
   $(".slider").addClass("sdrActive");
   $(".cover").show().click(rmvCvr);
@@ -75,33 +72,21 @@ $(".cover").hide();
 //Options after here (preferably)
 //set defaults and localstorage
 
-
 $('#ksc').prop('checked', shide);
-
 $(':root').attr('data-theme', theme);
 $(':root').css('--clr-hue', hue);
 $('#hue').attr('value', hue);
 
 //buttons
 
-$("#hue").on('input', () => {
-  $(':root').css('--clr-hue', this.value);
-  localStorage.setItem('hue', this.value);
+$("#hue").on('input', (e) => {
+  $(':root').css('--clr-hue', e.target.value);
+  localStorage.setItem('hue', e.target.value);
 });
-
-$('#themeL').click( () => {
-  $(':root').attr('data-theme', 'light');
-  localStorage.setItem('theme', 'light');
+$('#mode').change( (e) => {
+  $(':root').attr('data-theme', e.target.value);
+  localStorage.setItem('theme', e.target.value);
 });
-$('#themeD').click( () =>  {
-  $(':root').attr('data-theme', 'dark');
-  localStorage.setItem('theme', 'dark');
-});
-$('#themeA').click( () => {
-  $(':root').attr('data-theme', 'amoled');
-  localStorage.setItem('theme', 'amoled');
-});
-
 //ksc = keep slider closed
 $('#ksc').click( () => {
   if ($('#ksc').is(":checked")) shide = true;
@@ -305,10 +290,11 @@ $categories = [
     display: "Mirelit Aru"}
 ];
 
+//This whole thing is a mess, but it works, and I don't care to clean it up
 //Run for every category for sql tables and every category in results json
-for (let i = 0; i < ($results.length + $categories.length); i++) {
+for (let i = 0; i < ($results.length + 2 + $categories.length); i++) {
   //Create link button
-  var catButton = $("<a>", { 'class': 'category bclr' })
+  var catButton = $("<a>", { 'class': 'category bclr' });
   //The first half of the fors total lenght it for the results json, so check if the index is lower then the jsons lenght
   if (i < $results.length) {
     //Add index for changing category as propery "cat" (short for category)
@@ -317,12 +303,14 @@ for (let i = 0; i < ($results.length + $categories.length); i++) {
       .text($results[i].catName)
       //Add click event for chaning categories
       .click(changeCat);
+  } else if (i < 2 + $results.length) {
+    catButton = $("<h2>", { 'class': 'category' }).text(((i == $results.length)?"↑JSON (testing)":"↓SQL Tables"));
   }
   //If the loop is past the results lenght, then time for the categories
   //This is complex and will propable be removed later
   else {
     //Define o for correct indexing of the categories array
-    let o = i - $results.length;
+    let o = i - $results.length - 2;
     //Add sql name to element as property "cat"
     catButton.prop('cat', $categories[o].sql)
       //Set text as the display text

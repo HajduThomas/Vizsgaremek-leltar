@@ -188,6 +188,7 @@ img {
   transition: filter 300ms ease-out;
 }
 
+.selclr,
 .sdclr,
 .chclr,
 .bclr,
@@ -198,13 +199,38 @@ img {
   background: none;
   cursor: pointer;
   appearance: none;
+  outline: none;
+}
+
+.sdclr {
+  width: 18em;
+  height: .8em;
+  border-radius: 6px;
+  background-color: var(--clr-main-alt);
+  border: 1px solid var(--clr-border);
+  outline: none;
+}
+
+.selclr,
+.chclr,
+.sdclr::-webkit-slider-thumb,
+.sdclr::-moz-range-thumb {
+  width: 1.6em;
+  height: 1.6em;
+  background-color: var(--clr-border);
+  border: 1px solid var(--clr-fore);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.selclr {
+  width: 6em;
+  border-radius: 6px;
+  text-align: center;
 }
 
 .chclr {
-  background: var(--clr-border);
-  width: 1.4em;
-  height: 1.4em;
-  border: 1px solid var(--clr-hl);
+  border-radius: 6px;
 }
 
 .sclr {
@@ -213,18 +239,27 @@ img {
   max-width: 600px;
 }
 
+.sdclr:focus-visible::-webkit-slider-thumb,
+.sdclr:focus-visible::-moz-range-thumb,
+.sdclr:active::-webkit-slider-thumb,
+.sdclr:active::-moz-range-thumb,
+.selclr:hover,
+.selclr:focus-visible,
 .chclr:hover,
+.chclr:focus-visible,
 .bclr:hover,
 .bclr:focus-visible,
 .sclr:hover {
   outline: 2px solid var(--clr-hl);
 }
 
+.selclr:active,
 .chclr:checked,
 .bclr:active {
   background-color: var(--clr-hl);
 }
 
+.selclr:not(:active),
 .chclr:not(:checked),
 .bclr:not(:active) {
   transition: background-color 200ms ease-out;
@@ -234,7 +269,6 @@ img {
   background-color: var(--clr-main-alt);
   box-shadow: 0 2px var(--clr-hl);
   color: inherit;
-  outline: none;
 }
 
 .sclr:not(:focus) {
@@ -247,32 +281,21 @@ img {
   justify-content: space-between;
   align-items: center;
   width: 80%;
-  margin: 2px auto;
-  min-height: 3em;
+  margin: 12px auto;
+}
+
+@media (max-width: 600px) {
+  .setOption {
+    flex-direction: column;
+    text-align: center;
+  }
+  .sdclr {
+    width: 80%;
+  }
 }
 
 .setOption label {
   font-size: 1.4em;
-}
-
-.sdclr {
-  width: 40%;
-  height: .8em;
-  border-radius: 6px;
-  background-color: var(--clr-main-alt);
-  border: 1px solid var(--clr-border);
-  outline: none;
-}
-
-.sdclr::-webkit-slider-thumb,
-.sdclr::-moz-range-thumb {
-  width: 1.4em;
-  height: 1.4em;
-  background-color: var(--clr-hl);
-  outline: none;
-  border: 1px solid var(--clr-fore);
-  border-radius: 50%;
-  cursor: pointer;
 }
 
 .options {
