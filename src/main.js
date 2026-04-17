@@ -335,6 +335,9 @@ function GetSQL(event) {
   event.preventDefault(); //event preventDefault
   //putting the selected categories name and the search query into one object
   $catDisplay.text(event.currentTarget.text);
+  $options.show();
+  $dataTable.show();
+  $menu2.hide();
   let catData = {
       cat: event.currentTarget.cat, //Get selected category, store as cat (short for category)
       search: $("#search").val() //Get the search query, currently under developement
@@ -352,7 +355,6 @@ function GetSQL(event) {
   .then(response => response.json().then(data => ({status: response.status, data}))) //This part is complex even for me, I'll look into it later
   //result = response json turned into object for use.
   .then(result => {
-    console.log(result);
     if (result.data.length == 0) {
       $dataTable.html($("<p>").text("Nothing found..."));
     } else {
