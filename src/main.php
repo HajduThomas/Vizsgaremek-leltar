@@ -17,17 +17,6 @@ if ($method == "POST") {
     //Do this if search is given (not empty or null)
     //fun fact: 0 == "", so use ===
     if ($search !== "" && $search !== null){
-<<<<<<< HEAD
-      //This is work in progress, doesn't work
-      $stmt = $conn->prepare("
-      SELECT * FROM $currentCategory
-      WHERE nev LIKE :search OR tomegfajta LIKE :search
-      ");
-      $stmt->execute([
-        ":search" => "%$search%"
-      ]);
-      
-=======
       $stmt = $conn->query("SELECT column_name from information_schema.columns where table_schema = '$dbname' and table_name = '$currentCategory'");
       $cols = $stmt->fetchAll(PDO::FETCH_ASSOC);
       $count = 0;
@@ -42,7 +31,6 @@ if ($method == "POST") {
       $stmt->bindValue(':search', '%'.$search.'%');
       $stmt->execute();
       $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
->>>>>>> main
     }
     //Do this if no seach is given
     else {
@@ -63,10 +51,6 @@ if ($method == "POST") {
 }
 //If method POST wasn't gived, for some reason, return with bad request.
 //See https://www.php.net/manual/en/wrappers.php.php for info about request codes.
-<<<<<<< HEAD
-response("Bad request", 400);
-=======
 response("", 400);
->>>>>>> main
 
 ?>

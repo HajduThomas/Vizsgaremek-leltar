@@ -22,7 +22,7 @@ if ($method == "POST") {
       if ($row) {
         response("Found user", 302);
       } else {
-        response("User not found.", 404);
+        response("User not found.", 401);
       }
     } catch (PDOException $e){
       response("Adatbázis hiba:\n".$e->getMessage(), 500);

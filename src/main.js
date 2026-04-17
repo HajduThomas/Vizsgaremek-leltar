@@ -69,7 +69,7 @@ $(".cover").hide();
 
 //Options after here (preferably)
 //set defaults and localstorage
-
+$('#mode').val(theme);
 $('#ksc').prop('checked', shide);
 $(':root').attr('data-theme', theme);
 $(':root').css('--clr-hue', hue);
