@@ -1,4 +1,4 @@
-const uri = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/src/login.php";
+const uri = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
 console.log(uri);
 const center = $("#center");
 var $error = null;
@@ -13,16 +13,17 @@ center.on('submit', function(event) {
       errorShow("Please enter a username and password.");
       return;
     }
-    fetch(uri,{
+    fetch(uri + "/src/login.php",{
         method: 'POST',
         body: JSON.stringify(loginData)
     })
+    //TODO: Redo with proper .catch clause
     .then(response => response.json().then(data => ({status: response.status, data})))
     .then(result => {
         //console.log(result);
         if (result.status == 302) {
-          window.location = window.location.href + "src/main.html";
-        } else if (result.status == 404) {
+          window.location = uri + "/src/main.html";
+        } else if (result.status == 401) {
           errorShow("User not found.");
         } else if (result.status == 500) {
           center.html("<h1>"+result.data+"</h1>");
@@ -33,9 +34,10 @@ center.on('submit', function(event) {
 });
 
 $(document).on('DOMContentLoaded',function(){
-    fetch(uri,{
+    fetch(uri + "/src/login.php",{
         method: 'GET'
     })
+    //TODO: Redo with proper .catch clause
     .then(response => response.json().then(data => ({status: response.status, data})))
     .then(result => {
         //console.log(result);
