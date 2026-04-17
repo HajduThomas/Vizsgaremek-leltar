@@ -95,6 +95,13 @@ $('#ksc').click( () => {
   isSmol();
 });
 
+const wip = () => {console.warn("UnderDevelopement")}
+$('#itemSelect').click(wip);
+$('#itemRefresh').click(wip);
+$('#itemOptions').click(wip);
+$('#itemPrew').click(wip);
+$('#itemNext').click(wip);
+
 //Define how many rows and columns to mimic using results json
 const rows = 200;
 const cols = 7;
