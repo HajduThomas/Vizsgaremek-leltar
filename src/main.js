@@ -235,7 +235,7 @@ function fillTable(id) {
     let $table = $("<table>", { 'class': 'dTable', 'id': 'dTable' }).append($tbody);
     //Replace old table with new one, and scroll to the top
     $dataTable.html($table).scrollTop(0);
-    $("#search").hide();
+    $("#barMid").hide();
     rmvCvr();
   }
 }
@@ -322,7 +322,11 @@ for (let i = 0; i < ($results.length + 2 + $categories.length); i++) {
       //Add click event for changing categories
       .click((e) => {
         $("#search").val("");
-        GetSQL(e);
+        curCat = {
+          sql: e.target.cat,
+          display: e.target.text
+        },
+        GetSQL();
       });
   }
   //Add to categories list
@@ -331,18 +335,18 @@ for (let i = 0; i < ($results.length + 2 + $categories.length); i++) {
 
 //SQL reading
 
-function GetSQL(event) {
-  event.preventDefault(); //event preventDefault
+var curCat = {};
+
+function GetSQL() {
   //putting the selected categories name and the search query into one object
-  $catDisplay.text(event.currentTarget.text);
+  $catDisplay.text(curCat.display);
   $options.show();
   $dataTable.show();
   $menu2.hide();
   let catData = {
-      cat: event.currentTarget.cat, //Get selected category, store as cat (short for category)
+      cat: curCat.sql, //Get selected category, store as cat (short for category)
       search: $("#search").val() //Get the search query, currently under developement
   }
-  $("#search").prop("cat", event.currentTarget.cat);
   //console.log(catData); //For testing
   //fetch api, trying to fetch data from the uri
   fetch(uri  + "/src/main.php",{
@@ -358,72 +362,72 @@ function GetSQL(event) {
     if (result.data.length == 0) {
       $dataTable.html($("<p>").text("Nothing found..."));
     } else {
-
-      //Variables for later use
-      let $row, $col, $drag;
-      //Create empty table body (tbody for short) to put the new table elements into
-      let $tbody = $("<tbody>");
-
-      //Setting column names
-      //Creating new table row (tr for short)
-      $row = $("<tr>");
-      //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
-      //basically turns object into array with usable key, see above for more info
-      //foreach loops for every keyed element, see "mdn foreach"
-      //using the first row, but it doesn't matter, because the key is same for all of the cells
-      Object.keys(result.data[0]).forEach(key=>{
-        //console.log(key); //For testing
-        //Create table data/cell (td for short), with the name of the current column (key)
-        $col = $("<th>").text(key);
-        //Create spanning element with resize class, for resizing the columns
-        $drag = $("<span>", { 'class': 'resize-handle' });
-        //Add function when dragged/mouse is actively clicked
-        $drag.mousedown(colMoveInit);
-        //Add to current cell
-        $col.append($drag);
-        //On double click, reset the resized width
-        $($col).on('dblclick', function (e) {
-          $(e.target).removeAttr('style');
-        });
-        //Add cell to current row
-        $row.append($col);
-      });
-      //Add top row to body
-      $tbody.append($row);
-      
-      //fill table
-      //console.log(result.data); //For testing
-      //Run this for every given row from given data
-      result.data.forEach(row => {
-        //Same as before
-        $row = $("<tr>");
-        //Same as before
-        Object.keys(row).forEach(key=>{
-          //console.log(row[key]); //For testing
-          //Same, except add extra title property for showing full element name on mouse hover
-          $col = $("<td>").text(row[key]).prop("title", row[key]);
-          //Same
-          $row.append($col);
-        });
-        //Same
-        $tbody.append($row);
-      });
-      //Create a table with class "dTable" and id "dTable", then add the body to it
-      let $table = $("<table>", { 'class': 'dTable', 'id': 'dTable' }).append($tbody);
       //Replace old table with the new requested one, and scroll to the top.
-      $dataTable.html($table).scrollTop(0);
+      $dataTable.html(tableSQL(result)).scrollTop(0);
     }
-    $("#search").show();
+    $("#barMid").show();
     rmvCvr();
   });
 };
 
+const tableSQL = (result) => {
+  //Variables for later use
+  let $row, $col, $drag;
+  //Create empty table body (tbody for short) to put the new table elements into
+  let $tbody = $("<tbody>");
+  //Setting column names
+  //Creating new table row (tr for short)
+  $row = $("<tr>");
+  //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+  //basically turns object into array with usable key, see above for more info
+  //foreach loops for every keyed element, see "mdn foreach"
+  //using the first row, but it doesn't matter, because the key is same for all of the cells
+  Object.keys(result.data[0]).forEach(key=>{
+    //console.log(key); //For testing
+    //Create table data/cell (td for short), with the name of the current column (key)
+    $col = $("<th>").text(key);
+    //Create spanning element with resize class, for resizing the columns
+    $drag = $("<span>", { 'class': 'resize-handle' });
+    //Add function when dragged/mouse is actively clicked
+    $drag.mousedown(colMoveInit);
+    //Add to current cell
+    $col.append($drag);
+    //On double click, reset the resized width
+    $($col).on('dblclick', function (e) {
+      $(e.target).removeAttr('style');
+    });
+    //Add cell to current row
+    $row.append($col);
+  });
+  //Add top row to body
+  $tbody.append($row);
+  //fill table
+  //console.log(result.data); //For testing
+  //Run this for every given row from given data
+  result.data.forEach(row => {
+    //Same as before
+    $row = $("<tr>");
+    //Same as before
+    Object.keys(row).forEach(key=>{
+      //console.log(row[key]); //For testing
+      //Same, except add extra title property for showing full element name on mouse hover
+      $col = $("<td>").text(row[key]).prop("title", row[key]);
+      //Same
+      $row.append($col);
+    });
+    //Same
+    $tbody.append($row);
+  });
+  //Create a table with class "dTable" and id "dTable", then add the body to it
+  return $("<table>", { 'class': 'dTable', 'id': 'dTable' }).append($tbody);
+}
+
 //Options
 //Work In Progress (W.I.P. for short)
-
-$("#search").on('keypress', (e) => {
+$('#itemSearch').click(GetSQL);
+$('#search').on('keypress', (e) => {
   if(e.which == 13) {
-    GetSQL(e);
+    GetSQL();
   }
 });
 
