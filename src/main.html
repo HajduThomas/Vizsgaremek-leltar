@@ -45,7 +45,7 @@
         </div>
       </div>
       <div class="optMiddle fCtr">
-        <h1 class="catDisplay" id="category">Category name</h1>
+        <h1 id="category">Category name</h1>
       </div>
       <div class="optSides fCtr">
         <div class="bclr tab fCtr" id="exit">
@@ -57,52 +57,37 @@
     <div class="sum sumMain">
       <div id="options" class="options fSpc">
         <div class="optSides fCtr">
-          <button class="bclr fCtr"><img src="./assets/icons/square.svg" alt="[]" class="optIcon"></button> <!--nonfuctional-->
-          <button class="bclr fCtr"><img src="./assets/icons/arrow-clockwise.svg" alt="O" class="optIcon"></button> <!--nonfuctional-->
-          <button class="bclr fCtr"><img src="./assets/icons/three-dots-vertical.svg" alt="X" class="optIcon"></button> <!--nonfuctional-->
+          <button id="itemSelect" class="bclr fCtr"><img src="./assets/icons/square.svg" alt="[]" class="optIcon"></button> <!--nonfuctional-->
+          <button id="itemRefresh" class="bclr fCtr"><img src="./assets/icons/arrow-clockwise.svg" alt="O" class="optIcon"></button> <!--nonfuctional-->
+          <button id="itemOptions" class="bclr fCtr"><img src="./assets/icons/three-dots-vertical.svg" alt="X" class="optIcon"></button> <!--nonfuctional-->
         </div>
         <div class="optMiddle fCtr">
           <input id="search" class="sclr" type="text" placeholder="Search..." autocomplete="off">
         </div>
         <div class="optSides fCtr">
           <!--Pagination-->
-          <button id="prew" class="bclr fCtr"><img src="./assets/icons/chevron-left.svg" alt="&lt;" class="optIcon"></button>
-          <p id="curPg" class="fCtr">2</p>
-          <button id="next" class="bclr fCtr"><img src="./assets/icons/chevron-right.svg" alt="&gt;" class="optIcon"></button>
+          <button id="itemPrew" class="bclr fCtr"><img src="./assets/icons/chevron-left.svg" alt="&lt;" class="optIcon"></button>
+          <p id="itemCurPage" class="fCtr">2</p>
+          <button id="itemNext" class="bclr fCtr"><img src="./assets/icons/chevron-right.svg" alt="&gt;" class="optIcon"></button>
         </div>
       </div>
       <div id="dataTable" class="container mainCont"></div>
       <div id="menu2" class="container mainCont">
         <div class="setOption">
           <label>Hue</label>
-          <input type="range" id="hue" min="1" max="360" value="206" autocomplete="off">
+          <input class="sdclr" type="range" id="hue" min="1" max="360" autocomplete="off">
         </div>
         <div class="setOption">
-          <label>Dark mode</label>
-          <input type="checkbox" id="mode">
+          <label>Theme</label>
+          <select class="selclr" id="mode">
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+            <option value="amoled">Amoled</option>
+          </select>
         </div>
         <div class="setOption">
-          <label>fill</label>
-          <input type="checkbox" id="fill1">
-        </div>
-        <div class="setOption">
-          <label>fill</label>
-          <input type="checkbox" id="fill2">
-        </div>
-        <div class="setOption">
-          <label>fill</label>
-          <input type="checkbox" id="fill3">
-        </div>
-        <div class="setOption">
-          <label>fill</label>
-          <input type="checkbox" id="fill4">
-        </div>
-        <div class="setOption">
-          <label>fill</label>
-          <input type="checkbox" id="fill5">
-        </div>
-        <div class="setOption">
-          <input type="button" value="Save" class="bclr">
+          <label>Keep sidepanel closed</label>
+          <input class="chclr" type="checkbox" id="ksc">
         </div>
       </div>
     </div>

@@ -1,7 +1,6 @@
 //Setting uri for use when fetching from php
 //Substring needed for compatibility with linux and xampp testing
 const uri = window.location.href.substring(0, window.location.href.lastIndexOf('/') - 4);
-//console.log(uri); //For testing
 //Put often used elements in variables for ease of use
 const $catDisplay = $("#category");
 const $options = $("#options");
@@ -10,7 +9,96 @@ const $dataTable = $("#dataTable");
 
 //jquery etiquette:
 // dollar sign ($) before objects, like elements ($('#h1')) 
-// don't use $ for simple variables numbers/strings
+// don't use $ for simple variables like numbers/strings/arrays
+
+//moved up here to make the slider hidden before it loads
+var Smol = window.matchMedia("(max-width: 1200px)");
+const isSmol = () => {
+  if (Smol.matches || shide) {
+    $('#slider').addClass("shide");
+    $('#tab').show();
+  } else {
+    $('#slider').removeClass("shide");
+    $('#tab').hide();
+  }
+}
+$(Smol).change(() => {
+  isSmol();
+});
+
+var hue = 206;
+var theme = "light";
+var shide = false;
+
+if (localStorage.getItem('hue') != null) hue = localStorage.getItem('hue');
+else localStorage.setItem('hue', hue);
+
+const lightTheme = window.matchMedia('(prefers-color-scheme: dark)');
+if (localStorage.getItem('theme') != null) theme = localStorage.getItem('theme');
+else {
+  if (!window.matchMedia) {
+  } else if (lightTheme.matches) {
+    theme = "dark";
+  }
+  localStorage.setItem('theme', theme);
+}
+
+if (localStorage.getItem('shide') != null) shide = JSON.parse(localStorage.getItem('shide'));
+else localStorage.setItem('shide', shide);
+
+//first run here to make sure hide is defined
+isSmol();
+
+//Options
+//Work In Progress
+
+$("#menu").prop('cat', 'menu').click(changeCat);
+
+$("#tab").click( () => {
+  $(".slider").addClass("sdrActive");
+  $(".cover").show().click(rmvCvr);
+  $(".category, #menu").click(rmvCvr);
+});
+
+const rmvCvr = () => {
+  $(".slider").removeClass("sdrActive");
+  $(".cover").hide();
+}
+
+$(".cover").hide();
+
+//Options after here (preferably)
+//set defaults and localstorage
+$('#mode').val(theme);
+$('#ksc').prop('checked', shide);
+$(':root').attr('data-theme', theme);
+$(':root').css('--clr-hue', hue);
+$('#hue').attr('value', hue);
+
+//buttons
+
+$("#hue").on('input', (e) => {
+  $(':root').css('--clr-hue', e.target.value);
+  localStorage.setItem('hue', e.target.value);
+});
+$('#mode').change( (e) => {
+  $(':root').attr('data-theme', e.target.value);
+  localStorage.setItem('theme', e.target.value);
+});
+//ksc = keep slider closed
+$('#ksc').click( () => {
+  if ($('#ksc').is(":checked")) shide = true;
+  else shide = false;
+  localStorage.setItem('shide', shide);
+  isSmol();
+});
+
+const wip = () => {console.warn("UnderDevelopement")}
+$('#itemSelect').click(wip);
+$('#itemRefresh').click(wip);
+$('#itemOptions').click(wip);
+$('#itemPrew').click(wip);
+$('#itemNext').click(wip);
 
 //Define how many rows and columns to mimic using results json
 const rows = 200;
@@ -152,7 +240,6 @@ function fillTable(id) {
   }
 }
 
-
 // Some code "borrowed" from Webdevtrick ( https://webdevtrick.com/resizable-table-columns/ )
 // Please don't shoot be for this, others in my class only use AI code, just let me have this.
 //I'm not gonna explain this, just don't touch it.
@@ -179,7 +266,6 @@ const colMoveInit = ({ target }) => {
 };
 
 //End of "borrowed" code
-
 //I don't know how else to do this ;-;
 //Getting target category seperatly because reasons
 function changeCat(event) {
@@ -208,10 +294,11 @@ $categories = [
     display: "Mirelit Aru"}
 ];
 
+//This whole thing is a mess, but it works, and I don't care to clean it up
 //Run for every category for sql tables and every category in results json
-for (let i = 0; i < ($results.length + $categories.length); i++) {
+for (let i = 0; i < ($results.length + 2 + $categories.length); i++) {
   //Create link button
-  var catButton = $("<a>", { 'class': 'category bclr' })
+  var catButton = $("<a>", { 'class': 'category bclr' });
   //The first half of the fors total lenght it for the results json, so check if the index is lower then the jsons lenght
   if (i < $results.length) {
     //Add index for changing category as propery "cat" (short for category)
@@ -220,12 +307,14 @@ for (let i = 0; i < ($results.length + $categories.length); i++) {
       .text($results[i].catName)
       //Add click event for chaning categories
       .click(changeCat);
+  } else if (i < 2 + $results.length) {
+    catButton = $("<h2>", { 'class': 'category' }).text(((i == $results.length)?"↑JSON (testing)":"↓SQL Tables"));
   }
   //If the loop is past the results lenght, then time for the categories
   //This is complex and will propable be removed later
   else {
     //Define o for correct indexing of the categories array
-    let o = i - $results.length;
+    let o = i - $results.length - 2;
     //Add sql name to element as property "cat"
     catButton.prop('cat', $categories[o].sql)
       //Set text as the display text
@@ -246,6 +335,9 @@ function GetSQL(event) {
   event.preventDefault(); //event preventDefault
   //putting the selected categories name and the search query into one object
   $catDisplay.text(event.currentTarget.text);
+  $options.show();
+  $dataTable.show();
+  $menu2.hide();
   let catData = {
       cat: event.currentTarget.cat, //Get selected category, store as cat (short for category)
       search: $("#search").val() //Get the search query, currently under developement
@@ -263,7 +355,6 @@ function GetSQL(event) {
   .then(response => response.json().then(data => ({status: response.status, data}))) //This part is complex even for me, I'll look into it later
   //result = response json turned into object for use.
   .then(result => {
-    console.log(result);
     if (result.data.length == 0) {
       $dataTable.html($("<p>").text("Nothing found..."));
     } else {
@@ -348,11 +439,6 @@ $("#tab").click( () => {
   $(".slider").addClass("sdrActive");
   $(".cover").show().click(rmvCvr);
 });
-
-const rmvCvr = () => {
-  $(".slider").removeClass("sdrActive");
-  $(".cover").hide();
-}
 
 $(".cover").hide();
 
