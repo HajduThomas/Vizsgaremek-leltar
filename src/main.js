@@ -2,10 +2,13 @@
 //Substring needed for compatibility with linux and xampp testing
 const uri = window.location.href.substring(0, window.location.href.lastIndexOf('/') - 4);
 //Put often used elements in variables for ease of use
+const $contextMenu = $('#contextMenu');
 const $catDisplay = $("#category");
 const $options = $("#options");
 const $menu2 = $("#menu2");
 const $dataTable = $("#dataTable");
+
+$('#contextMenu').hide();
 
 //jquery etiquette:
 // dollar sign ($) before objects, like elements ($('#h1')) 
@@ -255,14 +258,14 @@ const colMove = e => requestAnimationFrame(() => {
 });
 
 const colMoveStop = () => {
-  window.removeEventListener('mousemove', colMove);
-  window.removeEventListener('mouseup', colMoveStop);
+  $(this).off('mousemove', colMove);
+  $(this).off('mouseup', colMoveStop);
 };
 
 const colMoveInit = ({ target }) => {
   $colResizeTarget = target.parentNode;
-  window.addEventListener('mousemove', colMove);
-  window.addEventListener('mouseup', colMoveStop);
+  $(this).on('mousemove', colMove);
+  $(this).on('mouseup', colMoveStop);
 };
 
 //End of "borrowed" code
@@ -275,24 +278,63 @@ function changeCat(event) {
 
 //json array of objects for defining table names,
 //TODO: make this automatic
-$categories = [
-  //Store sql name for requests, store display name for pretty display
-  //TODO: Allow changing of display name
-  {sql: "showcase",
-    display: "Showcase"},
-  {sql: "sizetest",
-    display: "Size Test"},
-  {sql: "music",
-    display: "Music"},
-  {sql: "vegyiaruk",
-    display: "Vegyiaruk"},
-  {sql: "tejtermek",
-    display: "Tejtermekek"},
-  {sql: "szarazaruk",
-    display: "Szarazaruk"},
-  {sql: "mirelit",
-    display: "Mirelit Aru"}
-];
+if (localStorage.getItem('categories') != null) $categories = JSON.parse(localStorage.getItem('categories'));
+else {
+  $categories = [
+    //Store sql name for requests, store display name for pretty display
+    {sql: "showcase",
+      display: "Showcase"},
+    {sql: "sizetest",
+      display: "Size Test"},
+    {sql: "music",
+      display: "Music"},
+    {sql: "vegyiaruk",
+      display: "Vegyiaruk"},
+    {sql: "tejtermek",
+      display: "Tejtermekek"},
+    {sql: "szarazaruk",
+      display: "Szarazaruk"},
+    {sql: "mirelit",
+      display: "Mirelit Aru"}
+  ];
+  localStorage.setItem('categories', JSON.stringify($categories));
+}
+
+const contextItem = (text = "null") => {
+  return $('<input>', {'type': 'button','class': 'bclr contextItem'}).val(text);
+}
+
+const renameCat = (e) => {
+  let x = prompt("Change catergory name (display only):", e.target.text);
+  if (x != null && x != "") {
+    e.target.text = x;
+    $categories.map((item) => {if(item.sql.indexOf(e.target.cat) == 0) item.display = x});
+    localStorage.setItem('categories', JSON.stringify($categories));
+  }
+}
+
+const getPos = (elementHeight, e) => {
+  e.preventDefault();
+  let posOveflow = elementHeight - (window.innerHeight - (e.clientY));
+  return [e.clientX-10, (posOveflow > 0) ? e.clientY -= posOveflow + 10 : e.clientY-10]
+}
+
+const contextMenu = (e, items) => {
+  e.preventDefault();
+  //Do this before position calc to correctly avoid the bottom of the window
+  $contextMenu
+    .html("") //clear anything stuck inside
+    .append(items); //add options. Only one here for now
+  let pos = getPos($contextMenu.outerHeight(), e);
+  $contextMenu
+    .css("top",pos[1])
+    .css("left",pos[0])
+    .show();
+  $(this).on("click", () => {
+    $(this).off();
+    $('#contextMenu').hide();
+  })
+}
 
 //This whole thing is a mess, but it works, and I don't care to clean it up
 //Run for every category for sql tables and every category in results json
@@ -319,6 +361,9 @@ for (let i = 0; i < ($results.length + 2 + $categories.length); i++) {
     catButton.prop('cat', $categories[o].sql)
       //Set text as the display text
       .text($categories[o].display)
+      .on('contextmenu', (e) => {
+        contextMenu(e, contextItem("Change name").click(() => renameCat(e)));
+      })
       //Add click event for changing categories
       .click((e) => {
         $("#search").val("");
@@ -355,7 +400,6 @@ function GetSQL() {
   })
   //When the php ends, get the response json and decode it for use into result.
   //The extra bit puts the http status into a status object for use later.
-  //TODO: Redo with proper .catch clause
   .then(response => response.json().then(data => ({status: response.status, data}))) //This part is complex even for me, I'll look into it later
   //result = response json turned into object for use.
   .then(result => {
@@ -424,12 +468,8 @@ const tableSQL = (result) => {
 
 //Options
 //Work In Progress (W.I.P. for short)
-$('#itemSearch').click(GetSQL);
-$('#search').on('keypress', (e) => {
-  if(e.which == 13) {
-    GetSQL();
-  }
-});
+$('#itemSearch').click(() => {if ($('#search').val() != "") GetSQL()});
+$('#search').on('keypress', (e) => {if(e.which == 13 && $('#search').val() != "") GetSQL();});
 
 //good enough for now
 $("#exit").click( () => {
