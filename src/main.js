@@ -97,7 +97,7 @@ $('#ksc').click( () => {
 });
 
 const wip = () => {console.warn("UnderDevelopement")}
-$('#itemSelect').click(wip);
+//$('#itemSelect').click(wip);
 $('#itemRefresh').click(wip);
 $('#itemOptions').click(wip);
 $('#itemPrew').click(wip);
@@ -276,29 +276,56 @@ function changeCat(event) {
   fillTable(target.cat);
 }
 
-//json array of objects for defining table names,
-//TODO: make this automatic
-if (localStorage.getItem('categories') != null) $categories = JSON.parse(localStorage.getItem('categories'));
-else {
-  $categories = [
-    //Store sql name for requests, store display name for pretty display
-    {sql: "showcase",
-      display: "Showcase"},
-    {sql: "sizetest",
-      display: "Size Test"},
-    {sql: "music",
-      display: "Music"},
-    {sql: "vegyiaruk",
-      display: "Vegyiaruk"},
-    {sql: "tejtermek",
-      display: "Tejtermekek"},
-    {sql: "szarazaruk",
-      display: "Szarazaruk"},
-    {sql: "mirelit",
-      display: "Mirelit Aru"}
-  ];
-  localStorage.setItem('categories', JSON.stringify($categories));
+var getCategories = async () => {
+  let x = "cat";
+  x = await fetch(uri  + "/src/main.php",{
+      method: 'GET'
+  })
+  .then(response => response.json().then(data => ({status: response.status, data})))
+  .then(result => {
+    if (result.status == 200) {
+      return result.data;
+    } else {
+      console.error("Error: " + result.data);
+    }
+  })
+  .catch( (error) => {
+    console.error("Something failed: " + error);
+  });
+  return x;
 }
+
+var $categories;
+
+const setCategories = async () => { //I hate this async promise bullsht
+  $categories = await getCategories();
+  //always use the fresh categories
+  $categories = $categories
+  .filter(item => item['table_name'] != "users")
+  .map(item => {
+    item['display'] = item['table_name'];
+    item['sql'] = item['table_name'];
+    delete item['table_name'];
+    return item;
+  });
+  //Add names if the category still exists
+  if (localStorage.getItem('categories') != null) {
+    let x = JSON.parse(localStorage.getItem('categories'));
+    $categories.map((item) => {
+      x.map((xitem) => {
+        if (xitem['sql'] == item['sql']) {
+          item['display'] = xitem['display'];
+        }
+      });
+    });
+  }
+  localStorage.setItem('categories', JSON.stringify($categories));
+  fillCats();
+}
+
+setCategories();
+
+$('#itemSelect').click(() => {getCategories().then(data => console.log(data))});
 
 const contextItem = (text = "null") => {
   return $('<input>', {'type': 'button','class': 'bclr contextItem'}).val(text);
@@ -306,11 +333,10 @@ const contextItem = (text = "null") => {
 
 const renameCat = (e) => {
   let x = prompt("Change catergory name (display only):", e.target.text);
-  if (x != null && x != "") {
-    e.target.text = x;
-    $categories.map((item) => {if(item.sql.indexOf(e.target.cat) == 0) item.display = x});
-    localStorage.setItem('categories', JSON.stringify($categories));
-  }
+  if (x == null || x == "") x = e.target.cat;
+  e.target.text = x;
+  $categories.map((item) => {if(item.sql.indexOf(e.target.cat) == 0) item.display = x});
+  localStorage.setItem('categories', JSON.stringify($categories));
 }
 
 const getPos = (elementHeight, e) => {
@@ -338,44 +364,46 @@ const contextMenu = (e, items) => {
 
 //This whole thing is a mess, but it works, and I don't care to clean it up
 //Run for every category for sql tables and every category in results json
-for (let i = 0; i < ($results.length + 2 + $categories.length); i++) {
-  //Create link button
-  var catButton = $("<a>", { 'class': 'category bclr' });
-  //The first half of the fors total lenght it for the results json, so check if the index is lower then the jsons lenght
-  if (i < $results.length) {
-    //Add index for changing category as propery "cat" (short for category)
-    catButton.prop('cat', i)
-      //Set name from results
-      .text($results[i].catName)
-      //Add click event for chaning categories
-      .click(changeCat);
-  } else if (i < 2 + $results.length) {
-    catButton = $("<h2>", { 'class': 'category' }).text(((i == $results.length)?"↑JSON (testing)":"↓SQL Tables"));
+function fillCats() {
+  for (let i = 0; i < ($results.length + 2 + $categories.length); i++) {
+    //Create link button
+    var catButton = $("<a>", { 'class': 'category bclr' });
+    //The first half of the fors total lenght it for the results json, so check if the index is lower then the jsons lenght
+    if (i < $results.length) {
+      //Add index for changing category as propery "cat" (short for category)
+      catButton.prop('cat', i)
+        //Set name from results
+        .text($results[i].catName)
+        //Add click event for chaning categories
+        .click(changeCat);
+    } else if (i < 2 + $results.length) {
+      catButton = $("<h2>", { 'class': 'category' }).text(((i == $results.length)?"↑JSON (testing)":"↓SQL Tables"));
+    }
+    //If the loop is past the results lenght, then time for the categories
+    //This is complex and will propable be removed later
+    else {
+      //Define o for correct indexing of the categories array
+      let o = i - $results.length - 2;
+      //Add sql name to element as property "cat"
+      catButton.prop('cat', $categories[o].sql)
+        //Set text as the display text
+        .text($categories[o].display)
+        .on('contextmenu', (e) => {
+          contextMenu(e, contextItem("Change name").click(() => renameCat(e)));
+        })
+        //Add click event for changing categories
+        .click((e) => {
+          $("#search").val("");
+          curCat = {
+            sql: e.target.cat,
+            display: e.target.text
+          },
+          GetSQL();
+        });
+    }
+    //Add to categories list
+    $("#categories").append(catButton);
   }
-  //If the loop is past the results lenght, then time for the categories
-  //This is complex and will propable be removed later
-  else {
-    //Define o for correct indexing of the categories array
-    let o = i - $results.length - 2;
-    //Add sql name to element as property "cat"
-    catButton.prop('cat', $categories[o].sql)
-      //Set text as the display text
-      .text($categories[o].display)
-      .on('contextmenu', (e) => {
-        contextMenu(e, contextItem("Change name").click(() => renameCat(e)));
-      })
-      //Add click event for changing categories
-      .click((e) => {
-        $("#search").val("");
-        curCat = {
-          sql: e.target.cat,
-          display: e.target.text
-        },
-        GetSQL();
-      });
-  }
-  //Add to categories list
-  $("#categories").append(catButton);
 }
 
 //SQL reading
