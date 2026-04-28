@@ -2,10 +2,13 @@
 //Substring needed for compatibility with linux and xampp testing
 const uri = window.location.href.substring(0, window.location.href.lastIndexOf('/') - 4);
 //Put often used elements in variables for ease of use
+const $contextMenu = $('#contextMenu');
 const $catDisplay = $("#category");
 const $options = $("#options");
 const $menu2 = $("#menu2");
 const $dataTable = $("#dataTable");
+
+$('#contextMenu').hide();
 
 //jquery etiquette:
 // dollar sign ($) before objects, like elements ($('#h1')) 
@@ -94,7 +97,7 @@ $('#ksc').click( () => {
 });
 
 const wip = () => {console.warn("UnderDevelopement")}
-$('#itemSelect').click(wip);
+//$('#itemSelect').click(wip);
 $('#itemRefresh').click(wip);
 $('#itemOptions').click(wip);
 $('#itemPrew').click(wip);
@@ -235,7 +238,7 @@ function fillTable(id) {
     let $table = $("<table>", { 'class': 'dTable', 'id': 'dTable' }).append($tbody);
     //Replace old table with new one, and scroll to the top
     $dataTable.html($table).scrollTop(0);
-    $("#search").hide();
+    $("#barMid").hide();
     rmvCvr();
   }
 }
@@ -255,14 +258,14 @@ const colMove = e => requestAnimationFrame(() => {
 });
 
 const colMoveStop = () => {
-  window.removeEventListener('mousemove', colMove);
-  window.removeEventListener('mouseup', colMoveStop);
+  $(this).off('mousemove', colMove);
+  $(this).off('mouseup', colMoveStop);
 };
 
 const colMoveInit = ({ target }) => {
   $colResizeTarget = target.parentNode;
-  window.addEventListener('mousemove', colMove);
-  window.addEventListener('mouseup', colMoveStop);
+  $(this).on('mousemove', colMove);
+  $(this).on('mouseup', colMoveStop);
 };
 
 //End of "borrowed" code
@@ -273,76 +276,150 @@ function changeCat(event) {
   fillTable(target.cat);
 }
 
-//json array of objects for defining table names,
-//TODO: make this automatic
-$categories = [
-  //Store sql name for requests, store display name for pretty display
-  //TODO: Allow changing of display name
-  {sql: "showcase",
-    display: "Showcase"},
-  {sql: "sizetest",
-    display: "Size Test"},
-  {sql: "music",
-    display: "Music"},
-  {sql: "vegyiaruk",
-    display: "Vegyiaruk"},
-  {sql: "tejtermek",
-    display: "Tejtermekek"},
-  {sql: "szarazaruk",
-    display: "Szarazaruk"},
-  {sql: "mirelit",
-    display: "Mirelit Aru"}
-];
+var getCategories = async () => {
+  let x = "cat";
+  x = await fetch(uri  + "/src/main.php",{
+      method: 'GET'
+  })
+  .then(response => response.json().then(data => ({status: response.status, data})))
+  .then(result => {
+    if (result.status == 200) {
+      return result.data;
+    } else {
+      console.error("Error: " + result.data);
+    }
+  })
+  .catch( (error) => {
+    console.error("Something failed: " + error);
+  });
+  return x;
+}
+
+var $categories;
+
+const setCategories = async () => { //I hate this async promise bullsht
+  $categories = await getCategories();
+  //always use the fresh categories
+  $categories = $categories
+  .filter(item => item['table_name'] != "users")
+  .map(item => {
+    item['display'] = item['table_name'];
+    item['sql'] = item['table_name'];
+    delete item['table_name'];
+    return item;
+  });
+  //Add names if the category still exists
+  if (localStorage.getItem('categories') != null) {
+    let x = JSON.parse(localStorage.getItem('categories'));
+    $categories.map((item) => {
+      x.map((xitem) => {
+        if (xitem['sql'] == item['sql']) {
+          item['display'] = xitem['display'];
+        }
+      });
+    });
+  }
+  localStorage.setItem('categories', JSON.stringify($categories));
+  fillCats();
+}
+
+setCategories();
+
+$('#itemSelect').click(() => {getCategories().then(data => console.log(data))});
+
+const contextItem = (text = "null") => {
+  return $('<input>', {'type': 'button','class': 'bclr contextItem'}).val(text);
+}
+
+const renameCat = (e) => {
+  let x = prompt("Change catergory name (display only):", e.target.text);
+  if (x == null || x == "") x = e.target.cat;
+  e.target.text = x;
+  $categories.map((item) => {if(item.sql.indexOf(e.target.cat) == 0) item.display = x});
+  localStorage.setItem('categories', JSON.stringify($categories));
+}
+
+const getPos = (elementHeight, e) => {
+  e.preventDefault();
+  let posOveflow = elementHeight - (window.innerHeight - (e.clientY));
+  return [e.clientX-10, (posOveflow > 0) ? e.clientY -= posOveflow + 10 : e.clientY-10]
+}
+
+const contextMenu = (e, items) => {
+  e.preventDefault();
+  //Do this before position calc to correctly avoid the bottom of the window
+  $contextMenu
+    .html("") //clear anything stuck inside
+    .append(items); //add options. Only one here for now
+  let pos = getPos($contextMenu.outerHeight(), e);
+  $contextMenu
+    .css("top",pos[1])
+    .css("left",pos[0])
+    .show();
+  $(this).on("click", () => {
+    $(this).off();
+    $('#contextMenu').hide();
+  })
+}
 
 //This whole thing is a mess, but it works, and I don't care to clean it up
 //Run for every category for sql tables and every category in results json
-for (let i = 0; i < ($results.length + 2 + $categories.length); i++) {
-  //Create link button
-  var catButton = $("<a>", { 'class': 'category bclr' });
-  //The first half of the fors total lenght it for the results json, so check if the index is lower then the jsons lenght
-  if (i < $results.length) {
-    //Add index for changing category as propery "cat" (short for category)
-    catButton.prop('cat', i)
-      //Set name from results
-      .text($results[i].catName)
-      //Add click event for chaning categories
-      .click(changeCat);
-  } else if (i < 2 + $results.length) {
-    catButton = $("<h2>", { 'class': 'category' }).text(((i == $results.length)?"↑JSON (testing)":"↓SQL Tables"));
+function fillCats() {
+  for (let i = 0; i < ($results.length + 2 + $categories.length); i++) {
+    //Create link button
+    var catButton = $("<a>", { 'class': 'category bclr' });
+    //The first half of the fors total lenght it for the results json, so check if the index is lower then the jsons lenght
+    if (i < $results.length) {
+      //Add index for changing category as propery "cat" (short for category)
+      catButton.prop('cat', i)
+        //Set name from results
+        .text($results[i].catName)
+        //Add click event for chaning categories
+        .click(changeCat);
+    } else if (i < 2 + $results.length) {
+      catButton = $("<h2>", { 'class': 'category' }).text(((i == $results.length)?"↑JSON (testing)":"↓SQL Tables"));
+    }
+    //If the loop is past the results lenght, then time for the categories
+    //This is complex and will propable be removed later
+    else {
+      //Define o for correct indexing of the categories array
+      let o = i - $results.length - 2;
+      //Add sql name to element as property "cat"
+      catButton.prop('cat', $categories[o].sql)
+        //Set text as the display text
+        .text($categories[o].display)
+        .on('contextmenu', (e) => {
+          contextMenu(e, contextItem("Change name").click(() => renameCat(e)));
+        })
+        //Add click event for changing categories
+        .click((e) => {
+          $("#search").val("");
+          curCat = {
+            sql: e.target.cat,
+            display: e.target.text
+          },
+          GetSQL();
+        });
+    }
+    //Add to categories list
+    $("#categories").append(catButton);
   }
-  //If the loop is past the results lenght, then time for the categories
-  //This is complex and will propable be removed later
-  else {
-    //Define o for correct indexing of the categories array
-    let o = i - $results.length - 2;
-    //Add sql name to element as property "cat"
-    catButton.prop('cat', $categories[o].sql)
-      //Set text as the display text
-      .text($categories[o].display)
-      //Add click event for changing categories
-      .click((e) => {
-        $("#search").val("");
-        GetSQL(e);
-      });
-  }
-  //Add to categories list
-  $("#categories").append(catButton);
 }
 
 //SQL reading
 
-function GetSQL(event) {
-  event.preventDefault(); //event preventDefault
+var curCat = {};
+
+function GetSQL() {
   //putting the selected categories name and the search query into one object
-  $catDisplay.text(event.currentTarget.text);
+  $catDisplay.text(curCat.display);
   $options.show();
   $dataTable.show();
   $menu2.hide();
   let catData = {
-      cat: event.currentTarget.cat, //Get selected category, store as cat (short for category)
+      cat: curCat.sql, //Get selected category, store as cat (short for category)
       search: $("#search").val() //Get the search query, currently under developement
   }
-  $("#search").prop("cat", event.currentTarget.cat);
   //console.log(catData); //For testing
   //fetch api, trying to fetch data from the uri
   fetch(uri  + "/src/main.php",{
@@ -351,81 +428,76 @@ function GetSQL(event) {
   })
   //When the php ends, get the response json and decode it for use into result.
   //The extra bit puts the http status into a status object for use later.
-  //TODO: Redo with proper .catch clause
   .then(response => response.json().then(data => ({status: response.status, data}))) //This part is complex even for me, I'll look into it later
   //result = response json turned into object for use.
   .then(result => {
     if (result.data.length == 0) {
       $dataTable.html($("<p>").text("Nothing found..."));
     } else {
-
-      //Variables for later use
-      let $row, $col, $drag;
-      //Create empty table body (tbody for short) to put the new table elements into
-      let $tbody = $("<tbody>");
-
-      //Setting column names
-      //Creating new table row (tr for short)
-      $row = $("<tr>");
-      //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
-      //basically turns object into array with usable key, see above for more info
-      //foreach loops for every keyed element, see "mdn foreach"
-      //using the first row, but it doesn't matter, because the key is same for all of the cells
-      Object.keys(result.data[0]).forEach(key=>{
-        //console.log(key); //For testing
-        //Create table data/cell (td for short), with the name of the current column (key)
-        $col = $("<th>").text(key);
-        //Create spanning element with resize class, for resizing the columns
-        $drag = $("<span>", { 'class': 'resize-handle' });
-        //Add function when dragged/mouse is actively clicked
-        $drag.mousedown(colMoveInit);
-        //Add to current cell
-        $col.append($drag);
-        //On double click, reset the resized width
-        $($col).on('dblclick', function (e) {
-          $(e.target).removeAttr('style');
-        });
-        //Add cell to current row
-        $row.append($col);
-      });
-      //Add top row to body
-      $tbody.append($row);
-      
-      //fill table
-      //console.log(result.data); //For testing
-      //Run this for every given row from given data
-      result.data.forEach(row => {
-        //Same as before
-        $row = $("<tr>");
-        //Same as before
-        Object.keys(row).forEach(key=>{
-          //console.log(row[key]); //For testing
-          //Same, except add extra title property for showing full element name on mouse hover
-          $col = $("<td>").text(row[key]).prop("title", row[key]);
-          //Same
-          $row.append($col);
-        });
-        //Same
-        $tbody.append($row);
-      });
-      //Create a table with class "dTable" and id "dTable", then add the body to it
-      let $table = $("<table>", { 'class': 'dTable', 'id': 'dTable' }).append($tbody);
       //Replace old table with the new requested one, and scroll to the top.
-      $dataTable.html($table).scrollTop(0);
+      $dataTable.html(tableSQL(result)).scrollTop(0);
     }
-    $("#search").show();
+    $("#barMid").show();
     rmvCvr();
   });
 };
 
+const tableSQL = (result) => {
+  //Variables for later use
+  let $row, $col, $drag;
+  //Create empty table body (tbody for short) to put the new table elements into
+  let $tbody = $("<tbody>");
+  //Setting column names
+  //Creating new table row (tr for short)
+  $row = $("<tr>");
+  //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+  //basically turns object into array with usable key, see above for more info
+  //foreach loops for every keyed element, see "mdn foreach"
+  //using the first row, but it doesn't matter, because the key is same for all of the cells
+  Object.keys(result.data[0]).forEach(key=>{
+    //console.log(key); //For testing
+    //Create table data/cell (td for short), with the name of the current column (key)
+    $col = $("<th>").text(key);
+    //Create spanning element with resize class, for resizing the columns
+    $drag = $("<span>", { 'class': 'resize-handle' });
+    //Add function when dragged/mouse is actively clicked
+    $drag.mousedown(colMoveInit);
+    //Add to current cell
+    $col.append($drag);
+    //On double click, reset the resized width
+    $($col).on('dblclick', function (e) {
+      $(e.target).removeAttr('style');
+    });
+    //Add cell to current row
+    $row.append($col);
+  });
+  //Add top row to body
+  $tbody.append($row);
+  //fill table
+  //console.log(result.data); //For testing
+  //Run this for every given row from given data
+  result.data.forEach(row => {
+    //Same as before
+    $row = $("<tr>");
+    //Same as before
+    Object.keys(row).forEach(key=>{
+      //console.log(row[key]); //For testing
+      //Same, except add extra title property for showing full element name on mouse hover
+      $col = $("<td>").text(row[key]).prop("title", row[key]);
+      //Same
+      $row.append($col);
+    });
+    //Same
+    $tbody.append($row);
+  });
+  //Create a table with class "dTable" and id "dTable", then add the body to it
+  return $("<table>", { 'class': 'dTable', 'id': 'dTable' }).append($tbody);
+}
+
 //Options
 //Work In Progress (W.I.P. for short)
-
-$("#search").on('keypress', (e) => {
-  if(e.which == 13) {
-    GetSQL(e);
-  }
-});
+$('#itemSearch').click(() => {if ($('#search').val() != "") GetSQL()});
+$('#search').on('keypress', (e) => {if(e.which == 13 && $('#search').val() != "") GetSQL();});
 
 //good enough for now
 $("#exit").click( () => {

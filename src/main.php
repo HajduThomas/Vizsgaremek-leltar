@@ -2,6 +2,17 @@
 //Get the database info before anything, doesn't continue if this fails
 require 'dbcon.php';
 
+if ($method == "GET") {
+  try {
+    $stmt = $conn->query("SELECT table_name from information_schema.tables where table_schema = '$dbname'");
+    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    response($data);
+  } catch(PDOException $e) {
+    response("Adatbázis hiba:\n".$e->getMessage(), 500);
+  }
+  
+}
+
 //if the method is POST, do this
 //method defined in dbcon.php
 if ($method == "POST") {

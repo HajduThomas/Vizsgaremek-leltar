@@ -329,6 +329,7 @@ img {
 }
 
 .optIcon {
+  margin: 0 0.5em;
   height: 1em;
 }
 
@@ -399,6 +400,22 @@ img {
 .mainCont:hover {
   outline: none;
   scrollbar-width: auto;
+}
+
+.contextMenu {
+  position: absolute;
+  z-index: 9;
+  background-color: var(--clr-main);
+  flex-direction: column;
+  border-radius: 6px;
+}
+
+.contextItem {
+  width: 100%;
+  width: 180px;
+  height: 2em;
+  font-size: 1em;
+  margin: .2em;
 }
 
 /* || Datatable*/
