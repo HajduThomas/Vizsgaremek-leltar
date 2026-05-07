@@ -24,7 +24,7 @@ center.addEventListener('submit', function(event) {
         if (result.status == 200) {
           setTimeout(() => {
             window.location = "src/main.php";
-        }, 120);
+        }, 100);
         } else if (result.status == 401) {
           errorShow("User not found.");
         } else {
@@ -33,10 +33,12 @@ center.addEventListener('submit', function(event) {
     })
 });
 
+/*
 document.addEventListener('DOMContentLoaded',function(){
     // console.log('Helló');
     fetch(uri,{
-        method: 'GET'
+        method: 'GET',
+        credentials: 'include'
     })
     .then(response => response.json().then(data => ({status: response.status, data})))
     .then(result => {
@@ -46,10 +48,32 @@ document.addEventListener('DOMContentLoaded',function(){
             window.location = "src/main.php";
             buildLogin();
         } else {
-            center.innerHTML = "<h2>"+result.data+"</h2>";
+            center.innerHTML = "<h2>"+(result.data.error || result.data)+"</h2>";
         }
     })
 })
+*/
+
+document.addEventListener('DOMContentLoaded',function(){
+    fetch(uri,{
+        method: 'GET',
+        credentials: 'include'
+    })
+    .then(response => response.json().then(data => ({status: response.status, data})))
+    .then(result => {
+        console.log(result);
+
+        buildLogin(); // ✅ EZ LEGYEN MINDIG
+
+        if (result.status == 200) {
+            window.location = "src/main.php";
+        }
+    })
+    .catch(err => {
+        console.error("FETCH ERROR:", err);
+        buildLogin(); // ✅ fallback
+    });
+});
 
 function buildLogin() {
     const center = document.getElementById("center");

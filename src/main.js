@@ -1,3 +1,15 @@
+fetch("src/login.php", {
+    method: "GET",
+    credentials: "include"
+})
+.then(res => {
+    if (res.status !== 200) {
+        setTimeout(() => {
+            window.location.href = "../index.html";
+        }, 100);
+    }
+});
+
 const catDisplay = document.getElementById("category");
 const categories = document.getElementById("categories");
 const options = document.getElementById("options");
@@ -150,7 +162,9 @@ document.getElementById("logoutBtn").addEventListener("click", function () {
         method: "GET",
         credentials: "include"
     })
-    .then(() => {
-        window.location.href = "../index.html";
+    .then(response => {
+        if (response.ok) {
+            window.location.href = "../index.html";
+        }
     });
 });
